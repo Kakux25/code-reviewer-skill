@@ -1,0 +1,1 @@
+Amount calculations belong in prices.py. This module must not depend on input/output infrastructure. checkout.py adapts requests and delegates to prices; its consumers expect the public signature quote(amount, discount_percent=0).

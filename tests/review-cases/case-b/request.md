@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The objective is to accept an iterable of pairs for batch registration while preserving atomic publication even if iteration fails. Do not modify files. The replacement helper is not part of the public API, and preserving its implementation is not required. You may run tests/test_registry.py with PYTHONPATH pointing to the candidate.

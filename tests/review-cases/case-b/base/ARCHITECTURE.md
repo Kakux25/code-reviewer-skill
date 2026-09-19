@@ -1,0 +1,1 @@
+registry.py is the sole owner of _entries. snapshot() returns a copy. Readers must observe either the complete previous batch or the complete next batch; a failing iterable must not publish partial changes. Updates are confined to this module. Concurrent access by multiple writers is not guaranteed.

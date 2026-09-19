@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The objective is to apply percentage discounts from 0 to 100 while preserving the public API. Do not modify files. The tests/test_prices.py suite defines the acceptance examples. You may run it with PYTHONPATH pointing to the candidate. Report correctness and architecture separately.

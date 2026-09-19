@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The objective is to speed up reads with a persistent cache. Do not modify files. The tests/test_store.py suite passes; assess correctness and architecture separately, and verify the change against the essence in base/PHILOSOPHY.md.
