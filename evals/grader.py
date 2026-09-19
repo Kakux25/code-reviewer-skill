@@ -14,7 +14,7 @@ Usage:
     python3 evals/grader.py --reviews <dir> [--keys tests/review-cases]
                             [--out grading.json]
 
-<dir> must contain case-a.md, case-b.md, case-c.md, case-d.md.
+<dir> must contain case-<id>.md for every case in the keys directory.
 Exit code 0 when the suite gate in evals/thresholds.json is met, else 1.
 Standard library only.
 """
@@ -26,7 +26,12 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-CASES = ("a", "b", "c", "d")
+
+
+def discover_cases(keys_dir):
+    """Case ids from case-*/answer-key.json, sorted (battery v2: a..t)."""
+    return sorted(p.parent.name.removeprefix("case-")
+                  for p in Path(keys_dir).glob("case-*/answer-key.json"))
 
 ARCH_VOCAB = ["High with concerns", "High", "Acceptable", "Low",
               "Insufficient evidence"]
@@ -200,9 +205,10 @@ def main(argv=None):
 
     reviews = Path(args.reviews)
     keys_dir = Path(args.keys)
+    cases = discover_cases(keys_dir)
     report = {"cases": {}, "summary": {}}
     missing = []
-    for case in CASES:
+    for case in cases:
         review_path = reviews / ("case-%s.md" % case)
         key_path = keys_dir / ("case-%s" % case) / "answer-key.json"
         if not review_path.is_file():
@@ -216,10 +222,10 @@ def main(argv=None):
         return 2
     passed = sum(1 for c in report["cases"].values() if c["pass"])
     total = len(report["cases"])
-    gate = passed == total == len(CASES)
+    gate = passed == total == len(cases)
     report["summary"] = {"passed": passed, "total": total,
                          "gate": "all_cases_pass", "gate_met": gate}
-    for case in CASES:
+    for case in cases:
         c = report["cases"][case]
         print("case-%s: %s" % (case, "PASS" if c["pass"] else "FAIL"))
         if not c["pass"]:

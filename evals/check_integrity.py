@@ -9,14 +9,18 @@ Checks:
      answer-key.json.
   2. Every plant fixture anchor still holds (plants are actually planted,
      controls still describe the fixture) -- guards against fixture rot.
-  3. Candidate suites behave as designed: case-a FAILS (defect present),
-     case-b and case-d PASS. A failing suite in case-a is the executable
-     proof that the planted defect exists.
+  3. Candidate suites behave as their keys declare (pass/fail/absent).
+     A failing suite is the executable proof that the planted defect
+     exists.
   4. SKILL.md lint: frontmatter name/description, negative triggers,
      body within the lean budget, referenced files exist.
   5. evals/thresholds.json is valid and declares the suite gate.
-  6. Grader self-test: synthetic good reviews pass 4/4, each synthetic
+  6. Grader self-test: synthetic good reviews pass N/N, each synthetic
      bad review fails its case. An untested instrument proves nothing.
+  7. hand_scores.json schema: every gold review covers its key's items
+     with valid scales.
+  8. Agreement self-test: agreement.py meets/misses its gate on
+     synthetic fixtures (3/5 vs 5/5 at 0.75).
 
 Usage:  python3 evals/check_integrity.py
 Exit code 0 when all checks pass, else 1.
@@ -29,8 +33,17 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-CASES = ("a", "b", "c", "d")
 FAILURES = []
+
+
+def discover_cases():
+    """Case ids from case-*/answer-key.json, sorted (battery v2: a..t)."""
+    cases_dir = REPO / "tests" / "review-cases"
+    return sorted(p.parent.name.removeprefix("case-")
+                  for p in cases_dir.glob("case-*/answer-key.json"))
+
+
+CASES = discover_cases()
 
 
 def fail(msg):
@@ -51,7 +64,7 @@ def load_key(case):
 def check_schema():
     """Step 1: keys exist and validate."""
     required = {"case", "decision", "architecture", "soul",
-                "plants", "controls"}
+                "plants", "controls", "suite"}
     for case in CASES:
         cdir = REPO / "tests" / "review-cases" / ("case-%s" % case)
         if not (cdir / "request.md").is_file():
@@ -68,6 +81,9 @@ def check_schema():
             continue
         if key["case"] != case:
             fail("case-%s: key case tag %r" % (case, key["case"]))
+        if key.get("suite", {}).get("expected") not in (
+                "pass", "fail", "absent"):
+            fail("case-%s: key suite.expected not pass/fail/absent" % case)
         for plant in key["plants"]:
             if not plant.get("id") or not plant.get("any_of"):
                 fail("case-%s: plant without id/any_of" % case)
@@ -138,20 +154,36 @@ def run_suite(case):
 
 
 def check_suites():
-    """Step 3: suites behave as designed (A fails, B and D pass)."""
-    expected = {"a": False, "b": True, "d": True}
-    for case, want_pass in expected.items():
+    """Step 3: suites behave as their keys declare (pass/fail/absent)."""
+    for case in CASES:
+        cdir = REPO / "tests" / "review-cases" / ("case-%s" % case)
+        try:
+            key = load_key(case)
+        except (OSError, ValueError):
+            continue  # reported in step 1
+        want = key.get("suite", {}).get("expected")
+        has_tests = (cdir / "tests").is_dir()
+        if want == "absent":
+            if has_tests:
+                fail("case-%s: suite expected absent, tests/ exists" % case)
+            else:
+                ok("case-%s suite absent as designed" % case)
+            continue
+        if want not in ("pass", "fail"):
+            continue  # reported in step 1
+        if not has_tests:
+            fail("case-%s: suite expected %s, tests/ missing" % (case, want))
+            continue
         try:
             passed = run_suite(case)
         except (OSError, subprocess.TimeoutExpired) as exc:
             fail("case-%s suite error (%s)" % (case, exc))
             continue
-        if passed == want_pass:
+        if passed == (want == "pass"):
             ok("case-%s suite %s as designed"
                % (case, "passes" if passed else "fails"))
         else:
-            fail("case-%s suite passes=%s, designed passes=%s"
-                 % (case, passed, want_pass))
+            fail("case-%s suite passes=%s, designed %s" % (case, passed, want))
 
 
 def check_skill():
@@ -217,34 +249,146 @@ def run_grader(reviews_dir):
     return proc.returncode, proc.stdout
 
 
+def sample_path(case, kind):
+    """Good/bad sample review for a case.
+
+    Cases a-d keep the Phase 1 location (evals/samples/{good,bad});
+    newer cases ship samples next to the fixture (sample_good/bad.md).
+    """
+    legacy = REPO / "evals" / "samples" / kind / ("case-%s.md" % case)
+    if legacy.is_file():
+        return legacy
+    name = "sample_good.md" if kind == "good" else "sample_bad.md"
+    return REPO / "tests" / "review-cases" / ("case-%s" % case) / name
+
+
 def check_grader_selftest():
-    """Step 6: good samples pass 4/4, each bad sample fails its case."""
-    good = REPO / "evals" / "samples" / "good"
-    code, out = run_grader(good)
-    if code != 0:
-        fail("grader self-test: good samples do not pass\n%s" % out)
-    else:
-        ok("grader self-test: good samples 4/4")
-    bad = REPO / "evals" / "samples" / "bad"
-    for case in CASES:
-        single = bad / ("case-%s.md" % case)
-        if not single.is_file():
-            fail("grader self-test: missing bad sample case-%s" % case)
+    """Step 6: good samples pass N/N, each bad sample fails its case."""
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        gooddir = Path(tmp) / "good"
+        gooddir.mkdir()
+        missing = [c for c in CASES
+                   if not sample_path(c, "good").is_file()]
+        if missing:
+            fail("grader self-test: missing good samples %s" % missing)
+            return
+        for case in CASES:
+            (gooddir / ("case-%s.md" % case)).write_text(
+                sample_path(case, "good").read_text(encoding="utf-8"),
+                encoding="utf-8")
+        code, out = run_grader(gooddir)
+        if code != 0:
+            fail("grader self-test: good samples do not pass\n%s" % out)
+            return
+        ok("grader self-test: good samples %d/%d"
+           % (len(CASES), len(CASES)))
+        for case in CASES:
+            bad = sample_path(case, "bad")
+            if not bad.is_file():
+                fail("grader self-test: missing bad sample case-%s" % case)
+                continue
+            with tempfile.TemporaryDirectory() as tmp2:
+                tmpdir = Path(tmp2)
+                for other in CASES:
+                    src = bad if other == case else sample_path(other, "good")
+                    (tmpdir / ("case-%s.md" % other)).write_text(
+                        src.read_text(encoding="utf-8"), encoding="utf-8")
+                code, _ = run_grader(tmpdir)
+            if code == 0:
+                fail("grader self-test: bad sample case-%s passes" % case)
+            else:
+                ok("grader self-test: bad sample case-%s fails" % case)
+
+
+def check_hand_scores():
+    """Step 7: hand_scores.json covers its reviews with valid scales."""
+    path = REPO / "evals" / "hand_scores.json"
+    try:
+        gold = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        fail("hand_scores.json unreadable (%s)" % exc)
+        return
+    if not gold.get("reviews"):
+        fail("hand_scores.json has no reviews")
+        return
+    bad = 0
+    for rid, review in gold["reviews"].items():
+        case = review.get("case")
+        try:
+            key = load_key(case)
+        except (OSError, ValueError):
+            fail("hand_scores %s: unknown case %r" % (rid, case))
+            bad += 1
             continue
-        # Grade the one bad review alongside good reviews for other cases.
-        import tempfile
-        with tempfile.TemporaryDirectory() as tmp:
-            tmpdir = Path(tmp)
-            for other in CASES:
-                src = (bad if other == case else good) \
-                    / ("case-%s.md" % other)
-                (tmpdir / ("case-%s.md" % other)).write_text(
-                    src.read_text(encoding="utf-8"), encoding="utf-8")
-            code, _ = run_grader(tmpdir)
-        if code == 0:
-            fail("grader self-test: bad sample case-%s passes" % case)
-        else:
-            ok("grader self-test: bad sample case-%s fails" % case)
+        if not (REPO / review.get("path", "")).is_file():
+            fail("hand_scores %s: review path missing" % rid)
+            bad += 1
+        scores = review.get("scores", {})
+        for dim in ("decision", "architecture", "soul"):
+            if scores.get(dim) not in (0, 1):
+                fail("hand_scores %s: %s not 0/1" % (rid, dim))
+                bad += 1
+        want_plants = {p["id"] for p in key["plants"]}
+        got_plants = set(scores.get("plants", {}))
+        if want_plants != got_plants:
+            fail("hand_scores %s: plants %s, key wants %s"
+                 % (rid, sorted(got_plants), sorted(want_plants)))
+            bad += 1
+        for pid, val in scores.get("plants", {}).items():
+            if val not in (0, 1, 2):
+                fail("hand_scores %s: plant %s not 0/1/2" % (rid, pid))
+                bad += 1
+        want_controls = {c["id"] for c in key["controls"]}
+        got_controls = set(scores.get("controls", {}))
+        if want_controls != got_controls:
+            fail("hand_scores %s: controls %s, key wants %s"
+                 % (rid, sorted(got_controls), sorted(want_controls)))
+            bad += 1
+        for cid, val in scores.get("controls", {}).items():
+            if val not in (0, 1):
+                fail("hand_scores %s: control %s not 0/1" % (rid, cid))
+                bad += 1
+    if not bad:
+        ok("hand_scores.json schema (%d reviews)" % len(gold["reviews"]))
+
+
+def check_agreement_selftest():
+    """Step 8: agreement.py honors its gate on synthetic fixtures."""
+    import tempfile
+    gold = {"reviews": {"t1": {"scores": {
+        "decision": 1, "architecture": 1, "soul": 1,
+        "plants": {"X1": 2}, "controls": {"X-C1": 1}}}}}
+    judge_hit = {"scores": {
+        "decision": 1, "architecture": 1, "soul": 1,
+        "plants": {"X1": {"score": 2, "quote": "q"}},
+        "controls": {"X-C1": {"score": 1, "quote": "q"}}}}
+    judge_miss = {"scores": {
+        "decision": 0, "architecture": 1, "soul": 1,
+        "plants": {"X1": {"score": 1, "quote": "q"}},
+        "controls": {"X-C1": {"score": 1, "quote": "q"}}}}
+    with tempfile.TemporaryDirectory() as tmp:
+        tmpdir = Path(tmp)
+        (tmpdir / "gold.json").write_text(json.dumps(gold), encoding="utf-8")
+        hitdir, missdir = tmpdir / "hit", tmpdir / "miss"
+        hitdir.mkdir()
+        missdir.mkdir()
+        (hitdir / "t1.json").write_text(json.dumps(judge_hit),
+                                        encoding="utf-8")
+        (missdir / "t1.json").write_text(json.dumps(judge_miss),
+                                         encoding="utf-8")
+        for name, jdir, want_code in (("5/5 meets 0.75", hitdir, 0),
+                                      ("3/5 misses 0.75", missdir, 1)):
+            proc = subprocess.run(
+                [sys.executable, str(REPO / "evals" / "agreement.py"),
+                 "--gold", str(tmpdir / "gold.json"), "--judge", str(jdir),
+                 "--min", "0.75"],
+                capture_output=True, text=True, cwd=str(REPO), timeout=120)
+            if proc.returncode == want_code:
+                ok("agreement self-test: %s" % name)
+            else:
+                fail("agreement self-test: %s (exit %d)\n%s"
+                     % (name, proc.returncode, proc.stdout))
 
 
 def main():
@@ -254,6 +398,8 @@ def main():
     check_skill()
     check_thresholds()
     check_grader_selftest()
+    check_hand_scores()
+    check_agreement_selftest()
     print("---")
     if FAILURES:
         print("%d failure(s)" % len(FAILURES))

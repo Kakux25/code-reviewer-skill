@@ -1,0 +1,24 @@
+{
+  "id": "bad-c",
+  "case": "c",
+  "review": "evals/samples/bad/case-c.md",
+  "model": "muse exec 1.3.0 (Meta provider)",
+  "attempts": 1,
+  "scores": {
+    "architecture": 0,
+    "controls": {
+      "C-C1": {
+        "quote": "P2, snippet.py:2 \u2014 normalize_name calls value.strip() without a None guard, raising AttributeError on None input.",
+        "score": 0
+      }
+    },
+    "decision": 0,
+    "plants": {
+      "C1": {
+        "quote": "",
+        "score": 0
+      }
+    },
+    "soul": 1
+  }
+}

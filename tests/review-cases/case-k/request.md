@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The objective is to simplify the total helper while preserving exact behavior, including empty input. Do not modify files. The tests/test_stats.py suite defines the acceptance examples. You may run it with PYTHONPATH pointing to the candidate.

@@ -6,13 +6,13 @@ To evaluate the skill, start an independent task, invoke `$code-reviewer`, and a
 
 Machine-readable answer keys (`review-cases/case-*/answer-key.json`), the mechanical grader, pre-declared thresholds, and the deterministic CI gate live in [../evals/](../evals/). The same blindness rule applies: an agent under evaluation must never read the keys.
 
-Cases A, B, and D include Python tests with no external dependencies. Run them from the repository root:
+All cases except C and O include Python tests with no external dependencies. Run one from the repository root:
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=tests/review-cases/case-a/candidate python3 -m unittest discover -s tests/review-cases/case-a/tests -v
-PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=tests/review-cases/case-b/candidate python3 -m unittest discover -s tests/review-cases/case-b/tests -v
-PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=tests/review-cases/case-d/candidate python3 -m unittest discover -s tests/review-cases/case-d/tests -v
 ```
+
+(The `evals/check_integrity.py` gate runs every suite against its designed outcome.)
 
 | Case | Materials (no outcomes — see EXPECTED.md after review) |
 | --- | --- |
@@ -20,3 +20,9 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=tests/review-cases/case-d/candidate python3
 | B | Proposal + acceptance suite |
 | C | Isolated snippet, no repository |
 | D | Proposal + passing suite + essence doc |
+| E–J | Proposal + acceptance suite (defect battery) |
+| K–L | Proposal + acceptance suite (negative cases) |
+| M–N | Proposal + passing suite + essence doc |
+| O | Proposal fragment, base missing |
+| P–Q | Proposal + passing suite (security) |
+| R–T | Proposal + acceptance suite (shadow: real-bug patterns) |

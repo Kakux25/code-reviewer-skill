@@ -1,0 +1,28 @@
+{
+  "id": "without-a",
+  "case": "a",
+  "review": "evals/runs/2026-09-19-ab-update/reviews/without/case-a.md",
+  "model": "muse exec 1.3.0 (Meta provider)",
+  "attempts": 1,
+  "scores": {
+    "architecture": 1,
+    "controls": {
+      "A-C1": {
+        "quote": "checkout.py still delegates per base/checkout.py:4-5 and base/ARCHITECTURE.md",
+        "score": 1
+      },
+      "A-C2": {
+        "quote": "`test_invalid_discount` passed; `test_percent_examples` failed on discounts 10/50/100 (0/200 passed).",
+        "score": 1
+      }
+    },
+    "decision": 1,
+    "plants": {
+      "A1": {
+        "quote": "P1, candidate/prices.py:4 \u2014 divides `discount_percent` by 10 instead of 100",
+        "score": 2
+      }
+    },
+    "soul": 1
+  }
+}
