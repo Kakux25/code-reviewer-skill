@@ -33,7 +33,7 @@ Use $code-reviewer on this pull request. Prioritize public contracts
 and error handling. If context is missing, report partial coverage explicitly.
 ```
 
-Automatic selection is enabled by default. Explicit invocation through `$code-reviewer` is also supported. Reviews follow the user's language. Code changes and publication of review comments must be part of the user's request.
+Harnesses with automatic skill selection may pick it up on matching review requests. Explicit invocation through `$code-reviewer` is also supported. Reviews follow the user's language. Code changes and publication of review comments must be part of the user's request.
 
 ## Documentation
 

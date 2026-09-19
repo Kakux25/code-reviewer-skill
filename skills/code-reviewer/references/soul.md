@@ -24,13 +24,13 @@ For each statement, determine whether the candidate preserves, tensions,
 or betrays it, citing candidate evidence:
 
 - `Preserved`: the change honors the statement.
-- `Tense`: the change strains the statement but documents the tradeoff.
+- `Tense`: the change strains the statement. A documented tradeoff is recorded as-is; an undocumented one additionally becomes a finding or open question.
 - `Betrayed`: the change contradicts the statement.
 
 | Soul verdict | Rule |
 | --- | --- |
 | `Preserved` | No tensions or betrayals. |
-| `Tense` | Tensions documented, no betrayal. |
+| `Tense` | Strained statements, no betrayal. |
 | `Betrayed` | At least one betrayal with evidence. |
 | `Unverifiable` | No documented essence to assess against. |
 

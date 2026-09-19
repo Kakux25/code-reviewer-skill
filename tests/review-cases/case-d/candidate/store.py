@@ -1,4 +1,6 @@
 import os
+import re
+import tempfile
 
 
 class Store:
@@ -6,12 +8,14 @@ class Store:
 
     def __init__(self):
         self._data = {}
-        self._cache_dir = "/tmp/store-cache"
-        os.makedirs(self._cache_dir, exist_ok=True)
+        self._cache_dir = tempfile.mkdtemp(prefix="store-cache-")
 
     def put(self, key, value):
         self._data[key] = value
-        with open(os.path.join(self._cache_dir, str(key)), "w") as fh:
+        name = str(key)
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", name):
+            raise ValueError("cache keys must be alphanumeric")
+        with open(os.path.join(self._cache_dir, name), "w") as fh:
             fh.write(repr(value))
 
     def get(self, key, default=None):

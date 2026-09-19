@@ -19,7 +19,7 @@ List `gaps`: concrete deviations from the anchors, with the relevant axis, impac
 | Architectural verdict | Rule |
 | --- | --- |
 | `High` | No primary-axis violations or identified gaps. |
-| `High with concerns` | No primary-axis violations; minor deviations are documented. |
+| `High with concerns` | No primary-axis violations; minor or secondary deviations are documented. |
 | `Acceptable` | A primary-axis deviation is contained or represents a justified tradeoff, without a fundamental structural break. |
 | `Low` | A significant primary-axis violation, improper boundary crossing, or fundamental pattern bypass is present. |
 
