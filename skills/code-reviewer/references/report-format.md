@@ -8,6 +8,25 @@ Use the format required by the user or project, if one exists. Otherwise, includ
 4. **Soul**: essence source, statements with the verdict for each, soul verdict, and rationale.
 5. **Verification and limitations**: checks actually run and their results, static review, files outside the scope, missing context, and outstanding checks.
 
+## Brief Format
+
+Default to the brief format for bounded reviews; use the full format above
+when the user or project requires it, or when a finding needs extended
+rationale (complex causality, disputed verdicts, or audit traceability).
+The brief report keeps every decision-relevant element and moves the
+detailed rubric to an annex only when useful:
+
+1. **Decision**: verdict plus the single decisive reason.
+2. **Findings**: one line each — priority, file:line, cause, and proof
+   (execution result or cited evidence). Smallest fix inline where trivial.
+3. **Verdicts**: architectural and soul verdicts, one line each with the
+   decisive axis or statement.
+4. **Checks and limits**: commands run with results; scope gaps in one line
+   each. Never omit a failed or skipped check.
+
+Brevity must not drop evidence: cause, line, proof, and decision are
+mandatory in both formats.
+
 ## Finding Priorities
 
 - `P0`: an immediate, critical consequence supported by evidence, such as data loss or active exposure.
@@ -16,6 +35,15 @@ Use the format required by the user or project, if one exists. Otherwise, includ
 - `P3`: a minor, actionable improvement, clearly distinguished from blocking issues.
 
 Priority reflects impact and triggering conditions, not author type, diff size, or the architectural complexity label. An architectural finding also requires a concrete consequence; “violates SOLID” is not sufficient.
+
+Calibration anchors (all verifiable in `tests/review-cases`): the case-A
+discount divisor is P1 (every nonzero input corrupts totals); the case-D
+filesystem write is P1 (breaks the documented memory-only contract); the
+case-D write-only cache is P2 (real waste and unmet objective, contained
+impact, no corruption); the case-C `None` hypothesis is an open question,
+not a finding (no contract to judge it against). When the same defect
+class could be P1 or P2, trigger breadth decides: broad, hard-to-avoid
+triggers push toward P1; narrow, easily avoided ones stay P2.
 
 ## Final Consistency Check
 

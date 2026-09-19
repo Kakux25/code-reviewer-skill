@@ -8,8 +8,10 @@ library `ast` module; they are never imported or executed.
 Limits: bare-name matching only. No type resolution (a method call on
 an instance is reported by method name alone), no dynamic calls
 (getattr, eval), no cross-language search, undecodable files and files
-with syntax errors are skipped with a warning. Treat output as leads
-for review, not proof.
+with syntax errors are skipped with a warning. Aliasing follows the
+name actually used: `from pkg import target as renamed` plus
+`renamed()` is reported under `renamed`, not under `target`. Treat
+output as leads for review, not proof.
 
 Usage:
     trace_callers.py SYMBOL ROOT [--json]
