@@ -27,7 +27,7 @@ If new context invalidates a criterion, explain why, version the rubric, and rea
 
 ## Review the change and its effects
 
-Trace the paths the change can affect: callers, consumers, persistence, extension points, and shared state. Focus on concrete consequences rather than a generic checklist of warnings.
+Trace the paths the change can affect: callers, consumers, persistence, extension points, and shared state. For Python, `scripts/trace_callers.py` lists a symbol's definitions and call sites (lexical, standard library only, targets parsed never executed); treat its output as leads, not proof. Focus on concrete consequences rather than a generic checklist of warnings.
 
 As relevant, inspect input/output contracts, error paths, compatibility, asynchronous behavior, mutable state, resource handling, permissions, and sensitive data. Verify new API signatures, imports, and dependencies in the project; plausible names are not proof that an API exists. Consult official documentation for the version in use when needed to resolve uncertainty.
 

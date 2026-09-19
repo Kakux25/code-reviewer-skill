@@ -35,6 +35,8 @@ and error handling. If context is missing, report partial coverage explicitly.
 
 Harnesses with automatic skill selection may pick it up on matching review requests. Explicit invocation through `$code-reviewer` is also supported. Reviews follow the user's language. Code changes and publication of review comments must be part of the user's request.
 
+A helper script ships with the skill: `skills/code-reviewer/scripts/trace_callers.py SYMBOL ROOT` lists definitions and call sites for a Python symbol (standard library only, read-only). Treat its output as review leads, not proof.
+
 ## Documentation
 
 | Resource | Purpose |
