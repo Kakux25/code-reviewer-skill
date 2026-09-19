@@ -53,6 +53,6 @@ Check that every reference points to the correct revision: base, candidate, or l
 
 `Betrayed` requires a quoted essence statement plus candidate evidence; `Unverifiable` is not a pass.
 
-`No actionable findings` means that no actionable defects were identified within the reviewed scope. If decisive context or checks are missing, use `Incomplete`. Use `Incomplete` only when the missing context or checks could change the findings; when a requested verdict is unanswerable but the gap cannot change the findings, use `No actionable findings` and record the gap (for example, an isolated snippet with an `Insufficient evidence` architectural verdict). Omitting a nondecisive check does not automatically invalidate a review: explain its actual effect on confidence.
+`No actionable findings` means that no actionable defects were identified within the reviewed scope. If decisive context or checks are missing, use `Incomplete`. Omitting a nondecisive check does not automatically invalidate a review: explain its actual effect on confidence.
 
 For tools that require structured data, you may represent the same elements in JSON or YAML: `scope`, `rubric`, `findings`, `architecture`, `soul`, `checks`, `limitations`, `decision`. Keep the structured output consistent with the written assessment.

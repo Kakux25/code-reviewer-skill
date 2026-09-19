@@ -4,6 +4,8 @@ These fixtures exercise reviewer behavior across proposals of different quality.
 
 To evaluate the skill, start an independent task, invoke `$code-reviewer`, and ask it to complete each `review-cases/case-*/request.md`. The reviewer should read the base and establish criteria before opening the candidate. Expected outcomes live in [EXPECTED.md](EXPECTED.md) — open it only after the review is complete.
 
+Machine-readable answer keys (`review-cases/case-*/answer-key.json`), the mechanical grader, pre-declared thresholds, and the deterministic CI gate live in [../evals/](../evals/). The same blindness rule applies: an agent under evaluation must never read the keys.
+
 Cases A, B, and D include Python tests with no external dependencies. Run them from the repository root:
 
 ```sh

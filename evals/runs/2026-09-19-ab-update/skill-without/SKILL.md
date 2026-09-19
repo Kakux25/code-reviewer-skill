@@ -7,8 +7,6 @@ description: Review code, diffs, and pull requests for verifiable defects, regre
 
 Produce a review that helps the user decide what to fix. Ground every finding in actual code and assess functional correctness separately from architectural conformance. Respond in the user's language. Apply the same standards to all code within the change, regardless of author; do not attempt to determine authorship.
 
-Do not use this skill to write new code from scratch, to attribute authorship (human or machine), to authorize merging or deployment, or to certify legal or regulatory compliance. A review conclusion is not a merge approval or a compliance certificate.
-
 ## Establish the review scope
 
 Identify the change objective, repository, base revision, and candidate. Read the applicable project instructions. Respect the requested scope: a pull request, commit range, local changes, or specific files.
