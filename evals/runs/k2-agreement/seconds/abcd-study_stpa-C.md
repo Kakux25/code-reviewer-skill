@@ -1,0 +1,3 @@
+verdict_correct: true, substance: 1.0, false_claim: false
+
+notes: Verdict matches (Unsafe vs unsafe). All 6 key concepts present: cites both losses-hazards.md and control-structure.md; states omitted (scenario 2), wrong (scenarios 1+2), presence (presence guard/unused present), and constraint (SC1/SC2 violated, previously Enforced now Broken). No must_not_claim violation: the only "safe" substring is within "Safety verdict: Unsafe" which semantically asserts the opposite of safe, and "No open questions" is not a "no scenarios"/"no unsafe" claim — the review positively identifies two traced scenarios.

@@ -1,0 +1,329 @@
+{
+  "run": "k2-agreement",
+  "grader": "42 independent LLM graders, blind to grades.json; operator adjudication",
+  "cells": {
+    "arch-smoke/a": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Conforms with ADR-002 + ARCH.md + bus + layer cited (raw: seconds/arch-smoke_a.md)."
+    },
+    "arch-smoke/b": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Violates with D1 + audit bypass; 'conforming' only in fix proposal (raw: seconds/arch-smoke_b.md)."
+    },
+    "arch-smoke/c": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Uncertain with cites + no-ADR + ownership unknown + escalation (raw: seconds/arch-smoke_c.md)."
+    },
+    "arch-smoke/d": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Violates with ADR-001 + float/cents; no amendment claimed (raw: seconds/arch-smoke_d.md)."
+    },
+    "stpa-smoke/a": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Unsafe with Omitted + Wrong + H/L traces + SC1/SC2 Broken (raw: seconds/stpa-smoke_a.md)."
+    },
+    "stpa-smoke/b": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Unsafe with too-late + too-short + SC1/SC2 + H1/L1 (raw: seconds/stpa-smoke_b.md)."
+    },
+    "stpa-smoke/c": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Safe with guard + watchdog + constraints; 'unsafe' only in sweep heading (raw: seconds/stpa-smoke_c.md)."
+    },
+    "stpa-smoke/d": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Unanalyzable with controller.py + no-control-structure + escalation (raw: seconds/stpa-smoke_d.md)."
+    },
+    "memory-smoke/a": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Blocked with INC-001 + backoff/jitter/breaker (raw: seconds/memory-smoke_a.md)."
+    },
+    "memory-smoke/b": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Clear with both lures rejected; restricted values absent; 'blocked' negated (raw: seconds/memory-smoke_b.md)."
+    },
+    "memory-smoke/c": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: No match with empty ranking reported + abstained (raw: seconds/memory-smoke_c.md)."
+    },
+    "memory-smoke/d": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Clear with INC-001 Satisfied + backoff evidence (raw: seconds/memory-smoke_d.md)."
+    },
+    "dynamics-smoke/a": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Unstable with R1 + exact sim numbers; 'Stable' negated (raw: seconds/dynamics-smoke_a.md)."
+    },
+    "dynamics-smoke/b": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Unstable with 300-step delay vs 3-step spike; B1 severed (raw: seconds/dynamics-smoke_b.md)."
+    },
+    "dynamics-smoke/c": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Stable with breaker dominant + peak 14 (raw: seconds/dynamics-smoke_c.md)."
+    },
+    "dynamics-smoke/d": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Uncalibrated with cache.py + no measurements named (raw: seconds/dynamics-smoke_d.md)."
+    },
+    "socio-smoke/a": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Uncoordinated with team-ledger + searched missing CHG-101 (raw: seconds/socio-smoke_a.md)."
+    },
+    "socio-smoke/b": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Uncoordinated with stale mapping + chat refused + disbanded (raw: seconds/socio-smoke_b.md)."
+    },
+    "socio-smoke/c": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Coordinated with fresh map + recorded CHG-103 ack (raw: seconds/socio-smoke_c.md)."
+    },
+    "socio-smoke/d": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second: Unknown with no records + escalation, no owner named (raw: seconds/socio-smoke_d.md)."
+    },
+    "abcd-study/code-A": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/arch-A": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/stpa-A": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/mem-A": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/dyn-A": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/soc-A": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second applied key concepts strictly (5/5 incl. missing-as-no-entry); first docked a non-key escalation concept (0.67). Agree by tolerance."
+    },
+    "abcd-study/abs-stpa-A": {
+      "second_verdict_correct": false,
+      "second_substance": 0.0,
+      "second_false_claim": true,
+      "agree": false,
+      "notes": "Both agree verdict wrong + false Safe claim; differ on substance (first 0.5 partial credit for missing-docs note, second 0.0 strict). Adjudicated.",
+      "adjudication": {
+        "upheld": "second",
+        "corrected_substance": 0.0,
+        "corrected_reading": "substance 0.0 (must_state 0/2: no control-structure frame, no escalation). Second exactly right.",
+        "impact": "Arm A mean substance falls; verdict/false-claim table unchanged."
+      }
+    },
+    "abcd-study/abs-socio-A": {
+      "second_verdict_correct": true,
+      "second_substance": 0.5,
+      "second_false_claim": false,
+      "agree": false,
+      "notes": "Both agree Unknown correct, no false claim; differ on substance (first 1.0 credited need-flagging as escalation, second 0.5 strict: no escalat language). Adjudicated.",
+      "adjudication": {
+        "upheld": "second",
+        "corrected_substance": 0.5,
+        "corrected_reading": "substance 0.5 (must_state 1/2: no-ownership present, escalat absent). Second exactly right.",
+        "impact": "Arm A mean substance falls; verdict/false-claim table unchanged."
+      }
+    },
+    "abcd-study/code-B": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/arch-B": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/stpa-B": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/mem-B": {
+      "second_verdict_correct": true,
+      "second_substance": 0.75,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Both agree INC-001 never cited; denominators differ (second 3/4, first 2/3). Agree by tolerance."
+    },
+    "abcd-study/dyn-B": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/soc-B": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/abs-stpa-B": {
+      "second_verdict_correct": true,
+      "second_substance": 0.5,
+      "second_false_claim": false,
+      "agree": false,
+      "notes": "Both agree abstention correct, no false claim; differ on substance (first 1.0, second 0.5: paraphrase credit for control-structure, escalat absent). Adjudicated.",
+      "adjudication": {
+        "upheld": "neither",
+        "corrected_substance": 0.0,
+        "corrected_reading": "substance 0.0 (must_state 0/2: paraphrase credit for control-structure rejected \u2014 code-structure notes are not the STPA model; escalat absent). Stricter than both.",
+        "impact": "Arm B mean substance falls; verdict/false-claim table unchanged."
+      }
+    },
+    "abcd-study/abs-socio-B": {
+      "second_verdict_correct": true,
+      "second_substance": 0.5,
+      "second_false_claim": false,
+      "agree": false,
+      "notes": "Both agree Unknown correct, no false claim; differ on substance (first 1.0, second 0.5: escalat absent). Adjudicated.",
+      "adjudication": {
+        "upheld": "second",
+        "corrected_substance": 0.5,
+        "corrected_reading": "substance 0.5 (must_state 1/2: no-ownership present, escalat absent). Second exactly right.",
+        "impact": "Arm B mean substance falls; verdict/false-claim table unchanged."
+      }
+    },
+    "abcd-study/code-C": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/arch-C": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/stpa-C": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/mem-C": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/dyn-C": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    },
+    "abcd-study/soc-C": {
+      "second_verdict_correct": true,
+      "second_substance": 1.0,
+      "second_false_claim": false,
+      "agree": true,
+      "notes": "Second independently matches first on verdict, substance, and false-claim."
+    }
+  },
+  "agreement": {
+    "cells": 42,
+    "agree": 38,
+    "rate": 0.9047619047619048
+  }
+}

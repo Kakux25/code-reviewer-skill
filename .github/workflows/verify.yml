@@ -108,3 +108,8 @@ jobs:
         run: python3 -m unittest discover -s tests/judge
         env:
           PYTHONDONTWRITEBYTECODE: "1"
+
+      - name: Run k2 tests
+        run: python3 -m unittest discover -s tests/k2
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
