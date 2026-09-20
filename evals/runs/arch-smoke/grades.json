@@ -1,0 +1,14 @@
+{
+  "run": "arch-smoke",
+  "grader": "fixture author (K=1; same-author bias risk disclosed)",
+  "grades": {
+    "a": {"verdict": "conforms", "matches_expected": true,
+          "notes": "Rubric-first, cites ADR-002 + ARCH.md, names bus + layers. 'forbidden' appears only quoting criterion C2 while concluding Conforms: semantically clean."},
+    "b": {"verdict": "violates", "matches_expected": true,
+          "notes": "Cites ARCH.md rule D1, 'api/ imports store/ directly' + 'bypassing audit' (punctuation-only variant of must_state), local-success/global-damage explicit."},
+    "c": {"verdict": "uncertain", "matches_expected": true,
+          "notes": "States no covering record found, asks who owns app/region choice, escalates 3x. 'conforms' appears only in negations ('no supportable Conforms/Violates verdict'): clean."},
+    "d": {"verdict": "violates", "matches_expected": true,
+          "notes": "Holds ADR-001 line against 2**53 rationale, names it adversarial input, cites candidate ADR copy still accepted, local-success/global-damage explicit."}
+  }
+}

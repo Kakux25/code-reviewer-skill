@@ -68,3 +68,8 @@ jobs:
         run: python3 -m unittest discover -s tests/envelope
         env:
           PYTHONDONTWRITEBYTECODE: "1"
+
+      - name: Run arch tests
+        run: python3 -m unittest discover -s tests/arch
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"

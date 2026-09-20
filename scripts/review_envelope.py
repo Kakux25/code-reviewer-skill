@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Gate 2: code-reviewer output -> shared ReviewEnvelope (stdlib only,
-except the jsonschema-backed assurance validator it checks against).
+"""Gate 2: code-reviewer output -> shared ReviewEnvelope.
 
 Converts one graded battery review into a schema-valid assurance case
 fragment: claim C1 (review meets its frozen answer key) mirrors the
@@ -14,67 +13,19 @@ Usage:
         --run-id <id> --out <case.json>
 """
 import argparse
-import hashlib
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts"))
 sys.path.insert(0, str(REPO / "evals"))
+import envelope as shared
 import evidence as gate1
 import grader
-from validate_assurance import validate
 
-MODULES = ["code-reviewer", "architecture-reviewer",
-           "system-dynamics-reviewer", "safety-stpa-reviewer",
-           "incident-memory", "sociotechnical-reviewer",
-           "final-engineering-judge"]
-
-
-def _utcnow():
-    return datetime.now(timezone.utc).isoformat(timespec="seconds")
-
-
-def _sha(data):
-    if isinstance(data, str):
-        data = data.encode("utf-8")
-    return hashlib.sha256(data).hexdigest()
-
-
-def _dir_hash(path):
-    """Deterministic content hash of a directory tree."""
-    acc = hashlib.sha256()
-    for child in sorted(Path(path).rglob("*")):
-        if child.is_file() and "__pycache__" not in child.parts:
-            acc.update(str(child.relative_to(path)).encode("utf-8"))
-            acc.update(b"\0")
-            acc.update(child.read_bytes())
-            acc.update(b"\0")
-    return acc.hexdigest()[:16]
-
-
-def _ev(id, observation, artifact, method, revision, context_id,
-        applicability, limitations, kind, digest):
-    return {
-        "id": id,
-        "observation": observation,
-        "artifact": artifact,
-        "method": method,
-        "collected_at": _utcnow(),
-        "revision": revision,
-        "context_id": context_id,
-        "applicability": applicability,
-        "limitations": [limitations],
-        "kind": kind,
-        "integrity": "verified",
-        "digest": digest,
-    }
-
-
-UNVERIFIED_EXPOSURE = ("caller did not assert review conditions; "
-                           "blindness and rubric timing not verified for this input")
+MODULES = shared.MODULES
+UNVERIFIED_EXPOSURE = shared.UNVERIFIED_EXPOSURE
 
 
 def build_case(case, review_path, run_id, out_path=None, producer=None,
@@ -90,9 +41,9 @@ def build_case(case, review_path, run_id, out_path=None, producer=None,
     graded = grader.grade_case(case, text, key)
     passed = graded["pass"]
     context_id = "battery-case-%s" % case
-    base_rev = "fixture:%s:base@%s" % (case, _dir_hash(casedir / "base")) \
+    base_rev = "fixture:%s:base@%s" % (case, shared.dir_hash(casedir / "base")) \
         if (casedir / "base").is_dir() else "fixture:%s:no-base" % case
-    cand_rev = "fixture:%s:candidate@%s" % (case, _dir_hash(casedir / "candidate")) \
+    cand_rev = "fixture:%s:candidate@%s" % (case, shared.dir_hash(casedir / "candidate")) \
         if (casedir / "candidate").is_dir() else "fixture:%s:no-candidate" % case
     scope = {"base_revision": base_rev, "candidate_revision": cand_rev,
              "context_id": context_id, "operation": "integration",
@@ -108,33 +59,33 @@ def build_case(case, review_path, run_id, out_path=None, producer=None,
                if ln.startswith("Ran ")]
         ran_note = ran[0] if ran else "NO Ran LINE (collection suspect)"
         first = suite["content"].splitlines()[0] if suite["content"] else "no output"
-        suite_ev = _ev("E-%s-suite" % case, "suite: %s (%s)" % (first, ran_note),
+        suite_ev = shared.ev("E-%s-suite" % case, "suite: %s (%s)" % (first, ran_note),
                        str(suite_dir), "unittest discover (Gate 1 collector)",
                        cand_rev, context_id, "executed acceptance behavior",
                        "exit code only; full output truncated", "dynamic",
                        suite["content_hash"])
     else:
-        suite_ev = _ev("E-%s-suite" % case,
+        suite_ev = shared.ev("E-%s-suite" % case,
                        "no suite declared (key suite.expected=absent)",
                        str(casedir), "key inspection", cand_rev, context_id,
                        "absence is designed, not missing evidence",
                        "no dynamic observation possible", "static",
-                       _sha("absent"))
+                       shared.sha("absent"))
     git = gate1.collect_git(str(REPO))
-    ev_review = _ev("E-%s-review" % case,
+    ev_review = shared.ev("E-%s-review" % case,
                     "review text (%d lines)" % (text.count("\n") + 1),
                     str(review_path), "read", cand_rev, context_id,
                     "mechanical grading input",
                     "lexical proxy (thresholds.json notes)", "static",
-                    _sha(text))
-    ev_grade = _ev("E-%s-grade" % case,
+                    shared.sha(text))
+    ev_grade = shared.ev("E-%s-grade" % case,
                    "grade pass=%s (decision ok=%s)" % (
                        passed, graded["checks"]["decision"]["ok"]),
                    "grader.py", "mechanical grading vs frozen answer key",
                    cand_rev, context_id, "key conformance verdict",
                    "lexical proxy, not semantic verification", "static",
-                   _sha(grade_detail))
-    ev_git = _ev("E-%s-git" % case,
+                   shared.sha(grade_detail))
+    ev_git = shared.ev("E-%s-git" % case,
                  "repo HEAD observed (%s)" % git["status"],
                  str(REPO), "git rev-parse/status (Gate 1 collector)",
                  cand_rev, context_id, "revision context",
@@ -156,29 +107,7 @@ def build_case(case, review_path, run_id, out_path=None, producer=None,
         "scope": scope,
         "status": "supported" if passed else "defeated",
     }
-    skill_sha = _sha((REPO / "skills" / "code-reviewer" / "SKILL.md").read_bytes())
-    producer = producer or {}
-    envelope = {
-        "id": "R-%s-code" % case,
-        "rubric_version": _sha(key_path.read_bytes()),
-        "exposure_notes": exposure_notes or UNVERIFIED_EXPOSURE,
-        "status_rationale": "mechanical conversion complete",
-        "criteria": ["answer-key.json", "thresholds.json"],
-        "shared_context": [context_id],
-        "evidence": [e["id"] for e in (ev_review, ev_grade, suite_ev, ev_git)],
-        "claims": [claim_id],
-        "findings": [],
-        "missing_evidence": [],
-        "schema_version": "0.1.0",
-        "module": "code-reviewer",
-        "scope": scope,
-        "criteria_before_candidate": bool(criteria_first),
-        "producer": {"model_family": producer.get("model_family", "unknown"),
-                     "model_version": producer.get("model_version", "unknown"),
-                     "prompt_digest": producer.get("prompt_digest", skill_sha),
-                     "session_id": run_id},
-        "status": "complete",
-    }
+    skill_sha = shared.sha((REPO / "skills" / "code-reviewer" / "SKILL.md").read_bytes())
     uncertainty = {
         "id": "U1-%s" % case,
         "missing_fact": "semantic finding content beyond the lexical grade",
@@ -188,27 +117,16 @@ def build_case(case, review_path, run_id, out_path=None, producer=None,
         "blocking": False,
         "status": "open",
     }
-    acase = {
-        "id": "AC-%s-%s" % (case, run_id),
-        "top_claim": claim_id,
-        "rationale": "single-reviewer conversion; six specialists missing",
-        "required_reviewers": MODULES,
-        "conditions": [],
-        "evidence": [ev_review, ev_grade, suite_ev, ev_git],
-        "claims": [claim],
-        "findings": [],
-        "defeaters": [],
-        "uncertainties": [uncertainty],
-        "causal_links": [],
-        "incident_cases": [],
-        "safety_constraints": [],
-        "reviews": [envelope],
-        "schema_version": "0.1.0",
-        "scope": scope,
-        "decision": "INSUFFICIENT_EVIDENCE",
-        "authorization": "not_granted",
-    }
-    validate(acase)
+    acase = shared.assemble(
+        module="code-reviewer", short="code", case_tag=case,
+        claim=claim, evidence=[ev_review, ev_grade, suite_ev, ev_git],
+        uncertainties=[uncertainty], scope=scope,
+        rubric_version=shared.sha(key_path.read_bytes()),
+        exposure_notes=exposure_notes,
+        status_rationale="mechanical conversion complete",
+        criteria=["answer-key.json", "thresholds.json"], run_id=run_id,
+        producer=producer, prompt_digest=skill_sha,
+        criteria_before_candidate=criteria_first)
     if out_path is not None:
         Path(out_path).write_text(json.dumps(acase, indent=2) + "\n",
                                   encoding="utf-8")

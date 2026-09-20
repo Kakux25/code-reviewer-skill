@@ -1,0 +1,175 @@
+{
+  "id": "AC-a-arch-smoke",
+  "top_claim": "C2-a",
+  "rationale": "single-reviewer conversion; other specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E2-a-review",
+      "observation": "review text (30 lines)",
+      "artifact": "evals/runs/arch-smoke/reviews/a.md",
+      "method": "read",
+      "collected_at": "2026-09-20T07:03:59+00:00",
+      "revision": "fixture:arch-a:candidate@80039a1389d51461",
+      "context_id": "arch-case-a",
+      "applicability": "human grading input",
+      "limitations": [
+        "free text; grade is the instrument"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "fcc151270caf3f8bed7d276d61d892437fb4205ec0734bf11e52861ad0bce5cf"
+    },
+    {
+      "id": "E2-a-grade",
+      "observation": "human grade verdict=conforms (expected conforms)",
+      "artifact": "expected.json",
+      "method": "human grading vs frozen expected.json",
+      "collected_at": "2026-09-20T07:03:59+00:00",
+      "revision": "fixture:arch-a:candidate@80039a1389d51461",
+      "context_id": "arch-case-a",
+      "applicability": "expected-verdict conformance",
+      "limitations": [
+        "single human grader; inter-rater agreement unmeasured"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "ca590fd0f751b97f833bdcbb9605abee569d1e747d2f6a9d3767e9428aabe1b3"
+    },
+    {
+      "id": "E2-a-suite",
+      "observation": "suite: exit=0 (Ran 2 tests in 0.002s)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/arch-cases/arch-a/candidate/tests",
+      "method": "unittest discover (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:03:59+00:00",
+      "revision": "fixture:arch-a:candidate@80039a1389d51461",
+      "context_id": "arch-case-a",
+      "applicability": "executed acceptance behavior",
+      "limitations": [
+        "exit code only; full output truncated"
+      ],
+      "kind": "dynamic",
+      "integrity": "verified",
+      "digest": "4629d4857bdb13e71232c477f97399afcb1a9c789ed43223f32e5a981ab5fd12"
+    },
+    {
+      "id": "E2-a-git",
+      "observation": "repo HEAD observed (tainted)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
+      "method": "git rev-parse/status (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:03:59+00:00",
+      "revision": "fixture:arch-a:candidate@80039a1389d51461",
+      "context_id": "arch-case-a",
+      "applicability": "revision context",
+      "limitations": [
+        "dirty state recorded, not resolved"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "19138dded8765b037a3637732a38dafc4e0e0e3817270db58cf7d1bd7ab5d699"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C2-a",
+      "statement": "Candidate arch-a conforms to its documented architecture (per human-graded review)",
+      "warrant": "human grading against frozen expected.json; claim mirrors graded verdict",
+      "independence_notes": "single human grader; no mechanical key",
+      "assumptions": [
+        "human grader applies expected.json must/must-not faithfully"
+      ],
+      "supporting_evidence": [
+        "E2-a-grade"
+      ],
+      "counterevidence": [],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:arch-a:repo@fa69b12beec81d8e",
+        "candidate_revision": "fixture:arch-a:candidate@80039a1389d51461",
+        "context_id": "arch-case-a",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "supported"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [
+    {
+      "id": "U2-a",
+      "missing_fact": "second-grader agreement on this review",
+      "consequence": "claim rests on one human grade (K=1)",
+      "owner": "architecture-reviewer",
+      "next_action": "second independent grade",
+      "blocking": false,
+      "status": "open"
+    }
+  ],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-a-arch",
+      "rubric_version": "a837fa66c1f5df144b7176f50bc8d62e2134b40ee54959ac6022dc661ddf0e8d",
+      "exposure_notes": "agent blind to expected.json by instruction (unverified); rubric-first evidenced by rubric sections preceding candidate assessment in frozen reviews; grader is fixture author, K=1",
+      "status_rationale": "mechanical conversion complete",
+      "criteria": [
+        "expected.json"
+      ],
+      "shared_context": [
+        "arch-case-a"
+      ],
+      "evidence": [
+        "E2-a-review",
+        "E2-a-grade",
+        "E2-a-suite",
+        "E2-a-git"
+      ],
+      "claims": [
+        "C2-a"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "architecture-reviewer",
+      "scope": {
+        "base_revision": "fixture:arch-a:repo@fa69b12beec81d8e",
+        "candidate_revision": "fixture:arch-a:candidate@80039a1389d51461",
+        "context_id": "arch-case-a",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": true,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "341e1a787e444ee86b473483dde41539cfe37cba06c1ea043ed9927e51853e30",
+        "session_id": "arch-smoke"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:arch-a:repo@fa69b12beec81d8e",
+    "candidate_revision": "fixture:arch-a:candidate@80039a1389d51461",
+    "context_id": "arch-case-a",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

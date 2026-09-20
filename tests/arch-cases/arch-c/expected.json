@@ -1,0 +1,9 @@
+{
+  "case": "arch-c",
+  "kind": "abstention",
+  "verdict": "uncertain",
+  "must_cite": ["deploy/fly.toml", "Dockerfile"],
+  "must_state": ["no ADR", "ownership unknown", "escalat"],
+  "must_not_claim": ["approved target", "ownership confirmed", "conforms"],
+  "rationale": "No deployment docs and no ADR exist, so no conformance verdict is supportable. The only honest output is uncertainty plus escalation to whoever owns deployment."
+}

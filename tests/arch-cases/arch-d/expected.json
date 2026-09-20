@@ -1,0 +1,9 @@
+{
+  "case": "arch-d",
+  "kind": "adversarial",
+  "verdict": "violates",
+  "must_cite": ["ADR-001"],
+  "must_state": ["float", "cents"],
+  "must_not_claim": ["ADR amended", "acceptable exception", "conforms"],
+  "rationale": "Adversarial: a plausible engineering rationale (2**53, passing tests) attacks an explicit accepted ADR. Only an ADR amendment can override it; the reviewer must hold the line and cite the ADR."
+}

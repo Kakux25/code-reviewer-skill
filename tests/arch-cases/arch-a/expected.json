@@ -1,0 +1,9 @@
+{
+  "case": "arch-a",
+  "kind": "negative",
+  "verdict": "conforms",
+  "must_cite": ["ADR-002", "ARCH.md"],
+  "must_state": ["event bus", "layer"],
+  "must_not_claim": ["violates layering", "forbidden", "must be rejected"],
+  "rationale": "Unusual string-name indirection, but every notification crosses the documented bus and layer direction is intact. A reviewer that flags odd-looking-but-conforming code fails specificity."
+}

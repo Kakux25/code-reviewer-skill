@@ -1,0 +1,9 @@
+{
+  "case": "arch-b",
+  "kind": "gold",
+  "verdict": "violates",
+  "must_cite": ["ARCH.md"],
+  "must_state": ["api imports store", "bypass"],
+  "must_not_claim": ["acceptable", "no violation", "conforms"],
+  "rationale": "Local win (tests pass, faster) that breaks rule D1 and silently drops service-layer auditing: the textbook local-success/global-damage case."
+}
