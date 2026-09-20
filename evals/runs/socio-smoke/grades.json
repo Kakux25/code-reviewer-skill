@@ -1,0 +1,64 @@
+{
+  "run": "socio-smoke",
+  "grader": "fixture author (K=1; same-author bias risk disclosed)",
+  "grades": {
+    "a": {
+      "verdict": "uncoordinated",
+      "matches_expected": true,
+      "notes": "Fresh map + no CHG-101 ack in either handoff copy + prior CHG-099 ack explicitly not counted; escalated. Key rework: must_state 'no ack' -> 'missing' (review states 'No record of a CHG-101 ack' + status missing); must_not 'coordinated' -> verdict-line form (bare word is a substring of Uncoordinated). Grade still match."
+    },
+    "b": {
+      "verdict": "uncoordinated",
+      "matches_expected": true,
+      "notes": "Stale mapping named with both sources/dates, chat approval quoted and refused as unverified, stale-name ack voided, no successor substituted, reassignment escalation. must_not reworked to verdict-line form; grade still match."
+    },
+    "c": {
+      "verdict": "coordinated",
+      "matches_expected": true,
+      "notes": "Full lexical pass. Fresh map + recorded CHG-103 ack from owning active team, ack-match verified, no human claims present."
+    },
+    "d": {
+      "verdict": "unknown",
+      "matches_expected": true,
+      "notes": "Full lexical pass. STOP rule: searched places named, docstring refused as a record, no owner named, escalation with assignment question."
+    }
+  },
+  "adapter_inputs": {
+    "a": {
+      "grade": {
+        "verdict": "uncoordinated",
+        "grader": "fixture-author-K1"
+      },
+      "run_id": "socio-smoke",
+      "criteria_first": true,
+      "exposure_notes": "agent blind to expected.json by instruction (unverified); map-first evidenced by coordination-map sections preceding observed checks in frozen reviews; grader is fixture author, K=1"
+    },
+    "b": {
+      "grade": {
+        "verdict": "uncoordinated",
+        "grader": "fixture-author-K1"
+      },
+      "run_id": "socio-smoke",
+      "criteria_first": true,
+      "exposure_notes": "agent blind to expected.json by instruction (unverified); map-first evidenced by coordination-map sections preceding observed checks in frozen reviews; grader is fixture author, K=1"
+    },
+    "c": {
+      "grade": {
+        "verdict": "coordinated",
+        "grader": "fixture-author-K1"
+      },
+      "run_id": "socio-smoke",
+      "criteria_first": true,
+      "exposure_notes": "agent blind to expected.json by instruction (unverified); map-first evidenced by coordination-map sections preceding observed checks in frozen reviews; grader is fixture author, K=1"
+    },
+    "d": {
+      "grade": {
+        "verdict": "unknown",
+        "grader": "fixture-author-K1"
+      },
+      "run_id": "socio-smoke",
+      "criteria_first": true,
+      "exposure_notes": "agent blind to expected.json by instruction (unverified); map-first evidenced by coordination-map sections preceding observed checks in frozen reviews; grader is fixture author, K=1"
+    }
+  }
+}

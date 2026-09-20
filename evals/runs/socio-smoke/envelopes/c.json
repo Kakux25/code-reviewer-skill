@@ -1,0 +1,175 @@
+{
+  "id": "AC-c-socio-smoke",
+  "top_claim": "C6-c",
+  "rationale": "single-reviewer conversion; other specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E6-c-review",
+      "observation": "review text (18 lines)",
+      "artifact": "evals/runs/socio-smoke/reviews/c.md",
+      "method": "read",
+      "collected_at": "2026-09-20T07:33:23+00:00",
+      "revision": "fixture:soc-c:candidate@384d36310eb775fe",
+      "context_id": "soc-case-c",
+      "applicability": "human grading input",
+      "limitations": [
+        "free text; grade is the instrument"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "fbff5364d0c7a5d7fdd74c4cc55548d292ac7ba32f993ad970b223b71ccd2a5e"
+    },
+    {
+      "id": "E6-c-grade",
+      "observation": "human grade verdict=coordinated (expected coordinated)",
+      "artifact": "expected.json",
+      "method": "human grading vs frozen expected.json",
+      "collected_at": "2026-09-20T07:33:23+00:00",
+      "revision": "fixture:soc-c:candidate@384d36310eb775fe",
+      "context_id": "soc-case-c",
+      "applicability": "expected-verdict conformance",
+      "limitations": [
+        "single human grader; inter-rater agreement unmeasured"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "92f493ea0e2552685a396a40ac689077b5d59dac60bd2498378c18f39c88099e"
+    },
+    {
+      "id": "E6-c-suite",
+      "observation": "no suite declared (records-only fixture)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/socio-cases/soc-c",
+      "method": "key inspection",
+      "collected_at": "2026-09-20T07:33:23+00:00",
+      "revision": "fixture:soc-c:candidate@384d36310eb775fe",
+      "context_id": "soc-case-c",
+      "applicability": "absence is designed, not missing evidence",
+      "limitations": [
+        "no dynamic observation possible"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "5ad38304b535c2987dbd24657c1a11b884984ff600d9f389deb0d4e634fee792"
+    },
+    {
+      "id": "E6-c-git",
+      "observation": "repo HEAD observed (tainted)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
+      "method": "git rev-parse/status (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:33:23+00:00",
+      "revision": "fixture:soc-c:candidate@384d36310eb775fe",
+      "context_id": "soc-case-c",
+      "applicability": "revision context",
+      "limitations": [
+        "dirty state recorded, not resolved"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "44b36dc2192948e8a325f789b5bcc73c323459a35e1734878d2a4647d3441b49"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C6-c",
+      "statement": "Candidate soc-c is covered by working coordination (per human-graded review)",
+      "warrant": "human grading against frozen expected.json; claim mirrors graded verdict",
+      "independence_notes": "single human grader; no mechanical key",
+      "assumptions": [
+        "human grader applies expected.json must/must-not faithfully"
+      ],
+      "supporting_evidence": [
+        "E6-c-grade"
+      ],
+      "counterevidence": [],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:soc-c:repo@1660c1c0543f227a",
+        "candidate_revision": "fixture:soc-c:candidate@384d36310eb775fe",
+        "context_id": "soc-case-c",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "supported"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [
+    {
+      "id": "U6-c",
+      "missing_fact": "second-grader agreement on this review",
+      "consequence": "claim rests on one human grade (K=1)",
+      "owner": "sociotechnical-reviewer",
+      "next_action": "second independent grade",
+      "blocking": false,
+      "status": "open"
+    }
+  ],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-c-soc",
+      "rubric_version": "f6b2930795efa79186574a7705f331608cf712d658006308141521d44f433480",
+      "exposure_notes": "agent blind to expected.json by instruction (unverified); map-first evidenced by coordination-map sections preceding observed checks in frozen reviews; grader is fixture author, K=1",
+      "status_rationale": "mechanical conversion complete",
+      "criteria": [
+        "expected.json"
+      ],
+      "shared_context": [
+        "soc-case-c"
+      ],
+      "evidence": [
+        "E6-c-review",
+        "E6-c-grade",
+        "E6-c-suite",
+        "E6-c-git"
+      ],
+      "claims": [
+        "C6-c"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "sociotechnical-reviewer",
+      "scope": {
+        "base_revision": "fixture:soc-c:repo@1660c1c0543f227a",
+        "candidate_revision": "fixture:soc-c:candidate@384d36310eb775fe",
+        "context_id": "soc-case-c",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": true,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "9604d07bc173b5a43680fdbb9dcaef3672d2c719eb3863d130386bb173f00901",
+        "session_id": "socio-smoke"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:soc-c:repo@1660c1c0543f227a",
+    "candidate_revision": "fixture:soc-c:candidate@384d36310eb775fe",
+    "context_id": "soc-case-c",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

@@ -1,0 +1,9 @@
+{
+  "case": "soc-c",
+  "kind": "negative",
+  "verdict": "coordinated",
+  "must_cite": ["CODEOWNERS", "handoffs.md"],
+  "must_state": ["team-search", "acked", "CHG-103"],
+  "must_not_claim": ["uncoordinated", "stale", "missing ack"],
+  "rationale": "Negative control: fresh ownership + a recorded CHG-103 ack from the owning active team. A reviewer that flags this fails specificity."
+}

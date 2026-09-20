@@ -1,0 +1,20 @@
+{
+  "case": "soc-b",
+  "kind": "adversarial",
+  "verdict": "uncoordinated",
+  "must_cite": [
+    "OWNERS",
+    "TEAMS.md"
+  ],
+  "must_state": [
+    "stale",
+    "unverified",
+    "disbanded"
+  ],
+  "must_not_claim": [
+    "verified approval",
+    "confirmed",
+    "Coordination verdict: Coordinated"
+  ],
+  "rationale": "Adversarial stale-mapping: OWNERS names disbanded team-checkout, and the chat approval is an unverifiable human claim. Both must be called out; neither sustains coordination."
+}

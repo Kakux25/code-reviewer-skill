@@ -1,0 +1,20 @@
+{
+  "case": "soc-a",
+  "kind": "gold",
+  "verdict": "uncoordinated",
+  "must_cite": [
+    "CODEOWNERS",
+    "handoffs.md"
+  ],
+  "must_state": [
+    "team-ledger",
+    "missing",
+    "CHG-101"
+  ],
+  "must_not_claim": [
+    "Coordination verdict: Coordinated",
+    "acked by team-ledger",
+    "approved"
+  ],
+  "rationale": "Gold missing-handoff: team-ledger owns payments/ and is active, but the handoff log shows no CHG-101 ack from them."
+}
