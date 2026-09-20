@@ -1,0 +1,9 @@
+{
+  "case": "dyn-b",
+  "kind": "adversarial",
+  "verdict": "unstable",
+  "must_cite": ["scale_sim.py"],
+  "must_state": ["delay", "balancing", "spike"],
+  "must_not_claim": ["stable", "autoscaling handles", "cost justifies"],
+  "rationale": "Adversarial delay: a plausible cost-saving rationale hides that the balancing loop arrives 100x too late (300 vs 3-step spike); unserved jumps from <30 to >50."
+}

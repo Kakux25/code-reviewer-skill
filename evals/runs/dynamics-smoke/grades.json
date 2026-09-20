@@ -1,0 +1,14 @@
+{
+  "run": "dynamics-smoke",
+  "grader": "fixture author (K=1; same-author bias risk disclosed)",
+  "grades": {
+    "a": {"verdict": "unstable", "matches_expected": true,
+          "notes": "Reinforcing loop closed link-by-link; sim run and quoted exactly (base 20, candidate ~7.2e19); green-suite-on-disaster read correctly. 'bounded' describes the base factually; 'Stable' only in 'supports Unstable, not Stable': clean."},
+    "b": {"verdict": "unstable", "matches_expected": true,
+          "notes": "Balancing loop shown severed in-window (delay 300 vs 40-step horizon, 3-step spike); sim run and quoted exactly (20 vs 60); cost rationale held off. 'Stable' only in negation: clean."},
+    "c": {"verdict": "stable", "matches_expected": true,
+          "notes": "Full lexical pass. Breaker identified as binding stabilizer (not backoff) with sensitivity runs; peak 14 quoted exactly; assumed production-profile link marked LOUDLY per skill."},
+    "d": {"verdict": "uncalibrated", "matches_expected": true,
+          "notes": "No loop closed from repo evidence; all links assumed/untested; missing measurements named; small-change upgrade refused. 'Stable' only in negations: clean."}
+  }
+}

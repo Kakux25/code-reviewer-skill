@@ -1,0 +1,175 @@
+{
+  "id": "AC-c-dynamics-smoke",
+  "top_claim": "C5-c",
+  "rationale": "single-reviewer conversion; other specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E5-c-review",
+      "observation": "review text (56 lines)",
+      "artifact": "evals/runs/dynamics-smoke/reviews/c.md",
+      "method": "read",
+      "collected_at": "2026-09-20T07:25:09+00:00",
+      "revision": "fixture:dyn-c:candidate@d6e6349a618b5b63",
+      "context_id": "dyn-case-c",
+      "applicability": "human grading input",
+      "limitations": [
+        "free text; grade is the instrument"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "2c44f1642fe71825b29df66752a0fbe8914e68584347ebf3ce7080b4c42be85a"
+    },
+    {
+      "id": "E5-c-grade",
+      "observation": "human grade verdict=stable (expected stable)",
+      "artifact": "expected.json",
+      "method": "human grading vs frozen expected.json",
+      "collected_at": "2026-09-20T07:25:09+00:00",
+      "revision": "fixture:dyn-c:candidate@d6e6349a618b5b63",
+      "context_id": "dyn-case-c",
+      "applicability": "expected-verdict conformance",
+      "limitations": [
+        "single human grader; inter-rater agreement unmeasured"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "bf1c2b1483f47d9410a4586efeccfa0e9935ecdb4a140800af70afce87cb2068"
+    },
+    {
+      "id": "E5-c-suite",
+      "observation": "suite: exit=0 (Ran 1 test in 0.000s)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/dynamics-cases/dyn-c/candidate/tests",
+      "method": "unittest discover (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:25:09+00:00",
+      "revision": "fixture:dyn-c:candidate@d6e6349a618b5b63",
+      "context_id": "dyn-case-c",
+      "applicability": "executed simulator behavior",
+      "limitations": [
+        "exit code only; full output truncated"
+      ],
+      "kind": "dynamic",
+      "integrity": "verified",
+      "digest": "359d5c53e3af3936511e01b33f01a3280be3ad579862d6b8c2b1d4f12d3a2f6c"
+    },
+    {
+      "id": "E5-c-git",
+      "observation": "repo HEAD observed (tainted)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
+      "method": "git rev-parse/status (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:25:09+00:00",
+      "revision": "fixture:dyn-c:candidate@d6e6349a618b5b63",
+      "context_id": "dyn-case-c",
+      "applicability": "revision context",
+      "limitations": [
+        "dirty state recorded, not resolved"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "438c41e88237ee21ae659b817eebeea1468282d993c5b9224782cca3359c7f04"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C5-c",
+      "statement": "Candidate dyn-c exhibits no unhandled destabilizing feedback (per human-graded review)",
+      "warrant": "human grading against frozen expected.json; claim mirrors graded verdict",
+      "independence_notes": "single human grader; no mechanical key",
+      "assumptions": [
+        "human grader applies expected.json must/must-not faithfully"
+      ],
+      "supporting_evidence": [
+        "E5-c-grade"
+      ],
+      "counterevidence": [],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:dyn-c:repo@739e3385477ca04f",
+        "candidate_revision": "fixture:dyn-c:candidate@d6e6349a618b5b63",
+        "context_id": "dyn-case-c",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "supported"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [
+    {
+      "id": "U5-c",
+      "missing_fact": "second-grader agreement on this review",
+      "consequence": "claim rests on one human grade (K=1)",
+      "owner": "system-dynamics-reviewer",
+      "next_action": "second independent grade",
+      "blocking": false,
+      "status": "open"
+    }
+  ],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-c-dyn",
+      "rubric_version": "45ef106333f75249a5274f1def1c170c3e43ab535c7b2383d21db251bd016155",
+      "exposure_notes": "agent blind to expected.json by instruction (unverified); model-first evidenced by causal-model sections preceding judgment in frozen reviews; grader is fixture author, K=1",
+      "status_rationale": "mechanical conversion complete",
+      "criteria": [
+        "expected.json"
+      ],
+      "shared_context": [
+        "dyn-case-c"
+      ],
+      "evidence": [
+        "E5-c-review",
+        "E5-c-grade",
+        "E5-c-suite",
+        "E5-c-git"
+      ],
+      "claims": [
+        "C5-c"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "system-dynamics-reviewer",
+      "scope": {
+        "base_revision": "fixture:dyn-c:repo@739e3385477ca04f",
+        "candidate_revision": "fixture:dyn-c:candidate@d6e6349a618b5b63",
+        "context_id": "dyn-case-c",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": true,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "890a77d4ef9266fcd8c309105b484d3f7c9e67ce7e5be09f0dd53c4534f3f447",
+        "session_id": "dynamics-smoke"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:dyn-c:repo@739e3385477ca04f",
+    "candidate_revision": "fixture:dyn-c:candidate@d6e6349a618b5b63",
+    "context_id": "dyn-case-c",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

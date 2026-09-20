@@ -1,0 +1,152 @@
+"""Gate 6: system-dynamics-reviewer fixtures + envelope adapter.
+
+Fixtures dyn-a/b/c ship deterministic simulators whose suites PASS
+while demonstrating the dynamics (including bad dynamics: the suite
+asserts the behavior, good or bad). dyn-d is uncalibrated by design.
+Claim C5 is about the candidate (P1 lesson); declared suites must be
+green (P2 lesson).
+"""
+import json
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / "scripts"))
+sys.path.insert(0, str(REPO / "evals"))
+
+CASES = REPO / "tests" / "dynamics-cases"
+IDS = ["a", "b", "c", "d"]
+
+EXPECTED_KEYS = {"case", "kind", "verdict", "must_cite", "must_state",
+                 "must_not_claim", "rationale"}
+KINDS = {"negative", "gold", "abstention", "adversarial"}
+VERDICTS = {"stable", "unstable", "uncalibrated"}
+
+
+class FixtureIntegrity(unittest.TestCase):
+    def test_every_case_has_request_repo_candidate_expected(self):
+        for i in IDS:
+            d = CASES / ("dyn-%s" % i)
+            self.assertTrue((d / "request.md").is_file(), i)
+            self.assertTrue((d / "repo").is_dir(), i)
+            self.assertTrue((d / "candidate").is_dir(), i)
+            self.assertTrue((d / "expected.json").is_file(), i)
+
+    def test_expected_schema(self):
+        for i in IDS:
+            exp = json.loads((CASES / ("dyn-%s" % i) /
+                              "expected.json").read_text(encoding="utf-8"))
+            self.assertEqual(set(exp), EXPECTED_KEYS, i)
+            self.assertEqual(exp["case"], "dyn-%s" % i)
+            self.assertIn(exp["kind"], KINDS, i)
+            self.assertIn(exp["verdict"], VERDICTS, i)
+            for k in ("must_cite", "must_state", "must_not_claim"):
+                self.assertIsInstance(exp[k], list, (i, k))
+                self.assertTrue(exp[k], (i, k))
+
+    def test_kinds_cover_gate_criteria(self):
+        kinds = {json.loads((CASES / ("dyn-%s" % i) / "expected.json")
+                            .read_text(encoding="utf-8"))["kind"] for i in IDS}
+        self.assertEqual(kinds, KINDS)
+
+    def test_sim_fixtures_have_suites(self):
+        for i in ["a", "b", "c"]:
+            self.assertTrue((CASES / ("dyn-%s" % i) / "candidate" /
+                             "tests").is_dir(), i)
+
+
+class AdapterContract(unittest.TestCase):
+    def _build(self, case, verdict):
+        import dynamics_envelope
+        from validate_assurance import validate
+        tmp = tempfile.NamedTemporaryFile(
+            mode="w", suffix=".txt", prefix="review-dyn-%s-" % case,
+            delete=False, encoding="utf-8")
+        tmp.write("stub review for %s grade %s" % (case, verdict))
+        tmp.close()
+        review = Path(tmp.name)
+        self.addCleanup(review.unlink)
+        grade = {"verdict": verdict, "grader": "unit-test"}
+        acase = dynamics_envelope.build_case(case, str(review), grade,
+                                             run_id="unit")
+        validate(acase)  # raises unless schema-valid
+        return acase
+
+    def test_stable_maps_to_supported(self):
+        acase = self._build("c", "stable")
+        claim = acase["claims"][0]
+        self.assertEqual(claim["id"], "C5-c")
+        self.assertEqual(claim["status"], "supported")
+        self.assertEqual(len(claim["supporting_evidence"]), 1)
+        self.assertEqual(claim["counterevidence"], [])
+        self.assertIn("Candidate dyn-c", claim["statement"])
+
+    def test_unstable_maps_to_defeated(self):
+        acase = self._build("a", "unstable")
+        claim = acase["claims"][0]
+        self.assertEqual(claim["status"], "defeated")
+        self.assertEqual(claim["supporting_evidence"], [])
+        self.assertEqual(len(claim["counterevidence"]), 1)
+
+    def test_uncalibrated_maps_to_unresolved(self):
+        acase = self._build("d", "uncalibrated")
+        claim = acase["claims"][0]
+        self.assertEqual(claim["status"], "unresolved")
+
+    def test_single_reviewer_never_accepts(self):
+        acase = self._build("c", "stable")
+        self.assertEqual(acase["decision"], "INSUFFICIENT_EVIDENCE")
+        self.assertEqual(acase["authorization"], "not_granted")
+        self.assertEqual(len(acase["required_reviewers"]), 7)
+
+    def test_evidence_covers_review_grade_repo(self):
+        acase = self._build("a", "unstable")
+        arts = {e["artifact"] for e in acase["evidence"]}
+        self.assertTrue(any("review-dyn-a" in a for a in arts))
+        self.assertTrue(any(a == "expected.json" for a in arts))
+        self.assertTrue(any("dyn-a" in a for a in arts))
+
+
+class FrozenRun(unittest.TestCase):
+    RUN = REPO / "evals" / "runs" / "dynamics-smoke"
+
+    def test_grades_match_expected(self):
+        grades = json.loads((self.RUN / "grades.json").read_text(
+            encoding="utf-8"))["grades"]
+        for i in IDS:
+            exp = json.loads((CASES / ("dyn-%s" % i) / "expected.json")
+                             .read_text(encoding="utf-8"))
+            self.assertEqual(grades[i]["verdict"], exp["verdict"], i)
+            self.assertTrue(grades[i]["matches_expected"], i)
+
+    def test_frozen_envelopes_validate_and_mirror(self):
+        from validate_assurance import validate
+        grades = json.loads((self.RUN / "grades.json").read_text(
+            encoding="utf-8"))["grades"]
+        want = {"stable": "supported", "unstable": "defeated",
+                "uncalibrated": "unresolved"}
+        for i in IDS:
+            acase = json.loads((self.RUN / "envelopes" / ("%s.json" % i))
+                               .read_text(encoding="utf-8"))
+            validate(acase)
+            self.assertEqual(acase["claims"][0]["status"],
+                             want[grades[i]["verdict"]], i)
+            self.assertEqual(acase["decision"], "INSUFFICIENT_EVIDENCE", i)
+
+    def test_declared_suites_executed_green(self):
+        for i in IDS:
+            acase = json.loads((self.RUN / "envelopes" / ("%s.json" % i))
+                               .read_text(encoding="utf-8"))
+            suite = [e for e in acase["evidence"]
+                     if e["id"].endswith("suite")][0]
+            if i == "d":
+                self.assertEqual(suite["kind"], "static", i)
+            else:
+                self.assertEqual(suite["kind"], "dynamic", i)
+                self.assertIn("exit=0", suite["observation"], i)
+
+
+if __name__ == "__main__":
+    unittest.main()

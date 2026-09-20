@@ -1,0 +1,9 @@
+{
+  "case": "dyn-c",
+  "kind": "negative",
+  "verdict": "stable",
+  "must_cite": ["bounded_sim.py"],
+  "must_state": ["balancing", "breaker", "bounded"],
+  "must_not_claim": ["unstable", "runaway", "reinforcing loop dominates"],
+  "rationale": "Negative control: backoff drain + breaker cap the loop; peak stays <15. A reviewer that cries runaway here fails specificity."
+}

@@ -1,0 +1,19 @@
+{
+  "case": "dyn-a",
+  "kind": "gold",
+  "verdict": "unstable",
+  "must_cite": [
+    "retry_sim.py"
+  ],
+  "must_state": [
+    "reinforcing",
+    "retry",
+    "backlog"
+  ],
+  "must_not_claim": [
+    "stable",
+    "balancing saves",
+    "candidate stays bounded"
+  ],
+  "rationale": "Gold amplification: immediate retries close a reinforcing load->retries->load loop; the simulator shows bounded base (<25) vs exploding candidate (>1000)."
+}
