@@ -1,0 +1,118 @@
+{
+  "cases": {
+    "u": {
+      "case": "u",
+      "checks": {
+        "decision": {
+          "expected": "No actionable findings",
+          "seen": [
+            "No actionable findings"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "High",
+            "Low"
+          ],
+          "ok": true
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "U1": {
+            "ok": true,
+            "detail": {
+              "token_hit": true,
+              "hit_tokens": [
+                "guard",
+                "check",
+                "absolute",
+                "escape",
+                "ValueError",
+                "rejected",
+                "containment"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "U-C1": {
+            "ok": true,
+            "detail": {
+              "violating_lines": []
+            }
+          }
+        }
+      },
+      "pass": true
+    },
+    "v": {
+      "case": "v",
+      "checks": {
+        "decision": {
+          "expected": "No actionable findings",
+          "seen": [
+            "No actionable findings"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "High"
+          ],
+          "ok": true
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "V1": {
+            "ok": true,
+            "detail": {
+              "token_hit": true,
+              "hit_tokens": [
+                "pre-existing",
+                "both revisions"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "V-C1": {
+            "ok": true,
+            "detail": {
+              "violating_lines": []
+            }
+          }
+        }
+      },
+      "pass": true
+    }
+  },
+  "summary": {
+    "passed": 2,
+    "total": 2,
+    "gate": "all_cases_pass",
+    "gate_met": true
+  }
+}

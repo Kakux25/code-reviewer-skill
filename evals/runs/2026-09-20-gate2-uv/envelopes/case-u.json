@@ -1,0 +1,176 @@
+{
+  "id": "AC-u-gate2-uv",
+  "top_claim": "C1-u",
+  "rationale": "single-reviewer conversion; six specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E-u-review",
+      "observation": "review text (23 lines)",
+      "artifact": "evals/runs/2026-09-20-gate2-uv/reviews/case-u.md",
+      "method": "read",
+      "collected_at": "2026-09-20T06:48:44+00:00",
+      "revision": "fixture:u:candidate@012afff68a4e3555",
+      "context_id": "battery-case-u",
+      "applicability": "mechanical grading input",
+      "limitations": [
+        "lexical proxy (thresholds.json notes)"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "c0250cf75a9fba3ec7e65024a755ef11885f0417a7f9a5fd60f22ddb76a10094"
+    },
+    {
+      "id": "E-u-grade",
+      "observation": "grade pass=True (decision ok=True)",
+      "artifact": "grader.py",
+      "method": "mechanical grading vs frozen answer key",
+      "collected_at": "2026-09-20T06:48:44+00:00",
+      "revision": "fixture:u:candidate@012afff68a4e3555",
+      "context_id": "battery-case-u",
+      "applicability": "key conformance verdict",
+      "limitations": [
+        "lexical proxy, not semantic verification"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "dd92a14d3792f8a4e277c60b8df76cffe4f55a7b111022e36aa1eb39bb2844ed"
+    },
+    {
+      "id": "E-u-suite",
+      "observation": "suite: exit=0 (Ran 3 tests in 0.000s)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/review-cases/case-u/tests",
+      "method": "unittest discover (Gate 1 collector)",
+      "collected_at": "2026-09-20T06:48:44+00:00",
+      "revision": "fixture:u:candidate@012afff68a4e3555",
+      "context_id": "battery-case-u",
+      "applicability": "executed acceptance behavior",
+      "limitations": [
+        "exit code only; full output truncated"
+      ],
+      "kind": "dynamic",
+      "integrity": "verified",
+      "digest": "1fcec132187ecccc5c1eb407d471b43b4f2a1cbfdd6961c1cdd3973db791a825"
+    },
+    {
+      "id": "E-u-git",
+      "observation": "repo HEAD observed (tainted)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
+      "method": "git rev-parse/status (Gate 1 collector)",
+      "collected_at": "2026-09-20T06:48:44+00:00",
+      "revision": "fixture:u:candidate@012afff68a4e3555",
+      "context_id": "battery-case-u",
+      "applicability": "revision context",
+      "limitations": [
+        "dirty state recorded, not resolved"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "497b7cdb2d29b525043693e0bf6a22e1c292f9680b59366175cc2b604fa1fbda"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1-u",
+      "statement": "Code review of battery case u meets its frozen answer key",
+      "warrant": "mechanical grading (grader.py) against frozen answer-key.json; claim mirrors grade pass",
+      "independence_notes": "single instrument; lexical proxy, not semantic verification",
+      "assumptions": [
+        "mechanical grading is a lexical proxy (thresholds.json notes)"
+      ],
+      "supporting_evidence": [
+        "E-u-grade"
+      ],
+      "counterevidence": [],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:u:base@4274ea87da330dc6",
+        "candidate_revision": "fixture:u:candidate@012afff68a4e3555",
+        "context_id": "battery-case-u",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "supported"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [
+    {
+      "id": "U1-u",
+      "missing_fact": "semantic finding content beyond the lexical grade",
+      "consequence": "envelope carries grade conformance only",
+      "owner": "code-reviewer",
+      "next_action": "semantic finding extraction (Phase 2 judge)",
+      "blocking": false,
+      "status": "open"
+    }
+  ],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-u-code",
+      "rubric_version": "b2e581f0aec3d9476f28ad259fae3eadfeb140c7f5b23ca837ff6ba8ee850105",
+      "exposure_notes": "Answer keys frozen before scored runs (thresholds.json frozen rule); live reviewers blind to keys (RUN.md design).",
+      "status_rationale": "mechanical conversion complete",
+      "criteria": [
+        "answer-key.json",
+        "thresholds.json"
+      ],
+      "shared_context": [
+        "battery-case-u"
+      ],
+      "evidence": [
+        "E-u-review",
+        "E-u-grade",
+        "E-u-suite",
+        "E-u-git"
+      ],
+      "claims": [
+        "C1-u"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "code-reviewer",
+      "scope": {
+        "base_revision": "fixture:u:base@4274ea87da330dc6",
+        "candidate_revision": "fixture:u:candidate@012afff68a4e3555",
+        "context_id": "battery-case-u",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": true,
+      "producer": {
+        "model_family": "muse",
+        "model_version": "1.3.0",
+        "prompt_digest": "cecda90d917bfdcb60cef9e8a17fb036321bfc7bc7b760a45f92465854f1c095",
+        "session_id": "gate2-uv"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:u:base@4274ea87da330dc6",
+    "candidate_revision": "fixture:u:candidate@012afff68a4e3555",
+    "context_id": "battery-case-u",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

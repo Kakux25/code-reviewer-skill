@@ -26,3 +26,4 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=tests/review-cases/case-a/candidate python3
 | O | Proposal fragment, base missing |
 | P–Q | Proposal + passing suite (security) |
 | R–T | Proposal + acceptance suite (shadow: real-bug patterns) |
+| U–V | Proposal + acceptance suite (gate-2 negatives: guard, pre-existing) |

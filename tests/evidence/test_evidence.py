@@ -235,6 +235,24 @@ class ToolAdapterTest(unittest.TestCase):
         self.assertIn("good.py: ok", rec["content"])
         self.assertIn("bad.py: FAIL", rec["content"])
 
+    def test_split_layout_needs_pythonpath(self):
+        src = self.root / "src"
+        (src / "tests").mkdir(parents=True)
+        (self.root / "lib").mkdir()
+        (self.root / "lib" / "thing.py").write_text("V = 7\n")
+        (src / "tests" / "__init__.py").write_text("")
+        (src / "tests" / "test_thing.py").write_text(
+            "import unittest\nfrom thing import V\n"
+            "class T(unittest.TestCase):\n"
+            "    def test_v(self):\n"
+            "        self.assertEqual(V, 7)\n")
+        bare = evidence.collect_unittest(src / "tests")
+        self.assertNotIn("exit=0", bare["content"])
+        fixed = evidence.collect_unittest(
+            src / "tests",
+            extra_env={"PYTHONPATH": str(self.root / "lib")})
+        self.assertIn("exit=0", fixed["content"])
+
     def test_missing_suite_dir_is_failed_collector(self):
         rec = evidence.collect_unittest(self.root / "no-such-dir")
         self.assertEqual(rec["status"], "failed")

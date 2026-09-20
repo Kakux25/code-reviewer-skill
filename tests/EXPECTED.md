@@ -25,3 +25,5 @@ evaluation case measures.
 | R | (Shadow, Heartbleed pattern) Flag the missing bounds check on a trusted length. |
 | S | (Shadow, falsy-ID pattern) Flag the truthiness check that denies id 0. |
 | T | (Shadow, cache-aliasing pattern) Flag the served-by-reference cache corruption. |
+| U | Accept properly added containment checks (guard-present negative). |
+| V | Attribute the untouched helper's latent bug to base, not as a regression (pre-existing negative). |

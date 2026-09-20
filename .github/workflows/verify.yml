@@ -63,3 +63,8 @@ jobs:
         run: python3 -m unittest discover -s tests/evidence
         env:
           PYTHONDONTWRITEBYTECODE: "1"
+
+      - name: Run envelope tests
+        run: python3 -m unittest discover -s tests/envelope
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"

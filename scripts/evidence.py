@@ -126,11 +126,13 @@ class Store:
         return receipt
 
 
-def _run(argv, path_env=None, timeout=300):
+def _run(argv, path_env=None, timeout=300, env_extra=None):
     import os
     env = dict(os.environ)
     if path_env is not None:
         env["PATH"] = path_env
+    if env_extra:
+        env.update(env_extra)
     try:
         return subprocess.run(argv, capture_output=True, text=True,
                               timeout=timeout, env=env)
@@ -181,9 +183,11 @@ def collect_git(repo, path_env=None):
         reason="dirty working tree" if dirty else "")
 
 
-def collect_unittest(package_dir):
+def collect_unittest(package_dir, extra_env=None):
     """Run a unittest suite; the exit code is the observation. A missing
-    target is mislocated collection (failed), not an observation."""
+    target is mislocated collection (failed), not an observation.
+    Split source/test layouts need PYTHONPATH via extra_env (no -t flag:
+    start dir outside top dir is not importable)."""
     if not Path(package_dir).is_dir():
         return make_receipt(
             id="test:unittest", kind="test", locator=str(package_dir),
@@ -192,7 +196,7 @@ def collect_unittest(package_dir):
             reason="target directory missing: %s" % package_dir)
     package_dir = str(package_dir)
     proc = _run([sys.executable, "-m", "unittest", "discover",
-                 "-s", package_dir])
+                 "-s", package_dir], env_extra=extra_env)
     if proc is None:
         return make_receipt(
             id="test:unittest", kind="test", locator=package_dir,
