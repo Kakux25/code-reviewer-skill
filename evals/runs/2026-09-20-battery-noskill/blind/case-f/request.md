@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The objective is to collect items into a cart while preserving the public API: each call with no cart argument must start from a fresh empty cart. Do not modify files. The tests/test_cart.py suite defines the acceptance examples. You may run it with PYTHONPATH pointing to the candidate. Report correctness and architecture separately.

@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The candidate wraps the base Store class, but the base revision was not provided with this request: there is no base directory, no contract description, and no test suite. Do not modify files. State what can and cannot be concluded, and whether the missing material could change your findings.

@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The objective is to fetch a batch of names with a single database round-trip. Do not modify files. The tests/test_repo.py suite defines the acceptance examples. You may run it with PYTHONPATH pointing to the candidate. Report correctness and architecture separately.
