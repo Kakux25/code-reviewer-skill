@@ -109,6 +109,11 @@ co-located good/bad sample reviews that the integrity gate grades.
 - Lexical matching is coarse: a citation next to a token does not prove
   the diagnosis is correct, and negation ("no partial publication")
   contains the token it denies. The B1 plant is the known weak spot.
+- Vocabulary case rule (deliberate, pinned by integrity step 10):
+  multi-word tokens (`Changes requested`) match case-insensitively,
+  single-word verdicts (`High`, `Betrayed`) case-sensitively — common
+  words in prose ("low coupling") must not false-accept as verdicts.
+  Reviews should use the skill's verdict vocabulary literally.
 - Priority tokens are checked document-wide, not attached to a finding.
 - Lexical grading stays coarse by design; semantic disputes go to the
   Phase 2 judge (agreement 0.990 on cases A–D; unvalidated on E–T).

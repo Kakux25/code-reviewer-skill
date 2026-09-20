@@ -23,6 +23,9 @@ Checks:
      synthetic fixtures (3/5 vs 5/5 at 0.75).
   9. Priority-set check: a plant with priorities [P0, P1] passes on a
      P0 review and fails on a P3 review.
+  10. Vocabulary case rule: multi-word tokens match case-insensitively
+      (distinctive phrases), single-word tokens case-sensitively
+      (common words must not false-accept as verdicts).
 
 Usage:  python3 evals/check_integrity.py
 Exit code 0 when all checks pass, else 1.
@@ -417,6 +420,41 @@ def check_priority_sets():
         fail("priority set: unlisted P3 passes")
 
 
+def check_vocab_case():
+    """Step 10: closed-vocabulary case rule is pinned, not accidental."""
+    sys.path.insert(0, str(REPO / "evals"))
+    import grader
+    ok_dec, seen_dec = grader.check_first_token(
+        ["decision: changes requested"], "Changes requested",
+        grader.DECISION_VOCAB)
+    if ok_dec and seen_dec[:1] == ["Changes requested"]:
+        ok("vocab case: lowercase multi-word decision passes")
+    else:
+        fail("vocab case: lowercase multi-word decision %s %s"
+             % (ok_dec, seen_dec))
+    ok_arch, seen_arch = grader.check_vocab(
+        ["architectural high"], "architect", ["High"], grader.ARCH_VOCAB)
+    if not ok_arch and not seen_arch:
+        ok("vocab case: lowercase single-word arch verdict fails")
+    else:
+        fail("vocab case: lowercase single-word arch verdict %s %s"
+             % (ok_arch, seen_arch))
+    ok_soul, seen_soul = grader.check_vocab(
+        ["soul betrayed"], "soul", ["Betrayed"], grader.SOUL_VOCAB)
+    if not ok_soul and not seen_soul:
+        ok("vocab case: lowercase single-word soul verdict fails")
+    else:
+        fail("vocab case: lowercase single-word soul verdict %s %s"
+             % (ok_soul, seen_soul))
+    _, seen_prose = grader.check_vocab(
+        ["architectural: low coupling kept, no layer violations"],
+        "architect", ["High"], grader.ARCH_VOCAB)
+    if not seen_prose:
+        ok("vocab case: 'low coupling' prose matches no verdict")
+    else:
+        fail("vocab case: prose false-accepts %s" % seen_prose)
+
+
 def main():
     check_schema()
     check_anchors()
@@ -427,6 +465,7 @@ def main():
     check_hand_scores()
     check_agreement_selftest()
     check_priority_sets()
+    check_vocab_case()
     print("---")
     if FAILURES:
         print("%d failure(s)" % len(FAILURES))

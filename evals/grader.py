@@ -40,7 +40,14 @@ DECISION_VOCAB = ["Changes requested", "No actionable findings", "Incomplete"]
 
 
 def token_re(token):
-    """Case-sensitive literal with word boundaries, optional backticks."""
+    """Closed-vocabulary literal with word boundaries, optional backticks.
+
+    Multi-word tokens match case-insensitively (distinctive phrases,
+    negligible false-accept risk); single-word tokens match
+    case-sensitively because they are common English words ("low",
+    "high") that occur in ordinary prose and must not false-accept
+    as verdicts. Rule pinned by check_integrity step 10.
+    """
     return re.compile(r"`?" + re.escape(token) + r"`?\b", re.IGNORECASE
                       if " " in token else 0)
 
