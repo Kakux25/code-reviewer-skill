@@ -58,3 +58,8 @@ jobs:
         run: python3 -m unittest discover -s tests/contracts
         env:
           PYTHONDONTWRITEBYTECODE: "1"
+
+      - name: Run evidence tests
+        run: python3 -m unittest discover -s tests/evidence
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
