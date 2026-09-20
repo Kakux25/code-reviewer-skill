@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The objective is to answer heartbeat requests while preserving the public API and the bounds contract. Do not modify files. The tests/test_tls.py suite defines the acceptance examples. You may run it with PYTHONPATH pointing to the candidate. Report correctness and architecture separately.

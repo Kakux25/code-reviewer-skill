@@ -21,6 +21,8 @@ Checks:
      with valid scales.
   8. Agreement self-test: agreement.py meets/misses its gate on
      synthetic fixtures (3/5 vs 5/5 at 0.75).
+  9. Priority-set check: a plant with priorities [P0, P1] passes on a
+     P0 review and fails on a P3 review.
 
 Usage:  python3 evals/check_integrity.py
 Exit code 0 when all checks pass, else 1.
@@ -391,6 +393,30 @@ def check_agreement_selftest():
                      % (name, proc.returncode, proc.stdout))
 
 
+def check_priority_sets():
+    """Step 9: plants with priority sets accept any listed severity."""
+    sys.path.insert(0, str(REPO / "evals"))
+    import grader
+    key = {"decision": "Changes requested",
+           "architecture": {"allowed": ["High"]},
+           "soul": {"allowed": ["Unverifiable"]},
+           "plants": [{"id": "Z1", "file": "z.py", "any_of": ["zeek"],
+                       "priority": ["P0", "P1"]}],
+           "controls": []}
+    good = ("**Decision**: Changes requested\n"
+            "**Findings**: P0, z.py:1 — zeek defect.\n"
+            "**Verdicts**: architectural High; soul Unverifiable.\n")
+    nit = good.replace("P0, z.py", "P3, z.py")
+    if grader.grade_case("z", good, key)["pass"]:
+        ok("priority set: listed P0 passes")
+    else:
+        fail("priority set: listed P0 does not pass")
+    if not grader.grade_case("z", nit, key)["pass"]:
+        ok("priority set: unlisted P3 fails")
+    else:
+        fail("priority set: unlisted P3 passes")
+
+
 def main():
     check_schema()
     check_anchors()
@@ -400,6 +426,7 @@ def main():
     check_grader_selftest()
     check_hand_scores()
     check_agreement_selftest()
+    check_priority_sets()
     print("---")
     if FAILURES:
         print("%d failure(s)" % len(FAILURES))

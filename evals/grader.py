@@ -128,9 +128,14 @@ def check_plant(lines, plant):
         cited = True
     token_hit = any(t.lower() in low for t in plant["any_of"])
     detail["token_hit"] = token_hit
-    if plant.get("priority"):
-        prio = re.search(r"\b" + re.escape(plant["priority"]) + r"\b", text)
+    want_prio = plant.get("priority")
+    if want_prio:
+        if isinstance(want_prio, str):
+            want_prio = [want_prio]
+        prio = any(re.search(r"\b" + re.escape(p) + r"\b", text)
+                   for p in want_prio)
         detail["priority_hit"] = bool(prio)
+        detail["priority_want"] = want_prio
         prio_ok = bool(prio)
     else:
         prio_ok = True
@@ -200,12 +205,21 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="Mechanical review grader")
     ap.add_argument("--reviews", required=True, help="dir with case-*.md")
     ap.add_argument("--keys", default=str(REPO / "tests" / "review-cases"))
+    ap.add_argument("--cases", default=None,
+                    help="comma-separated subset to grade (default: all)")
     ap.add_argument("--out", default=None, help="write grading.json here")
     args = ap.parse_args(argv)
 
     reviews = Path(args.reviews)
     keys_dir = Path(args.keys)
     cases = discover_cases(keys_dir)
+    if args.cases:
+        want = [c.strip() for c in args.cases.split(",")]
+        unknown = [c for c in want if c not in cases]
+        if unknown:
+            print("unknown cases: %s" % ", ".join(unknown), file=sys.stderr)
+            return 2
+        cases = want
     report = {"cases": {}, "summary": {}}
     missing = []
     for case in cases:

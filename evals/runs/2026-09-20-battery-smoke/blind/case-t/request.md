@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The objective is to serve cached rows while preserving the public API and the isolation contract. Do not modify files. The tests/test_cache.py suite defines the acceptance examples. You may run it with PYTHONPATH pointing to the candidate. Report correctness and architecture separately.

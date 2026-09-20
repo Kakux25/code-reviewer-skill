@@ -1,0 +1,1 @@
+Review the proposal in candidate against base. The objective is to add insight into the calculation while preserving the public API. Do not modify files. The tests/test_quiet.py suite defines the acceptance examples. You may run it with PYTHONPATH pointing to the candidate. Report correctness, architecture, and essence separately.

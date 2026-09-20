@@ -1,0 +1,941 @@
+{
+  "cases": {
+    "e": {
+      "case": "e",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "High"
+          ],
+          "ok": true
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "E1": {
+            "ok": true,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": true,
+              "hit_tokens": [
+                "off-by-one",
+                "drops",
+                "slice end",
+                "- 1",
+                "short by one"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "E-C1": {
+            "ok": true,
+            "detail": {
+              "violating_lines": []
+            }
+          },
+          "E-C2": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": true
+    },
+    "f": {
+      "case": "f",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "F1": {
+            "ok": true,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": true,
+              "hit_tokens": [
+                "mutable default"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "F-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "g": {
+      "case": "g",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "G1": {
+            "ok": true,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": true,
+              "hit_tokens": [
+                "swallow",
+                "except OSError",
+                "return {}",
+                "FileNotFoundError",
+                "error contract"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "G-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "h": {
+      "case": "h",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "H1": {
+            "ok": true,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": true,
+              "hit_tokens": [
+                "absolute",
+                "os.path.join",
+                "outside",
+                "containment",
+                "ValueError",
+                "/etc/passwd"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "H-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "i": {
+      "case": "i",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "Low"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": true
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "I1": {
+            "ok": true,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": true,
+              "hit_tokens": [
+                "signature",
+                "parameter",
+                "TypeError",
+                "positional",
+                "first, last"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "I-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": true
+    },
+    "j": {
+      "case": "j",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "J1": {
+            "ok": false,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": false,
+              "hit_tokens": [
+                "N+1",
+                "one call",
+                "round-trip",
+                "fetch_one",
+                "fetch_many",
+                "call count",
+                "3 calls"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "J-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "k": {
+      "case": "k",
+      "checks": {
+        "decision": {
+          "expected": "No actionable findings",
+          "seen": [
+            "No actionable findings"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "High"
+          ],
+          "ok": true
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "K1": {
+            "ok": true,
+            "detail": {
+              "token_hit": true,
+              "hit_tokens": [
+                "sum(",
+                "preserves",
+                "empty"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "K-C1": {
+            "ok": true,
+            "detail": {
+              "violating_lines": []
+            }
+          }
+        }
+      },
+      "pass": true
+    },
+    "l": {
+      "case": "l",
+      "checks": {
+        "decision": {
+          "expected": "No actionable findings",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": false
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "High with concerns",
+            "High",
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "L1": {
+            "ok": true,
+            "detail": {
+              "token_hit": true,
+              "hit_tokens": [
+                "order",
+                "first-seen",
+                "fromkeys",
+                "preserved"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "L-C1": {
+            "ok": false,
+            "detail": {
+              "violating_lines": [
+                "- P2 `candidate/dedup.py:2` \u2014 `dict.fromkeys(xs)` requires hashable items, so e.g. `dedup([[1],[2],[1]])` raises `TypeError` where base (`base/dedup.py:1-6`, equality scan) returns `[[1],[2]]`; proof: execution (base returned `[[1],[2]]`, candidate raised `TypeError: unhashable type: 'list'`) (high confidence). Smallest fix: keep the fast path with an equality-scan fallback on `TypeError`, or explicitly document a hashable-only contract if the narrowing is intended."
+              ]
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "m": {
+      "case": "m",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Betrayed"
+          ],
+          "seen": [
+            "Betrayed"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "M1": {
+            "ok": false,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": false,
+              "hit_tokens": [
+                "print(",
+                "stdout",
+                "logging",
+                "DEBUG",
+                "writes to"
+              ]
+            }
+          },
+          "M2": {
+            "ok": true,
+            "detail": {
+              "token_hit": true,
+              "hit_tokens": [
+                "Silent library",
+                "silent library",
+                "never writes",
+                "no print",
+                "Pure computation",
+                "pure computation",
+                "no I/O"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "M-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "n": {
+      "case": "n",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Betrayed"
+          ],
+          "seen": [
+            "Betrayed"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "N1": {
+            "ok": true,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": true,
+              "hit_tokens": [
+                "mutat",
+                "sort(",
+                "in place",
+                "side effect",
+                "caller's",
+                "callers",
+                "reorders",
+                "hidden"
+              ]
+            }
+          },
+          "N2": {
+            "ok": true,
+            "detail": {
+              "token_hit": true,
+              "hit_tokens": [
+                "Honest API",
+                "honest",
+                "never mutates",
+                "no hidden side effects",
+                "hidden side effects"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "N-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "o": {
+      "case": "o",
+      "checks": {
+        "decision": {
+          "expected": "Incomplete",
+          "seen": [
+            "Incomplete"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "Insufficient evidence"
+          ],
+          "seen": [
+            "Insufficient evidence"
+          ],
+          "ok": true
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "O1": {
+            "ok": true,
+            "detail": {
+              "token_hit": true,
+              "hit_tokens": [
+                "no base",
+                "base revision",
+                "unavailable",
+                "without the base",
+                "missing material"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "O-C1": {
+            "ok": false,
+            "detail": {
+              "violating_lines": [
+                "- Limits: no base directory, no contract description, no tests; scope is `request.md` + `candidate/app.py` only. Missing material could change findings \u2014 e.g., a divergent `Store.get` signature, a stateful/expensive `Store()` constructor, or a documented error contract would each turn an open question above into a P1/P2 finding."
+              ]
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "p": {
+      "case": "p",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "P1": {
+            "ok": false,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": false,
+              "hit_tokens": [
+                "hardcod",
+                "secret",
+                "API_KEY",
+                "in source",
+                "source code",
+                "environment",
+                "from the environment"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "P-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "q": {
+      "case": "q",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "Q1": {
+            "ok": true,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": true,
+              "hit_tokens": [
+                "eval(",
+                "arbitrary code",
+                "executes"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "Q-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "r": {
+      "case": "r",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "R1": {
+            "ok": false,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": false,
+              "hit_tokens": [
+                "bounds",
+                "claimed",
+                "leak",
+                "beyond"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "R-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "s": {
+      "case": "s",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "S1": {
+            "ok": true,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": true,
+              "hit_tokens": [
+                "falsy",
+                "bool(",
+                "truthiness",
+                "id 0",
+                "is not None",
+                "zero",
+                "operator"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "S-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    },
+    "t": {
+      "case": "t",
+      "checks": {
+        "decision": {
+          "expected": "Changes requested",
+          "seen": [
+            "Changes requested"
+          ],
+          "ok": true
+        },
+        "architecture": {
+          "allowed": [
+            "High"
+          ],
+          "seen": [
+            "Low"
+          ],
+          "ok": false
+        },
+        "soul": {
+          "allowed": [
+            "Unverifiable"
+          ],
+          "seen": [
+            "Unverifiable"
+          ],
+          "ok": true
+        },
+        "plants": {
+          "T1": {
+            "ok": true,
+            "detail": {
+              "file_cited": true,
+              "token_hit": true,
+              "priority_hit": true,
+              "hit_tokens": [
+                "list(",
+                "mutation",
+                "mutating",
+                "shared",
+                "isolation",
+                "corrupt"
+              ]
+            }
+          }
+        },
+        "controls": {
+          "T-C1": {
+            "ok": true,
+            "detail": {
+              "violating_phrases": []
+            }
+          }
+        }
+      },
+      "pass": false
+    }
+  },
+  "summary": {
+    "passed": 3,
+    "total": 16,
+    "gate": "all_cases_pass",
+    "gate_met": false
+  }
+}
