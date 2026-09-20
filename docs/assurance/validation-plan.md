@@ -30,6 +30,10 @@ RQ1 maps to precision/FPR; RQ2 to architecture-only defects; RQ3 to causal-link 
 
 ## What has and has not been run
 
-Only structural and consistency checks on synthetic contract records are included in this release. Existing reviewer fixtures remain available. A/B/C/D experiments, expert adjudication, production evaluations, causal calibration and statistical improvement claims are pending. Report those as unmeasured, never as zero errors or a successful benchmark.
+Status update 2026-09-20 (this section; the design above is unchanged):
+
+Run, as frozen artifacts under `evals/runs/` with integrity tests under `tests/`: 20-case battery with live calibration (16/16 r2) and with/without-skill A/B (+14, K=1, E–T, mechanical grading); five specialist smoke runs (4/4 each); controlled A/B/C/D study (22 cells, K=1, semantic grading — verdicts A 7/8, B 8/8, C 6/6; adjudicated substance A/B 0.77, C 1.00); calibrated judge validation on cases A–D (95/96 = 0.990 vs pre-declared gate 0.75); K-2 independent second grading (38/42 agree, 4 adjudicated) with K-3 blind tie-break (4/4 confirm adjudicated).
+
+Still pending: cross-model/family replication (all gradings same-family to date); K≥2 live reviews; judge validation on cases E–T; a held-out battery; any statistical power claim; production evaluations; causal calibration. Report those as unmeasured, never as zero errors or a successful benchmark.
 
 Contract verification: seven synthetic tests cover a valid abstention, unsupported acceptance, missing claims, scope mismatch, cycles, duplicate IDs and forbidden authorization. These are checker tests, not reviewer accuracy measurements.

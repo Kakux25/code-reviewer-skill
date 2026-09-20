@@ -1,6 +1,6 @@
 # Engineering Assurance Foundation
 
-Status: design and contract foundation. The existing `code-reviewer` remains executable as a skill. The five additional specialists and assurance integrator are specified, not shipped as validated agents. No deployment permission is produced by this release.
+Status: implemented per the roadmap gates — evidence adapters, code-reviewer envelope, five specialists, assurance integrator, A/B/C/D study, judge protocol, and K-2/K-3 independent re-grading. Each gate is recorded as a frozen run under `evals/runs/` with integrity tests under `tests/`. The existing `code-reviewer` remains executable as a standalone skill. No deployment permission is produced by this release.
 
 ## Deliverables
 

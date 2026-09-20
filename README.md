@@ -13,9 +13,18 @@ Each review includes an overall decision, actionable findings, an architectural 
 
 ## Installation
 
-Copy `skills/code-reviewer` into your coding assistant's user-level skills directory. Review any existing installation before replacing it, then start a new task to load the skill.
+Copy any `skills/<name>` directory into your coding assistant's user-level skills directory. Review any existing installation before replacing it, then start a new task to load the skill.
 
-The skill consists of Markdown instructions only and works in any harness that loads `SKILL.md`. It uses Git and project test runners when relevant and available. No additional services or API credentials are required.
+Each skill consists of Markdown instructions only and works in any harness that loads `SKILL.md`. Skills use Git and project test runners when relevant and available. No additional services or API credentials are required.
+
+| Skill | Reviews |
+| --- | --- |
+| [code-reviewer](skills/code-reviewer/SKILL.md) | Defects, regressions, architecture conformance, documented essence |
+| [architecture-reviewer](skills/architecture-reviewer/SKILL.md) | Fit to the repo's own documented architecture (layers, ADRs, quality scenarios) |
+| [safety-stpa-reviewer](skills/safety-stpa-reviewer/SKILL.md) | Safety via systems thinking (losses, hazards, control structure, UCAs) |
+| [incident-memory](skills/incident-memory/SKILL.md) | Structured incident precedents, transfer by mechanism |
+| [system-dynamics-reviewer](skills/system-dynamics-reviewer/SKILL.md) | Feedback loops, stocks/flows, delays, stability under load |
+| [sociotechnical-reviewer](skills/sociotechnical-reviewer/SKILL.md) | Coordination coverage (handoffs, ownership freshness, escalation) |
 
 ## Usage
 
@@ -53,7 +62,7 @@ MIT — see [LICENSE](LICENSE).
 
 ## Engineering Assurance Foundation
 
-The [design foundation](docs/assurance/README.md) specifies complementary architecture, system-dynamics, safety, incident, sociotechnical and assurance reviewers. It includes a technical source registry, module boundaries, traceability, versioned record contracts and a staged implementation plan. The existing code-reviewer remains unchanged; new specialist agents and comparative experiments are not yet implemented.
+The [design foundation](docs/assurance/README.md) specifies the six reviewer skills above plus a shared evidence envelope and an assurance integrator. All six skills are implemented with fixtures: the five specialists with live smoke runs (4/4 each), code-reviewer with a 20-case battery plus a with/without-skill comparison. The shared envelope, assurance integrator, judge protocol, and a controlled A/B/C/D comparative study with independent re-grading (K-2/K-3) are recorded as frozen runs under [evals/runs/](evals/runs/). The code-reviewer keeps its standalone contract; in composed mode, architectural judgment routes to the architecture specialist. Nothing here grants integration or deployment permission.
 
 Validate the synthetic assurance record and run the contract tests:
 

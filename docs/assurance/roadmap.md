@@ -1,5 +1,10 @@
 # Implementation Roadmap
 
+Status 2026-09-20: gates 1–9 complete, each with a frozen run under
+`evals/runs/` and integrity tests under `tests/`, followed by the
+judge protocol and K-2/K-3 independent re-grading. The gate list
+below is preserved as the plan of record.
+
 ## Current release
 
 Complete the source registry, traceability, boundaries, gap analysis, decision records, versioned contracts, synthetic examples and contract checks. Preserve the existing reviewer. This is the complete first design milestone, not a claim that the seven-module system is operational.

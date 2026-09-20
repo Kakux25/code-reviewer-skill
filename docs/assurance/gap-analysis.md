@@ -57,3 +57,14 @@ E–T, mechanical grading, same model) and judge-vs-hand agreement
 (0.990, A–D). Broader superiority, cross-model generality, and any
 specialist/integrator capability claims remain unsupported pending the
 validation plan.
+
+## Status update 2026-09-20 (addendum; analysis above preserved)
+
+The "Missing" paragraph is now implemented as roadmap gates 3–9
+plus judge and K-2/K-3 re-grading: five specialists with 4/4 smoke
+runs, shared envelopes, assurance integrator, A/B/C/D study (22
+cells), calibrated judge (A–D), and independent tie-break
+confirmation — all frozen under `evals/runs/`. Still open from
+this analysis: cross-model/family replication, K≥2, judge
+validation on E–T, a held-out battery, and the no-authorship
+parity fixture (rule text only, no dedicated fixture yet).
