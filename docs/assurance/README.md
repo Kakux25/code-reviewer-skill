@@ -6,7 +6,7 @@ Status: design and contract foundation. The existing `code-reviewer` remains exe
 
 | Deliverable | Artifact |
 | --- | --- |
-| Verified source registry | [source-registry.yaml](../../references/source-registry.yaml) |
+| Source registry (verification-scoped) | [source-registry.yaml](../../references/source-registry.yaml) |
 | Source-to-module traceability | [traceability.yaml](../../references/traceability.yaml) |
 | Baseline gap analysis | [gap-analysis.md](gap-analysis.md) |
 | Module boundaries | [epistemic-boundaries.md](epistemic-boundaries.md) |

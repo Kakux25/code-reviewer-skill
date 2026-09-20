@@ -14,7 +14,7 @@ CausalLink records preserve status `observed`, `modeled` or `hypothesized`, evid
 
 Evidence IDs refer to immutable observations; changed artifact bytes require a new record. Claims and rubrics are versioned. A change to candidate revision, context, criterion, source record or warrant invalidates affected dependent claims until reassessed. Historical evidence may originate at another revision, but requires an explicit applicability rationale. Unknown integrity or stale context must remain visible.
 
-Referential integrity, scope equality, claim-cycle detection and conservative acceptance eligibility are deterministic checks. They cannot verify whether cited files exist in production, whether a quoted result is authentic, whether an inference is valid, or whether a human authorization is genuine. External artifact integrity and source authentication belong to future evidence adapters.
+Referential integrity, scope equality, claim-cycle detection and conservative acceptance eligibility are deterministic checks. Record identifiers are globally unique across evidence, claims, findings, defeaters, uncertainties, and reviews (one shared namespace, enforced by the checker), so a reference resolves without consulting its group. They cannot verify whether cited files exist in production, whether a quoted result is authentic, whether an inference is valid, or whether a human authorization is genuine. External artifact integrity and source authentication belong to future evidence adapters.
 
 ## Data handling
 

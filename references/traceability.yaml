@@ -115,6 +115,7 @@
     "evidence-001": {
       "module": "evidence-layer",
       "statement": "Require revision-bound receipts; existence and agreement are not success.",
+      "status": "design_requirement",
       "basis": [
         "LOCAL-code-reviewer",
         "S16"
@@ -127,6 +128,7 @@
     "local-policy": {
       "module": "cross-cutting",
       "statement": "Risk coverage, decision eligibility, retention, authorization and contract design are local policies; no source-compliance claim.",
+      "status": "design_requirement",
       "basis": [
         "USER-BRIEF"
       ],
