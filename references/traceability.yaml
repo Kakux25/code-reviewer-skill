@@ -1,0 +1,139 @@
+{
+  "schema_version": "0.1.0",
+  "local_sources": {
+    "LOCAL-code-reviewer": "950ae7990392d2c445e650a8f2f5c35329785c9b:skills/code-reviewer/SKILL.md",
+    "USER-BRIEF": "Engineering assurance requirements"
+  },
+  "rules": {
+    "code-reviewer-001": {
+      "module": "code-reviewer",
+      "statement": "Require concrete consequence and surviving refutation.",
+      "basis": [
+        "LOCAL-code-reviewer",
+        "S01"
+      ],
+      "status": "design_requirement",
+      "tests": [
+        "code-reviewer-positive",
+        "code-reviewer-negative",
+        "code-reviewer-abstention"
+      ],
+      "test_status": "planned_behavioral_tests"
+    },
+    "architecture-reviewer-001": {
+      "module": "architecture-reviewer",
+      "statement": "Use repository criteria; absent retrieved evidence is not noncompliance.",
+      "basis": [
+        "S02",
+        "S03",
+        "S04",
+        "S05"
+      ],
+      "status": "design_requirement",
+      "tests": [
+        "architecture-reviewer-positive",
+        "architecture-reviewer-negative",
+        "architecture-reviewer-abstention"
+      ],
+      "test_status": "planned_behavioral_tests"
+    },
+    "system-dynamics-reviewer-001": {
+      "module": "system-dynamics-reviewer",
+      "statement": "Record causal links, polarity, delay, evidence and uncertainty.",
+      "basis": [
+        "S06"
+      ],
+      "status": "design_requirement",
+      "tests": [
+        "system-dynamics-reviewer-positive",
+        "system-dynamics-reviewer-negative",
+        "system-dynamics-reviewer-abstention"
+      ],
+      "test_status": "planned_behavioral_tests"
+    },
+    "safety-stpa-reviewer-001": {
+      "module": "safety-stpa-reviewer",
+      "statement": "Begin with losses and hazards; distinguish constraints from enforcement.",
+      "basis": [
+        "S07",
+        "S08"
+      ],
+      "status": "design_requirement",
+      "tests": [
+        "safety-stpa-reviewer-positive",
+        "safety-stpa-reviewer-negative",
+        "safety-stpa-reviewer-abstention"
+      ],
+      "test_status": "planned_behavioral_tests"
+    },
+    "incident-memory-001": {
+      "module": "incident-memory",
+      "statement": "Test mechanism applicability and disanalogies before transferring lessons.",
+      "basis": [
+        "S09"
+      ],
+      "status": "design_requirement",
+      "tests": [
+        "incident-memory-positive",
+        "incident-memory-negative",
+        "incident-memory-abstention"
+      ],
+      "test_status": "planned_behavioral_tests"
+    },
+    "sociotechnical-reviewer-001": {
+      "module": "sociotechnical-reviewer",
+      "statement": "Use observed coordination evidence, never infer human traits.",
+      "basis": [
+        "S10"
+      ],
+      "status": "design_requirement",
+      "tests": [
+        "sociotechnical-reviewer-positive",
+        "sociotechnical-reviewer-negative",
+        "sociotechnical-reviewer-abstention"
+      ],
+      "test_status": "planned_behavioral_tests"
+    },
+    "final-engineering-judge-001": {
+      "module": "final-engineering-judge",
+      "statement": "Integrate warrants, evidence, defeaters and residual doubts without votes.",
+      "basis": [
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15"
+      ],
+      "status": "design_requirement",
+      "tests": [
+        "final-engineering-judge-positive",
+        "final-engineering-judge-negative",
+        "final-engineering-judge-abstention"
+      ],
+      "test_status": "planned_behavioral_tests"
+    },
+    "evidence-001": {
+      "module": "evidence-layer",
+      "statement": "Require revision-bound receipts; existence and agreement are not success.",
+      "basis": [
+        "LOCAL-code-reviewer",
+        "S16"
+      ],
+      "tests": [
+        "contract-checks"
+      ],
+      "test_status": "structural_only"
+    },
+    "local-policy": {
+      "module": "cross-cutting",
+      "statement": "Risk coverage, decision eligibility, retention, authorization and contract design are local policies; no source-compliance claim.",
+      "basis": [
+        "USER-BRIEF"
+      ],
+      "tests": [
+        "contract-checks"
+      ],
+      "test_status": "structural_only"
+    }
+  }
+}

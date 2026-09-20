@@ -1,0 +1,50 @@
+{
+  "evidence": [],
+  "claims": [
+    {
+      "id": "TOP-001",
+      "statement": "Candidate is acceptable for scoped integration.",
+      "warrant": "No evidence collected; acceptance is not justified.",
+      "independence_notes": "No reviewers ran.",
+      "scope": {
+        "base_revision": "synthetic-base",
+        "candidate_revision": "synthetic-candidate",
+        "context_id": "example-only",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "not_assessed",
+      "assumptions": [],
+      "supporting_evidence": [],
+      "counterevidence": [],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": []
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [],
+  "schema_version": "0.1.0",
+  "id": "EXAMPLE-001",
+  "top_claim": "TOP-001",
+  "rationale": "Required evidence has not been collected.",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer"
+  ],
+  "conditions": [],
+  "scope": {
+    "base_revision": "synthetic-base",
+    "candidate_revision": "synthetic-candidate",
+    "context_id": "example-only",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

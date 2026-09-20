@@ -1,0 +1,842 @@
+{
+  "schema_version": "0.1.0",
+  "policy": "Use only claims within verified_scope; unverified material is non-normative. Partial access does not establish standard conformance.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model",
+      "authors": [
+        "ISO",
+        "IEC"
+      ],
+      "year": 2023,
+      "venue_or_standard": "ISO/IEC 25010:2023",
+      "type": "standard",
+      "canonical_identifier": "ISO/IEC 25010:2023",
+      "canonical_locator": "https://www.iso.org/standard/78176.html",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "ISO copyrighted standard; no open reuse license established",
+      "maturity": "established",
+      "used_by": [
+        "code-reviewer",
+        "architecture-reviewer"
+      ],
+      "claims_supported": [
+        "The product quality model provides a vocabulary for specifying and evaluating ICT/software product quality.",
+        "The 2023 edition has nine characteristics; instantiate only concerns relevant to the change."
+      ],
+      "limitations": [
+        "Only official catalog metadata and public abstract were accessed; the paid normative text was not reviewed.",
+        "No clause-level interpretation, complete characteristic checklist, or standards-conformance claim is supported."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "PARTIALLY_VERIFIED",
+      "verified_scope": "Official title, second edition, November 2023 publication and public scope abstract.",
+      "verification_evidence": [
+        {
+          "url": "https://www.iso.org/standard/78176.html",
+          "finding": "Official catalog confirms identifier, title, edition and abstract."
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "title": "Software, systems and enterprise — Architecture description",
+      "authors": [
+        "ISO",
+        "IEC",
+        "IEEE"
+      ],
+      "year": 2022,
+      "venue_or_standard": "ISO/IEC/IEEE 42010:2022",
+      "type": "standard",
+      "canonical_identifier": "ISO/IEC/IEEE 42010:2022",
+      "canonical_locator": "https://www.iso.org/standard/74393.html",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "ISO/IEC/IEEE copyrighted standard; no open reuse license established",
+      "maturity": "established",
+      "used_by": [
+        "architecture-reviewer"
+      ],
+      "claims_supported": [
+        "An architecture and an architecture description are distinct.",
+        "The standard addresses descriptions, frameworks, languages, viewpoints and model kinds; it does not prescribe architecting processes or tools."
+      ],
+      "limitations": [
+        "Official metadata and public abstract only; paid normative clauses were not reviewed.",
+        "Do not claim normative conformance or infer architecture solely from folder structure.",
+        "Detailed stakeholder/concern definitions require a licensed text or explicitly identified accessible source."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "PARTIALLY_VERIFIED",
+      "verified_scope": "Official title, second edition, November 2022 publication and public scope abstract.",
+      "verification_evidence": [
+        {
+          "url": "https://www.iso.org/standard/74393.html",
+          "finding": "Official abstract distinguishes architecture from its description and identifies viewpoints/model kinds."
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "title": "The Architecture Tradeoff Analysis Method",
+      "authors": [
+        "Rick Kazman",
+        "Mark H. Klein",
+        "Mario R. Barbacci",
+        "Thomas A. Longstaff",
+        "Howard F. Lipson",
+        "Jeromy Carriere"
+      ],
+      "year": 1998,
+      "venue_or_standard": "Carnegie Mellon University Software Engineering Institute",
+      "type": "technical-report",
+      "canonical_identifier": "CMU/SEI-98-TR-008",
+      "canonical_locator": "https://www.sei.cmu.edu/library/the-architecture-tradeoff-analysis-method/",
+      "accessed_at": "2026-09-20",
+      "license_if_known": null,
+      "maturity": "mature",
+      "used_by": [
+        "architecture-reviewer"
+      ],
+      "claims_supported": [
+        "Architectural choices must be considered against interacting quality attributes.",
+        "The mature ATAM method connects stakeholder scenarios and business drivers to architectural risks, sensitivity points, tradeoff points and risk themes."
+      ],
+      "limitations": [
+        "A lightweight automated review is an adaptation, not a complete stakeholder-based ATAM evaluation.",
+        "The official 1998 landing page names Jeromy Carriere in its byline but abbreviates him as S. Carriere in generated citations. Preserve the byline while recording this inconsistency."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "1998 and 2000 report bibliographies and public abstracts; official SEI method description and outputs. The 2000 PDF was reachable; no full-report reproduction or exhaustive reading claimed.",
+      "verification_evidence": [
+        {
+          "url": "https://www.sei.cmu.edu/library/the-architecture-tradeoff-analysis-method/",
+          "finding": "1998 report identity, authors and quality-attribute tradeoffs."
+        },
+        {
+          "url": "https://sei.cmu.edu/library/atam-method-for-architecture-evaluation/",
+          "finding": "2000 report identity, authors and mature method."
+        },
+        {
+          "url": "https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/",
+          "finding": "Official description links scenarios, risks, sensitivities, tradeoffs and risk themes."
+        },
+        {
+          "url": "https://insights.sei.cmu.edu/documents/629/2000_005_001_13706.pdf",
+          "finding": "Official 83-page report is accessible; not relied on for uninspected clauses."
+        }
+      ],
+      "related_work": {
+        "title": "ATAM: Method for Architecture Evaluation",
+        "authors": [
+          "Rick Kazman",
+          "Mark H. Klein",
+          "Paul C. Clements"
+        ],
+        "year": 2000,
+        "canonical_identifier": "CMU/SEI-2000-TR-004",
+        "canonical_locator": "https://sei.cmu.edu/library/atam-method-for-architecture-evaluation/"
+      }
+    },
+    {
+      "id": "S04",
+      "title": "Beyond Correctness: Enhancing Architectural Reasoning in Code LLMs via Scalable Labeling with Agentic Judgment",
+      "authors": [
+        "Kirill Vasilevski",
+        "Ximing Dong",
+        "Benjamin Rombaut",
+        "Milad Soltany",
+        "Ruochen Deng",
+        "Jiahuei (Justina) Lin",
+        "Arthur Leung",
+        "Dayi Lin",
+        "Boyuan Chen",
+        "Shaowei Wang",
+        "Ahmed E. Hassan"
+      ],
+      "year": 2026,
+      "venue_or_standard": "arXiv",
+      "type": "preprint",
+      "canonical_identifier": "arXiv:2606.14948v2",
+      "canonical_locator": "https://arxiv.org/abs/2606.14948v2",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "Paper: CC BY-NC-ND 4.0; artifact and dataset licenses not established",
+      "maturity": "frontier",
+      "used_by": [
+        "architecture-reviewer"
+      ],
+      "claims_supported": [
+        "ACJ estimates repository-specific architectural understanding; AQJ assesses patch conformance to contextual architectural rubrics.",
+        "These static judgments are separate from functional correctness. Training gains are reported research results, not measured accuracy for a production reviewer."
+      ],
+      "limitations": [
+        "Paper v2 and selected artifact files were inspected, not the full pipeline or its execution.",
+        "Only dataset metadata and filenames were verified; contents, record counts, quality and paper-to-file correspondence remain unverified.",
+        "The paper tests three open models and two benchmarks; generalization is limited.",
+        "Paper RG notation includes the candidate patch although surrounding prose and the artifact separate rubric generation from evaluation.",
+        "Artifact commit SHA and code license were not established. File hashes identify inspected content, not an immutable upstream revision."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "PARTIALLY_VERIFIED",
+      "verified_scope": "Paper identity/v2 methodology; live README, three prompts and one evaluator batch implementation; public dataset metadata and repository revision.",
+      "verification_evidence": [
+        {
+          "url": "https://arxiv.org/abs/2606.14948",
+          "finding": "Official author list, v2 dated July 6, 2026."
+        },
+        {
+          "url": "https://arxiv.org/html/2606.14948v2",
+          "finding": "Sections 3.1–3.2 define judges and link both research artifacts."
+        },
+        {
+          "url": "https://anonymous.4open.science/api/repo/full_evaluation_pipeline-E239/file/README.md",
+          "finding": "Public endpoint returned HTTP 200; SHA-256 matches the existing local snapshot."
+        },
+        {
+          "url": "https://huggingface.co/api/datasets/spdataset/high_quality_trajectories",
+          "finding": "Public API returned dataset identity, revision and three JSONL filenames; no card or license field."
+        }
+      ],
+      "paper_revision": "2606.14948v2",
+      "subartifacts": [
+        {
+          "url": "https://anonymous.4open.science/r/full_evaluation_pipeline-E239/README.md",
+          "retrieval_url": "https://anonymous.4open.science/api/repo/full_evaluation_pipeline-E239/file/README.md",
+          "verification_status": "VERIFIED",
+          "verified_scope": "README inspected; retrieved live with HTTP 200.",
+          "revision": null,
+          "sha256": "0e7502c96733c06a06fb08450fea997c794a88087f5bbba336bc6f373ff7bd55",
+          "hash_scope": "Exact retrieved file bytes; not an upstream commit SHA.",
+          "license_if_known": null
+        },
+        {
+          "url": "https://anonymous.4open.science/r/full_evaluation_pipeline-E239/architecture_complexity_judge/skills/architectural-understanding-evaluation-v4/SKILL.md",
+          "retrieval_url": "https://anonymous.4open.science/api/repo/full_evaluation_pipeline-E239/file/architecture_complexity_judge/skills/architectural-understanding-evaluation-v4/SKILL.md",
+          "verification_status": "VERIFIED",
+          "verified_scope": "ACJ prompt inspected; retrieved live with HTTP 200.",
+          "revision": null,
+          "sha256": "1b49f246a5f642c9ddfcb59b7ab9ee82fbe953f5f8dc11ae1a6e39dc18bfb981",
+          "hash_scope": "Exact retrieved file bytes; not an upstream commit SHA.",
+          "license_if_known": null
+        },
+        {
+          "url": "https://anonymous.4open.science/r/full_evaluation_pipeline-E239/architecture_rubric_generator/skills/architectural-rubric-generation-v11/SKILL.md",
+          "retrieval_url": "https://anonymous.4open.science/api/repo/full_evaluation_pipeline-E239/file/architecture_rubric_generator/skills/architectural-rubric-generation-v11/SKILL.md",
+          "verification_status": "VERIFIED",
+          "verified_scope": "Rubric prompt inspected; retrieved live with HTTP 200.",
+          "revision": null,
+          "sha256": "1368e414fed2b3f8de7ebf0583de0ee5990a95a8a58d23cefa9d26209e8dd880",
+          "hash_scope": "Exact retrieved file bytes; not an upstream commit SHA.",
+          "license_if_known": null
+        },
+        {
+          "url": "https://anonymous.4open.science/r/full_evaluation_pipeline-E239/architecture_patch_evaluator/skills/patch-evaluation-v11/SKILL.md",
+          "retrieval_url": "https://anonymous.4open.science/api/repo/full_evaluation_pipeline-E239/file/architecture_patch_evaluator/skills/patch-evaluation-v11/SKILL.md",
+          "verification_status": "VERIFIED",
+          "verified_scope": "AQJ evaluator prompt inspected; retrieved live with HTTP 200.",
+          "revision": null,
+          "sha256": "e5f3c14f51ddcfd806d869f80b2f7f0dca8e0fe325058db6326a3366af37af89",
+          "hash_scope": "Exact retrieved file bytes; not an upstream commit SHA.",
+          "license_if_known": null
+        },
+        {
+          "url": "https://anonymous.4open.science/r/full_evaluation_pipeline-E239/architecture_patch_evaluator/batch_evaluate.py",
+          "retrieval_url": "https://anonymous.4open.science/api/repo/full_evaluation_pipeline-E239/file/architecture_patch_evaluator/batch_evaluate.py",
+          "verification_status": "VERIFIED",
+          "verified_scope": "Batch setup, repository cache, rubric copying and completion check inspected; retrieved live with HTTP 200.",
+          "revision": null,
+          "sha256": "78cf13c875e69d5a9ad431cc1f82616efa2ed6c668b9a73e0a25f7c92614f34c",
+          "hash_scope": "Exact retrieved file bytes; not an upstream commit SHA.",
+          "license_if_known": null
+        },
+        {
+          "url": "https://huggingface.co/datasets/spdataset/high_quality_trajectories",
+          "retrieval_url": "https://huggingface.co/api/datasets/spdataset/high_quality_trajectories",
+          "verification_status": "PARTIALLY_VERIFIED",
+          "verified_scope": "Repository metadata only: public, ungated, three JSONL files; no README in returned siblings. Data not downloaded.",
+          "revision": "6b0bd15218022eb8e17b37f15a81bc1ed4dc3f63",
+          "sha256": null,
+          "license_if_known": null,
+          "files": [
+            ".gitattributes",
+            "FI-118k-MindForge_5x-Full-RS-MiniMaxM25-CCv2_1_45_f10_augmented_sharegpt.jsonl",
+            "fi_118k_filtered_mincomp_trivial_minscore_acceptable_trajectories_sharegpt.jsonl",
+            "static_filter_1548_acj_triv%2B_asj_high_fi-118k_sharegpt.jsonl"
+          ]
+        }
+      ],
+      "artifact_inspection": {
+        "prompts": "ACJ v4, rubric generation v11 and patch evaluation v11 inspected and content-hashed.",
+        "exploration_strategy": "ACJ follows changed files outward through callers, callees and boundaries; rubric generation starts from issue and repository; evaluator verifies patterns and traces downstream effects.",
+        "evidence_model": "Concrete file evidence, explored-file lists and prose reasoning; rubric patterns require stated confidence >= 0.6; evaluator records per-axis evidence, gaps and primary-axis blast radius.",
+        "scoring": "Categorical ACJ labels; AQJ uses High, High with concerns, Acceptable, Low. No numeric quality scores or weights.",
+        "context_retrieval": "Read/Glob/Grep and Explore subagents; no vector-retrieval implementation established in inspected files.",
+        "model_dependencies": "README requires Python 3.10+, Docker and Claude Code; configurable Anthropic-compatible endpoint and Opus/Sonnet/Haiku model environment variables. Deployed model identifiers were not verified.",
+        "aggregation_procedure": "Assess axes independently; calibrate contradictions and duplicate evidence; primary axes determine AQJ category and gaps distinguish the two High categories. Independent ACJ changes aggregate by maximum per axis.",
+        "limitations": "Parallel agents share input evidence and may share a model; their outputs are not statistically independent. batch_evaluate.py treats an existing evaluation-patch.yaml as completed without parsing or semantic validation. Use content/status validation in any adaptation."
+      }
+    },
+    {
+      "id": "S05",
+      "title": "Evaluating Large Language Models for Detecting Architectural Decision Violations",
+      "authors": [
+        "Ruoyu Su",
+        "Alexander Bakhtin",
+        "Noman Ahmad",
+        "Matteo Esposito",
+        "Valentina Lenarduzzi",
+        "Davide Taibi"
+      ],
+      "year": 2026,
+      "venue_or_standard": "arXiv",
+      "type": "preprint",
+      "canonical_identifier": "arXiv:2602.07609v1",
+      "canonical_locator": "https://arxiv.org/abs/2602.07609v1",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "CC BY 4.0",
+      "maturity": "emerging",
+      "used_by": [
+        "architecture-reviewer"
+      ],
+      "claims_supported": [
+        "The study reports 980 ADRs from 109 repositories, split into 1,317 decisions, with 305 manually reviewed cases.",
+        "Explicit code-inferable decisions are easier to assess than deployment, organizational or implicit decisions.",
+        "Decision status, retrieval coverage and insufficient-evidence outcomes matter."
+      ],
+      "limitations": [
+        "Observed agreement does not establish independent evidence or general accuracy.",
+        "Top-k retrieval can omit relevant code. Section III-E also labels absent implementation evidence as Not Compliant; an adaptation should distinguish retrieval gaps from positively evidenced violations.",
+        "The study is a preprint; results were not independently reproduced."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "Official metadata, abstract and accessible methods/results passages; no reproduction or inspection of its separate dataset.",
+      "verification_evidence": [
+        {
+          "url": "https://arxiv.org/abs/2602.07609",
+          "finding": "Author list, February 7, 2026 submission, 980 ADRs/109 repositories and limitations."
+        },
+        {
+          "url": "https://arxiv.org/html/2602.07609v1",
+          "finding": "Sections III-E and IV distinguish decision labels and report retrieval, decision counts and human sample."
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "title": "From text to map: a system dynamics bot for constructing causal loop diagrams",
+      "authors": [
+        "Niyousha Hosseinichimeh",
+        "Aritra Majumdar",
+        "Ross Williams",
+        "Navid Ghaffarzadegan"
+      ],
+      "year": 2024,
+      "venue_or_standard": "System Dynamics Review, 40(3), e1782",
+      "type": "peer-reviewed",
+      "canonical_identifier": "10.1002/sdr.1782",
+      "canonical_locator": "https://doi.org/10.1002/sdr.1782",
+      "accessed_at": "2026-09-20",
+      "license_if_known": null,
+      "maturity": "frontier",
+      "used_by": [
+        "system-dynamics-reviewer"
+      ],
+      "claims_supported": [
+        "LLMs can assist construction of candidate causal-loop diagrams from text.",
+        "Evaluation compares generated maps with literature diagrams and human-coded responses; recovery is incomplete."
+      ],
+      "limitations": [
+        "Diagram agreement does not establish real-world causation; generated edges require evidence provenance and domain validation.",
+        "The established vocabulary of system dynamics does not validate AI-generated causal links.",
+        "No independent replication, code revision, comprehensive stock-flow treatment, or explicit reuse license was verified. The assigned component name was not specified in S06."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "Publisher metadata, authors, DOI, date, methods, and reported limitations; no citation mismatch found.",
+      "verification_evidence": [
+        {
+          "url": "https://onlinelibrary.wiley.com/doi/10.1002/sdr.1782",
+          "finding": "Official article confirms metadata; methods and discussion describe text-to-diagram evaluation, not causal identification."
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "title": "STPA Handbook",
+      "authors": [
+        "Nancy G. Leveson",
+        "John P. Thomas"
+      ],
+      "year": 2018,
+      "venue_or_standard": "MIT Partnership for Systems Approaches to Safety and Security",
+      "type": "official-handbook",
+      "canonical_identifier": "MIT-STAMP-001",
+      "canonical_locator": "https://psas.scripts.mit.edu/home/books-and-handbooks/",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "Custom copyright notice: unaltered non-commercial use permitted; sale prohibited. Copyright 2018 Nancy Leveson and John Thomas.",
+      "maturity": "established",
+      "used_by": [
+        "safety-stpa-reviewer"
+      ],
+      "claims_supported": [
+        "STPA provides a structured method for prospective hazard and loss-scenario analysis, including control structures and unsafe control actions."
+      ],
+      "limitations": [
+        "MIT-STAMP-001 is verified as MIT's current handbook label, not as an independently registered standard or DOI.",
+        "The PDF was recognized, but repeated retrieval failures prevented checking the assignment's complete conceptual chain against the handbook body. Do not assert that its exact linear ordering was verified.",
+        "A handbook-informed review does not itself certify system safety."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "PARTIALLY_VERIFIED",
+      "verified_scope": "Authentic handbook, authors/year through indexed official PDF, official identifier label, and method overview verified; detailed process ordering remains unverified.",
+      "verification_evidence": [
+        {
+          "url": "https://psas.scripts.mit.edu/home/books-and-handbooks/",
+          "finding": "MIT explicitly labels its English download MIT-STAMP-001 and outlines STPA."
+        },
+        {
+          "url": "https://psas.scripts.mit.edu/home/get_file.php?name=STPA_Handbook.pdf",
+          "finding": "Official download recognized as 188-page handbook; subsequent body retrieval timed out."
+        },
+        {
+          "url": "https://psas.scripts.mit.edu/home/get_file.php?name=STPA_handbook.pdf",
+          "finding": "Indexed MIT cover identifies authors, March 2018, and reuse restrictions."
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "title": "Towards Verifiably Safe Tool Use for LLM Agents",
+      "authors": [
+        "Aarya Doshi",
+        "Yining Hong",
+        "Congying Xu",
+        "Eunsuk Kang",
+        "Alexandros Kapravelos",
+        "Christian Kästner"
+      ],
+      "year": 2026,
+      "venue_or_standard": "arXiv, cs.SE; record reports acceptance at ICSE NIER 2026",
+      "type": "preprint",
+      "canonical_identifier": "arXiv:2601.08012v1",
+      "canonical_locator": "https://arxiv.org/abs/2601.08012v1",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "CC BY 4.0",
+      "maturity": "frontier",
+      "used_by": [
+        "safety-stpa-reviewer"
+      ],
+      "claims_supported": [
+        "Proposes translating STPA-derived agent requirements into information-flow and tool-sequence specifications.",
+        "Capability, confidentiality, and trust labels support the proposed enforcement model; a bounded Alloy demonstration explores safety constraints."
+      ],
+      "limitations": [
+        "Section 6 leaves the external runtime policy engine and broader real-world evaluation as future work.",
+        "Bounded model results are not deployment-wide safety guarantees; transfer requires explicit model, tool, label-trust, and scope assumptions.",
+        "Conference acceptance is reported by the arXiv record; a separate proceedings check was not performed."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "Versioned bibliographic identity, license, sections 4–6, and stated research maturity; no citation mismatch found.",
+      "verification_evidence": [
+        {
+          "url": "https://arxiv.org/abs/2601.08012",
+          "finding": "Official record confirms title, six authors, submission date, version, and acceptance comment."
+        },
+        {
+          "url": "https://arxiv.org/html/2601.08012v1",
+          "finding": "Sections 4–6 distinguish proposed constraints, bounded analysis, and planned runtime enforcement."
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "title": "Review of Case-Based Reasoning for LLM Agents: Theoretical Foundations, Architectural Components, and Cognitive Integration",
+      "authors": [
+        "Kostas Hatalis",
+        "Despina Christou",
+        "Vyshnavi Kondapalli"
+      ],
+      "year": 2025,
+      "venue_or_standard": "arXiv, cs.AI and cs.MA",
+      "type": "preprint",
+      "canonical_identifier": "arXiv:2504.06943v2",
+      "canonical_locator": "https://arxiv.org/abs/2504.06943v2",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "arXiv non-exclusive distribution license; no general reuse license verified",
+      "maturity": "frontier",
+      "used_by": [
+        "incident-memory"
+      ],
+      "claims_supported": [
+        "The CBR cycle includes retrieval, reuse/adaptation, revision, and retention.",
+        "Case representations and adaptation procedures distinguish full CBR from retrieval alone."
+      ],
+      "limitations": [
+        "Mature CBR foundations should be distinguished from this frontier LLM-agent synthesis.",
+        "Its theoretical comparison with RAG does not establish universal empirical superiority.",
+        "Using the cycle for incident memory and checking applicability beyond similarity are design adaptations, not validated incident-response outcomes. No independent benchmark replication was performed."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "Bibliography, v2 date, license, CBR-cycle description, and theoretical comparison; no citation mismatch found.",
+      "verification_evidence": [
+        {
+          "url": "https://arxiv.org/abs/2504.06943",
+          "finding": "Official record confirms the three authors and revision of 11 April 2025."
+        },
+        {
+          "url": "https://arxiv.org/html/2504.06943v2",
+          "finding": "Section 2.1 explains the four phases; section 7.1 labels its comparison theoretical."
+        },
+        {
+          "url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html",
+          "finding": "License linked by the official abstract page is distribution-only."
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "title": "In Search of Socio-Technical Congruence: A Large-Scale Longitudinal Study",
+      "authors": [
+        "Wolfgang Mauerer",
+        "Mitchell Joblin",
+        "Damian A. Tamburri",
+        "Carlos Paradis",
+        "Rick Kazman",
+        "Sven Apel"
+      ],
+      "year": 2022,
+      "venue_or_standard": "IEEE Transactions on Software Engineering, 48(8), 3159–3184",
+      "type": "peer-reviewed",
+      "canonical_identifier": "10.1109/TSE.2021.3082074",
+      "canonical_locator": "https://doi.org/10.1109/TSE.2021.3082074",
+      "accessed_at": "2026-09-20",
+      "license_if_known": null,
+      "maturity": "mature",
+      "used_by": [
+        "sociotechnical-reviewer"
+      ],
+      "claims_supported": [
+        "Operationalizes comparison between developer communication and technical dependencies.",
+        "Across 25 open-source projects, the study reports no statistical relationship between its congruence measure and bugs or churn."
+      ],
+      "limitations": [
+        "Do not cite the study as proof that greater congruence improves quality, or as grounds to infer culture or motives.",
+        "CODEOWNERS, on-call, runbooks, and deployment ownership are proposed local evidence sources, not all verified study measures.",
+        "IEEE access failed; identity and DOI were corroborated by official university records and author-submitted arXiv metadata. No statistical replication was performed."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "Bibliography and principal reported finding; 2022 journal issue distinguished from the 2021 preprint and DOI suffix.",
+      "verification_evidence": [
+        {
+          "url": "https://arxiv.org/abs/2105.08198",
+          "finding": "Author-submitted record confirms authors, title, and the null statistical result."
+        },
+        {
+          "url": "https://scidok.sulb.uni-saarland.de/handle/20.500.11880/41132?locale=en",
+          "finding": "Indexed university record confirms journal, year, and original DOI."
+        },
+        {
+          "url": "https://www.se.cs.uni-saarland.de/projects/congruence/",
+          "finding": "Official project bibliography confirms volume, issue, pages, and August 2022 publication."
+        }
+      ]
+    },
+    {
+      "id": "S11",
+      "title": "Assurance 2.0: A Manifesto",
+      "authors": [
+        "Robin Bloomfield",
+        "John Rushby"
+      ],
+      "year": 2020,
+      "venue_or_standard": "arXiv",
+      "type": "preprint",
+      "canonical_identifier": "arXiv:2004.10474",
+      "canonical_locator": "https://arxiv.org/abs/2004.10474v3",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "arXiv.org perpetual non-exclusive license",
+      "maturity": "emerging",
+      "used_by": [
+        "final-engineering-judge"
+      ],
+      "claims_supported": [
+        "Assurance connects claims through justified argument steps to evidence, with explicit counterevidence and defeaters.",
+        "Evidence should discriminate a claim from its counterclaim; reasoning gaps and residual doubts require explicit treatment."
+      ],
+      "limitations": [
+        "A methodological manifesto, not a deployment-authorization standard or empirical validation of autonomous LLM assurance.",
+        "Only selected full-text sections were examined; numerical mechanisms are not implemented or independently validated."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "Bibliographic identity, version, license, and full-text Section I methodological scope.",
+      "verification_evidence": [
+        {
+          "url": "https://arxiv.org/abs/2004.10474v3",
+          "evidence": "Title/authors match; initial submission 2020-04-22; v3 revised 2021-01-14."
+        },
+        {
+          "url": "https://arxiv.org/html/2004.10474v3",
+          "evidence": "Section I describes argument steps, counterclaims, reasoning gaps, indefeasibility, and recorded defeater investigation."
+        }
+      ],
+      "metadata_notes": [
+        "Year denotes initial arXiv submission; inspected v3 is dated 2021. Maturity is a project assessment, not a status claimed by a standards body."
+      ]
+    },
+    {
+      "id": "S12",
+      "title": "Defeaters and Eliminative Argumentation in Assurance 2.0",
+      "authors": [
+        "Robin Bloomfield",
+        "Kate Netkachova",
+        "John Rushby"
+      ],
+      "year": 2024,
+      "venue_or_standard": "SRI-CSL-2024-01",
+      "type": "technical-report",
+      "canonical_identifier": "arXiv:2405.15800",
+      "canonical_locator": "https://arxiv.org/abs/2405.15800v1",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "CC BY-NC-ND 4.0",
+      "maturity": "emerging",
+      "used_by": [
+        "final-engineering-judge"
+      ],
+      "claims_supported": [
+        "Doubts attach to specific argument elements and are investigated in subcases; unresolved doubts block closure of the affected assurance case.",
+        "Supported defeaters require correction or justified residual-risk treatment; refuted or addressed defeaters may remain as historical documentation."
+      ],
+      "limitations": [
+        "Section 1 explicitly excludes a systematic search procedure for discovering defeaters.",
+        "The requested four-state lifecycle, including partially mitigated, is local schema policy, not a verbatim source taxonomy."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "Official metadata/license; full-text Sections 1 and selected argument-propagation passages.",
+      "verification_evidence": [
+        {
+          "url": "https://arxiv.org/abs/2405.15800v1",
+          "evidence": "Title, three authors, date and report identifier match."
+        },
+        {
+          "url": "https://arxiv.org/html/2405.15800v1",
+          "evidence": "Section 1 distinguishes doubts, investigated defeaters, sustained/refuted cases and addressed historical records; incomplete investigation prevents closure."
+        }
+      ]
+    },
+    {
+      "id": "S13",
+      "title": "Assessing Confidence with Assurance 2.0",
+      "authors": [
+        "Robin Bloomfield",
+        "John Rushby"
+      ],
+      "year": 2022,
+      "venue_or_standard": "SRI-CSL-2022-02 R2, Second Edition",
+      "type": "technical-report",
+      "canonical_identifier": "arXiv:2205.04522",
+      "canonical_locator": "https://arxiv.org/abs/2205.04522v4",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "CC BY-NC-ND 4.0",
+      "maturity": "emerging",
+      "used_by": [
+        "final-engineering-judge"
+      ],
+      "claims_supported": [
+        "Confidence assessment distinguishes positive support, negative challenge, and residual doubts.",
+        "Residual doubts need severity and cumulative-risk assessment; significant unresolved doubt cannot simply be relabeled residual."
+      ],
+      "limitations": [
+        "Assessor judgment remains necessary; the report does not establish a calibrated LLM confidence measure.",
+        "Selected PDF passages, especially Sections 1.4, 6 and conclusion, were examined; all probabilistic derivations were not audited."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "Bibliographic metadata/license and relevant full-text PDF passages; HTML conversion is incomplete.",
+      "verification_evidence": [
+        {
+          "url": "https://arxiv.org/abs/2205.04522v4",
+          "evidence": "Initial submission 2022-05-03; v4 2024-05-03; report marked Second Edition."
+        },
+        {
+          "url": "https://arxiv.org/pdf/2205.04522v4",
+          "evidence": "Section 6 discusses human/tool limitations, aggregate minor risks and significant doubts requiring investigation; conclusion retains active assessor questioning."
+        },
+        {
+          "url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+          "evidence": "License destination linked by official arXiv record."
+        }
+      ],
+      "metadata_notes": [
+        "Year denotes initial submission; inspected Second Edition revision is 2024."
+      ]
+    },
+    {
+      "id": "S14",
+      "title": "Quantifying Confidence in Assurance 2.0 Arguments",
+      "authors": [
+        "Robin Bloomfield",
+        "John Rushby"
+      ],
+      "year": 2026,
+      "venue_or_standard": "SRI-CSL-25-01R2",
+      "type": "technical-report",
+      "canonical_identifier": "arXiv:2604.00034",
+      "canonical_locator": "https://arxiv.org/abs/2604.00034v1",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "CC BY-NC-ND 4.0",
+      "maturity": "frontier",
+      "used_by": [
+        "final-engineering-judge"
+      ],
+      "claims_supported": [
+        "Logical and dialectical assessment precede optional quantitative confidence; warrant sideconditions include scope, completeness and independence.",
+        "Different decompositions require distinct dependence treatments; containment does not create additional independent support."
+      ],
+      "limitations": [
+        "Confidence values are assessor judgments, not calibrated measurements of correctness.",
+        "Selected methods were inspected; formulas and counterexamples were not independently reproduced.",
+        "This source does not justify averaging reviewer scores; its partition calculations concern justified argument structure."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "VERIFIED",
+      "verified_scope": "Identity/license; Sections 1–3.2 and selected containment/dependence passages.",
+      "verification_evidence": [
+        {
+          "url": "https://arxiv.org/abs/2604.00034v1",
+          "evidence": "Official record matches title and authors; submitted 2026-03-21."
+        },
+        {
+          "url": "https://arxiv.org/html/2604.00034v1",
+          "evidence": "Report title page dated 2025-12-29; Sections 1–3 separate logical, dialectical and quantitative layers. Section 3.2.5 uses Frechet bounds when independence assumptions fail."
+        }
+      ],
+      "metadata_notes": [
+        "ArXiv year is 2026; report title-page date is 2025-12-29. Preserve both rather than silently treating them as identical."
+      ]
+    },
+    {
+      "id": "S15",
+      "title": "LLMs as judges: Toward the LLM-assisted review of GSN-compliant assurance cases",
+      "authors": [
+        "Gerhard Yu",
+        "Mithila Sivakumar",
+        "Alvine B. Belle",
+        "Soude Ghari",
+        "Song Wang",
+        "Timothy C. Lethbridge"
+      ],
+      "year": 2026,
+      "venue_or_standard": "Journal of Systems and Software, volume 242, article 113036",
+      "type": "peer-reviewed",
+      "canonical_identifier": "doi:10.1016/j.jss.2026.113036",
+      "canonical_locator": "https://doi.org/10.1016/j.jss.2026.113036",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "CC BY-NC-ND 4.0 (Crossref version-of-record license starts 2026-07-17)",
+      "maturity": "frontier",
+      "used_by": [
+        "final-engineering-judge"
+      ],
+      "claims_supported": [
+        "Publisher abstract reports predicate-based review criteria and semi-automated GSN assurance-case review, with human refinement still required."
+      ],
+      "limitations": [
+        "Full methods, evaluation data and replication package were not inspected; no performance claim may be used normatively.",
+        "Neither abstract nor bibliographic verification supports autonomous deployment authorization."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "PARTIALLY_VERIFIED",
+      "verified_scope": "Publisher-indexed abstract and Crossref bibliographic/license record only; direct full-text requests failed.",
+      "verification_evidence": [
+        {
+          "url": "https://www.sciencedirect.com/science/article/pii/S0164121226002694",
+          "evidence": "Publisher search result provides matching DOI, title, journal, volume/article and abstract describing GPT-4o, GPT-4.1, DeepSeek-R1 and Gemini 2.0 Flash experiments."
+        },
+        {
+          "url": "https://api.crossref.org/works/10.1016/j.jss.2026.113036",
+          "evidence": "Official DOI metadata confirms six authors, December 2026 issue date, article number and version-of-record license."
+        }
+      ],
+      "metadata_notes": [
+        "December 2026 is the assigned issue date, later than this access date; the registered version-of-record license begins July 2026. Do not misreport the issue date as the access or first-online date."
+      ]
+    },
+    {
+      "id": "S16",
+      "title": "Spec2Code",
+      "authors": [
+        "Spec2Code contributors"
+      ],
+      "year": 2026,
+      "venue_or_standard": "Official GitHub repository",
+      "type": "official-repository",
+      "canonical_identifier": "github:rse-verification/Spec2Code",
+      "canonical_locator": "https://github.com/rse-verification/Spec2Code",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "Custom Non-Commercial Source License; commercial use requires prior written permission; attribution and research citation required; GitHub SPDX metadata NOASSERTION.",
+      "maturity": "frontier",
+      "used_by": [
+        "deterministic-evidence-layer",
+        "reviewer-adapter-design"
+      ],
+      "claims_supported": [
+        "Pinned implementation has a Critic protocol, typed inputs/results, a central builder/catalog registry and compiler/static-analysis/formal-verification adapters.",
+        "These are extensibility reference patterns, not evidence for a general assurance decision procedure."
+      ],
+      "limitations": [
+        "Read-only inspection; no critic or research experiment executed.",
+        "OpenReview paper independently inaccessible (browser challenge/API 403); README association is verified, paper methods are not.",
+        "External plugin loading and versioned capability contracts are roadmap items.",
+        "Runner uses conjunction of success flags and minimum score; unsuitable as the proposed assurance integrator.",
+        "License compatibility for code reuse is not established; no implementation incorporated."
+      ],
+      "frozen_revision_if_code": "aea968a724a7f6b4591929cabda3992614818148",
+      "verification_status": "VERIFIED",
+      "verified_scope": "Repository commit/license, three requested documents, interface, registry, runner and selected compiler/static/formal adapters; linked research paper remains unverified.",
+      "verification_evidence": [
+        {
+          "url": "https://api.github.com/repos/rse-verification/Spec2Code/commits/aea968a724a7f6b4591929cabda3992614818148",
+          "evidence": "Frozen inspected commit; committed 2026-09-16T10:09:26Z."
+        },
+        {
+          "url": "https://github.com/rse-verification/Spec2Code/blob/aea968a724a7f6b4591929cabda3992614818148/LICENSE",
+          "evidence": "Custom non-commercial terms explicitly restrict revenue-generating production use."
+        },
+        {
+          "url": "https://github.com/rse-verification/Spec2Code/blob/aea968a724a7f6b4591929cabda3992614818148/docs/ARCHITECTURE.md",
+          "evidence": "Documents CLI/runtime/provider/artifact/critic/report boundaries."
+        },
+        {
+          "url": "https://github.com/rse-verification/Spec2Code/blob/aea968a724a7f6b4591929cabda3992614818148/docs/ADDING_CRITICS.md",
+          "evidence": "Defines critic implementation and central registration workflow."
+        },
+        {
+          "url": "https://github.com/rse-verification/Spec2Code/blob/aea968a724a7f6b4591929cabda3992614818148/docs/CRITIC_EXTENSIBILITY_PLAN.md",
+          "evidence": "Distinguishes current registry/catalog from planned hooks, schema validation, self-tests and external plugins."
+        },
+        {
+          "url": "https://github.com/rse-verification/Spec2Code/blob/aea968a724a7f6b4591929cabda3992614818148/src/spec2code/pipeline_modules/critics/critics_interface.py",
+          "evidence": "Critic.run maps CriticInput to CriticResult; results include success, score, findings, metrics and raw output."
+        },
+        {
+          "url": "https://github.com/rse-verification/Spec2Code/blob/aea968a724a7f6b4591929cabda3992614818148/src/spec2code/pipeline_modules/critics/critics_runner.py",
+          "evidence": "Instantiates named builders, preserves per-critic outputs; AND success and minimum score aggregation."
+        },
+        {
+          "url": "https://github.com/rse-verification/Spec2Code/blob/aea968a724a7f6b4591929cabda3992614818148/README.md",
+          "evidence": "Associates repository with OpenReview xcLrUIeGo3; association alone does not verify paper methods."
+        }
+      ],
+      "metadata_notes": [
+        "Repository creation year 2026; README cites a 2025 research paper. Paper authors are not assumed to be repository authors."
+      ]
+    }
+  ]
+}

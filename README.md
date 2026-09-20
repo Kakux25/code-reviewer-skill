@@ -50,3 +50,16 @@ A helper script ships with the skill: `skills/code-reviewer/scripts/trace_caller
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## Engineering Assurance Foundation
+
+The [design foundation](docs/assurance/README.md) specifies complementary architecture, system-dynamics, safety, incident, sociotechnical and assurance reviewers. It includes a technical source registry, module boundaries, traceability, versioned record contracts and a staged implementation plan. The existing code-reviewer remains unchanged; new specialist agents and comparative experiments are not yet implemented.
+
+Validate the synthetic assurance record and run the contract tests:
+
+```sh
+uv run --with-requirements requirements-dev.txt python scripts/validate_assurance.py examples/assurance/insufficient-evidence.json
+uv run --with-requirements requirements-dev.txt python -m unittest discover -s tests/contracts -v
+```
+
+Contract validation checks data structure and selected consistency constraints. It does not prove engineering claims or grant integration or deployment permission.
