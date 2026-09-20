@@ -1,0 +1,9 @@
+{
+  "case": "stpa-a",
+  "kind": "gold",
+  "verdict": "unsafe",
+  "must_cite": ["losses-hazards.md", "control-structure.md"],
+  "must_state": ["omitted", "wrong", "presence", "constraint"],
+  "must_not_claim": ["safe", "no scenarios", "no unsafe"],
+  "rationale": "Gold omitted+wrong case: presence feedback is ignored (SC1 omission: de-energize on absent never issued) and a faulty sensor reading energizes the heater (wrong action, violates SC2/H2)."
+}

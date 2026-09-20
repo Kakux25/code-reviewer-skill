@@ -1,0 +1,20 @@
+{
+  "case": "stpa-c",
+  "kind": "negative",
+  "verdict": "safe",
+  "must_cite": [
+    "losses-hazards.md",
+    "control-structure.md"
+  ],
+  "must_state": [
+    "guard",
+    "watchdog",
+    "constraint"
+  ],
+  "must_not_claim": [
+    "unsafe",
+    "missing interlock",
+    "violates"
+  ],
+  "rationale": "Negative control: a guard refactor that preserves every interlock (presence, sensor health, 60-minute watchdog). A reviewer that invents scenarios here fails specificity."
+}

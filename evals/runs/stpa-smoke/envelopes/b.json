@@ -1,0 +1,175 @@
+{
+  "id": "AC-b-stpa-smoke",
+  "top_claim": "C3-b",
+  "rationale": "single-reviewer conversion; other specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E3-b-review",
+      "observation": "review text (53 lines)",
+      "artifact": "evals/runs/stpa-smoke/reviews/b.md",
+      "method": "read",
+      "collected_at": "2026-09-20T07:10:30+00:00",
+      "revision": "fixture:stpa-b:candidate@f40b6f4d45b31e75",
+      "context_id": "stpa-case-b",
+      "applicability": "human grading input",
+      "limitations": [
+        "free text; grade is the instrument"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "0434760aea2bcab854845d0535c31e0e551f41cfb3acc7f27fbdfcdcf6a9a6f4"
+    },
+    {
+      "id": "E3-b-grade",
+      "observation": "human grade verdict=unsafe (expected unsafe)",
+      "artifact": "expected.json",
+      "method": "human grading vs frozen expected.json",
+      "collected_at": "2026-09-20T07:10:30+00:00",
+      "revision": "fixture:stpa-b:candidate@f40b6f4d45b31e75",
+      "context_id": "stpa-case-b",
+      "applicability": "expected-verdict conformance",
+      "limitations": [
+        "single human grader; inter-rater agreement unmeasured"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "9e129d72cfb12215c08e474e25d34edbc16cc1efa4e4e5d7d84aea54b4b9055a"
+    },
+    {
+      "id": "E3-b-suite",
+      "observation": "no suite declared (analysis-only fixture)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/stpa-cases/stpa-b",
+      "method": "key inspection",
+      "collected_at": "2026-09-20T07:10:30+00:00",
+      "revision": "fixture:stpa-b:candidate@f40b6f4d45b31e75",
+      "context_id": "stpa-case-b",
+      "applicability": "absence is designed, not missing evidence",
+      "limitations": [
+        "no dynamic observation possible"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "5ad38304b535c2987dbd24657c1a11b884984ff600d9f389deb0d4e634fee792"
+    },
+    {
+      "id": "E3-b-git",
+      "observation": "repo HEAD observed (tainted)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
+      "method": "git rev-parse/status (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:10:30+00:00",
+      "revision": "fixture:stpa-b:candidate@f40b6f4d45b31e75",
+      "context_id": "stpa-case-b",
+      "applicability": "revision context",
+      "limitations": [
+        "dirty state recorded, not resolved"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "18f723690fc707d059ea8f513b5075f101e4bdcdebe457f4f915c630e341ee87"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C3-b",
+      "statement": "Candidate stpa-b is free of unhandled unsafe control actions (per human-graded review)",
+      "warrant": "human grading against frozen expected.json; claim mirrors graded verdict",
+      "independence_notes": "single human grader; no mechanical key",
+      "assumptions": [
+        "human grader applies expected.json must/must-not faithfully"
+      ],
+      "supporting_evidence": [],
+      "counterevidence": [
+        "E3-b-grade"
+      ],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:stpa-b:repo@7be61500a6545cff",
+        "candidate_revision": "fixture:stpa-b:candidate@f40b6f4d45b31e75",
+        "context_id": "stpa-case-b",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "defeated"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [
+    {
+      "id": "U3-b",
+      "missing_fact": "second-grader agreement on this review",
+      "consequence": "claim rests on one human grade (K=1)",
+      "owner": "safety-stpa-reviewer",
+      "next_action": "second independent grade",
+      "blocking": false,
+      "status": "open"
+    }
+  ],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-b-stpa",
+      "rubric_version": "a854ca6dc0a82777e16ed46bd7e5537f1b83ba0cd8f20cc2dd1afeb84f7d3a7c",
+      "exposure_notes": "agent blind to expected.json by instruction (unverified); model-first evidenced by safety-model sections preceding candidate analysis in frozen reviews; grader is fixture author, K=1",
+      "status_rationale": "mechanical conversion complete",
+      "criteria": [
+        "expected.json"
+      ],
+      "shared_context": [
+        "stpa-case-b"
+      ],
+      "evidence": [
+        "E3-b-review",
+        "E3-b-grade",
+        "E3-b-suite",
+        "E3-b-git"
+      ],
+      "claims": [
+        "C3-b"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "safety-stpa-reviewer",
+      "scope": {
+        "base_revision": "fixture:stpa-b:repo@7be61500a6545cff",
+        "candidate_revision": "fixture:stpa-b:candidate@f40b6f4d45b31e75",
+        "context_id": "stpa-case-b",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": true,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "e227ec57fa33eafd444f0a2947c9b6a58ef5100f56587c411ae8fa627622abe5",
+        "session_id": "stpa-smoke"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:stpa-b:repo@7be61500a6545cff",
+    "candidate_revision": "fixture:stpa-b:candidate@f40b6f4d45b31e75",
+    "context_id": "stpa-case-b",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

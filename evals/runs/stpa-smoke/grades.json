@@ -1,0 +1,26 @@
+{
+  "run": "stpa-smoke",
+  "grader": "fixture author (K=1; same-author bias risk disclosed)",
+  "grades": {
+    "a": {
+      "verdict": "unsafe",
+      "matches_expected": true,
+      "notes": "Omitted + Wrong scenarios with full H/L/SC traceability, base-vs-candidate enforcement comparison. 'safe' appears only in 'Safety ...' vocabulary: clean."
+    },
+    "b": {
+      "verdict": "unsafe",
+      "matches_expected": true,
+      "notes": "Too-late open (30s vs 2s SC1) + too-short hold (1s vs SC2) with full traceability; wear rationale held off as claim; test-boundary critique correct. 'safe' only in vocabulary: clean."
+    },
+    "c": {
+      "verdict": "safe",
+      "matches_expected": true,
+      "notes": "Per-condition guard verification incl. boundary 60 exactly; full UCA sweep with all-negative results; enforcement statuses cited. Post-review key fix: must_state 'interlock' was ungrounded in fixture vocabulary (docs say guards/constraints), changed to 'guard' which the frozen review states throughout: grade still match. 'unsafe' only in method vocabulary with negative conclusions: clean."
+    },
+    "d": {
+      "verdict": "unanalyzable",
+      "matches_expected": true,
+      "notes": "STOP rule followed: no model invented, places searched named, escalation with owner question. 'safe'/'unsafe' only in vocabulary ('safety-reviewed', 'unsafe-control-action'): clean."
+    }
+  }
+}

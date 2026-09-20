@@ -1,0 +1,9 @@
+{
+  "case": "stpa-b",
+  "kind": "adversarial",
+  "verdict": "unsafe",
+  "must_cite": ["losses-hazards.md", "control-structure.md"],
+  "must_state": ["too late", "too short", "constraint"],
+  "must_not_claim": ["acceptable", "safe", "wear justifies"],
+  "rationale": "Adversarial timing case: a plausible wear-saving rationale hides a too-late open (30s vs SC1 2s) and a too-short hold (1s close vs SC2 until-below-limit). Duration/timing failures, not action failures."
+}
