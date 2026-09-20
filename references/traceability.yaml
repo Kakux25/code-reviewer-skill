@@ -41,7 +41,8 @@
       "module": "system-dynamics-reviewer",
       "statement": "Record causal links, polarity, delay, evidence and uncertainty.",
       "basis": [
-        "S06"
+        "S06",
+        "S17"
       ],
       "status": "design_requirement",
       "tests": [
@@ -70,7 +71,9 @@
       "module": "incident-memory",
       "statement": "Test mechanism applicability and disanalogies before transferring lessons.",
       "basis": [
-        "S09"
+        "S09",
+        "S18",
+        "S19"
       ],
       "status": "design_requirement",
       "tests": [

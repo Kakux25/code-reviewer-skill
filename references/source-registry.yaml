@@ -837,6 +837,130 @@
       "metadata_notes": [
         "Repository creation year 2026; README cites a 2025 research paper. Paper authors are not assumed to be repository authors."
       ]
+    },
+    {
+      "id": "S17",
+      "title": "Business Dynamics: Systems Thinking and Modeling for a Complex World",
+      "authors": [
+        "John D. Sterman"
+      ],
+      "year": 2000,
+      "venue_or_standard": "Irwin/McGraw-Hill",
+      "type": "book",
+      "canonical_identifier": "ISBN 9780072311358",
+      "canonical_locator": "https://openlibrary.org/books/OL9252644M/Business_Dynamics",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "Commercial textbook; no open reuse license established",
+      "maturity": "mature",
+      "used_by": [
+        "system-dynamics-reviewer"
+      ],
+      "claims_supported": [
+        "Bibliographic identity of the standard system-dynamics textbook (systems thinking/modeling for complex-world problems, per publisher description).",
+        "Designated the mature-textbook candidate for grounding SD vocabulary (stocks, flows, feedback, delays); definitional claims await full-text consultation."
+      ],
+      "limitations": [
+        "Catalog metadata and publisher description only; full text not reviewed.",
+        "No chapter-level or definitional claims verified; SD vocabulary use beyond S06 requires full-text consultation.",
+        "Automated causal-link generation remains frontier per S06 regardless of this source."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "PARTIALLY_VERIFIED",
+      "verified_scope": "Bibliographic identity (title, author, publisher, year, ISBN 9780072311358, 982 pages) via the Google Books catalog record plus publisher description; the OpenLibrary record confirms title/author/year/publisher for a different edition (see metadata_notes).",
+      "verification_evidence": [
+        {
+          "url": "https://openlibrary.org/books/OL9252644M/Business_Dynamics",
+          "finding": "Title, John Sterman, 2000, McGraw Hill Higher Education; different edition (ISBN 9780071179898, 993 pp) - see metadata_notes."
+        },
+        {
+          "url": "https://books.google.com/books?id=CCKCQgAACAAJ",
+          "finding": "Title, John Sterman, Irwin/McGraw-Hill, 2000, 982 pages, ISBN 0072311355; publisher description scopes the textbook."
+        }
+      ],
+      "metadata_notes": [
+        "OpenLibrary OL9252644M describes ISBN 9780071179898 (993 pp); the canonical ISBN 9780072311358 (982 pp) rests on the Google Books record alone."
+      ]
+    },
+    {
+      "id": "S18",
+      "title": "Sources of Power: How People Make Decisions",
+      "authors": [
+        "Gary A. Klein"
+      ],
+      "year": 1998,
+      "venue_or_standard": "MIT Press",
+      "type": "book",
+      "canonical_identifier": "ISBN 9780262112277",
+      "canonical_locator": "https://www.abebooks.com/9780262112277/Sources-Power-People-Decisions-Klein-0262112272/plp",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "Commercial book; no open reuse license established",
+      "maturity": "mature",
+      "used_by": [
+        "incident-memory"
+      ],
+      "claims_supported": [
+        "Bibliographic identity of Klein's Naturalistic Decision Making text; publisher synopsis identifies Klein as a developer of the NDM approach.",
+        "Documents, per publisher synopsis, fieldwork on experts (firefighters, nurses, pilots, operators, planners) deciding under time pressure, high stakes, and shifting conditions."
+      ],
+      "limitations": [
+        "Bookseller metadata and synopsis only; full text not reviewed.",
+        "Recognition-Primed Decision model specifics require the full text or the primary RPD papers; not verified here.",
+        "Publisher-direct page (mitpress.mit.edu) returned HTTP 403; identity rests on bookseller + catalog records."
+      ],
+      "frozen_revision_if_code": null,
+      "verification_status": "PARTIALLY_VERIFIED",
+      "verified_scope": "Bibliographic identity (title, author, publisher, year, ISBN) and publisher synopsis scoping NDM fieldwork.",
+      "verification_evidence": [
+        {
+          "url": "https://www.abebooks.com/9780262112277/Sources-Power-People-Decisions-Klein-0262112272/plp",
+          "finding": "Title, Gary A. Klein, Mit Pr, 1998, ISBN 9780262112277; synopsis describes NDM fieldwork with experts under pressure."
+        }
+      ]
+    },
+    {
+      "id": "S19",
+      "title": "ARTEM: Enhancing Large Language Model Agents with Spatial-Temporal Episodic Memory",
+      "authors": [
+        "cassthm (Cassandra Tan Hui Ming)"
+      ],
+      "year": 2026,
+      "venue_or_standard": "GitHub: cassthm/ARTEM",
+      "type": "official-repository",
+      "canonical_identifier": "github:cassthm/ARTEM@cff195f7406c66d0721cae2288675e954b0e1a0d",
+      "canonical_locator": "https://github.com/cassthm/ARTEM",
+      "accessed_at": "2026-09-20",
+      "license_if_known": "None detected (GitHub API license field null); no reuse rights established; do not copy code.",
+      "maturity": "frontier",
+      "used_by": [
+        "incident-memory"
+      ],
+      "claims_supported": [
+        "Repository self-describes as the official ARTEM repo: hybrid LLM agent architecture with Spatial-Temporal Episodic Memory (STEM) for event encoding, storage, and retrieval across time.",
+        "Implementation-reference patterns only; conceptual authority for incident-memory remains Case-Based Reasoning (S09)."
+      ],
+      "limitations": [
+        "Two-line README (plus trailing blanks); no source file inspected and no experiment executed.",
+        "AAAI 2026 acceptance is repository self-description, independently unverified.",
+        "NO LICENSE: reuse of any code is prohibited until a license is established.",
+        "HEAD is an upload-style snapshot commit ('Add files via upload'); history drops may move without notice."
+      ],
+      "frozen_revision_if_code": "cff195f7406c66d0721cae2288675e954b0e1a0d",
+      "verification_status": "VERIFIED",
+      "verified_scope": "Repository identity, README scope statement, default branch (main), HEAD SHA/date via GitHub API, and license absence.",
+      "verification_evidence": [
+        {
+          "url": "https://api.github.com/repos/cassthm/ARTEM",
+          "finding": "Identity, description, main branch, pushed 2026-06-17; license null."
+        },
+        {
+          "url": "https://api.github.com/repos/cassthm/ARTEM/commits?per_page=1",
+          "finding": "HEAD cff195f7, 2026-06-17, message 'Add files via upload'."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/cassthm/ARTEM/main/README.md",
+          "finding": "Two-line README (plus blanks): title, AAAI 2026 poster claim, STEM encoding/storage/retrieval scope."
+        }
+      ]
     }
   ]
 }
