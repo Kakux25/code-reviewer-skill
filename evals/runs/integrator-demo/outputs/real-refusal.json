@@ -1,0 +1,86 @@
+{
+  "id": "AC-ASM-demo",
+  "top_claim": "CTOP",
+  "rationale": "refusal: scope mismatch across fragments (refusing merge): [('fixture:arch-a:repo@fa69b12beec81d8e', 'fixture:arch-a:candidate@80039a1389d51461'), ('fixture:dyn-a:repo@27ebc964354d391f', 'fixture:dyn-a:candidate@cef4574008a71a68'), ('fixture:mem-a:casebase@bb96235bcf06d98b', 'fixture:mem-a:candidate@f60efac11ad4ff34'), ('fixture:soc-a:repo@44b0ad68f48bde63', 'fixture:soc-a:candidate@4236ba3ce034c0df'), ('fixture:stpa-a:repo@8166081756e5f8e1', 'fixture:stpa-a:candidate@965e0759b6d0add4')]",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E-ASM",
+      "observation": "refused 5 fragment(s): scope mismatch across fragments (refusing merge): [('fixture:arch-a:repo@fa69b12beec81d8e', 'fixture:arch-a:candidate@80039a1389d51461'), ('fixture:dyn-a:repo@27ebc964354d391f', 'fixture:dyn-a:candidate@cef4574008a71a68'), ('fixture:mem-a:casebase@bb96235bcf06d98b', 'fixture:mem-a:candidate@f60efac11ad4ff34'), ('fixture:soc-a:repo@44b0ad68f48bde63', 'fixture:soc-a:candidate@4236ba3ce034c0df'), ('fixture:stpa-a:repo@8166081756e5f8e1', 'fixture:stpa-a:candidate@965e0759b6d0add4')]",
+      "artifact": "scripts/assemble.py",
+      "method": "deterministic structural integration",
+      "collected_at": "2026-09-20T07:42:33+00:00",
+      "revision": "fixture:arch-a:candidate@80039a1389d51461",
+      "context_id": "arch-case-a",
+      "applicability": "assembly record for this decision",
+      "limitations": [
+        "structure only; substance belongs to reviewers"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "7ea6c099875531104ec2b38cfec9389ff49fe1ce68ac0abea7d448cdcdd4a4f8"
+    }
+  ],
+  "claims": [
+    {
+      "id": "CTOP",
+      "statement": "Required assurance complete for arch-case-a",
+      "warrant": "mechanical integration (assemble.py): coverage, agreement, and closure checks over reviewer fragments",
+      "independence_notes": "integrator is deterministic; it judges structure, not substance",
+      "assumptions": [],
+      "supporting_evidence": [],
+      "counterevidence": [],
+      "defeaters": [
+        "D-ASM-1"
+      ],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:arch-a:repo@fa69b12beec81d8e",
+        "candidate_revision": "fixture:arch-a:candidate@80039a1389d51461",
+        "context_id": "arch-case-a",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "unresolved"
+    }
+  ],
+  "findings": [],
+  "defeaters": [
+    {
+      "id": "D-ASM-1",
+      "claim_id": "CTOP",
+      "statement": "scope mismatch across fragments (refusing merge): [('fixture:arch-a:repo@fa69b12beec81d8e', 'fixture:arch-a:candidate@80039a1389d51461'), ('fixture:dyn-a:repo@27ebc964354d391f', 'fixture:dyn-a:candidate@cef4574008a71a68'), ('fixture:mem-a:casebase@bb96235bcf06d98b', 'fixture:mem-a:candidate@f60efac11ad4ff34'), ('fixture:soc-a:repo@44b0ad68f48bde63', 'fixture:soc-a:candidate@4236ba3ce034c0df'), ('fixture:stpa-a:repo@8166081756e5f8e1', 'fixture:stpa-a:candidate@965e0759b6d0add4')]",
+      "investigation": "resolve and re-run assemble.py",
+      "evidence": [
+        "E-ASM"
+      ],
+      "blocking": true,
+      "status": "unresolved"
+    }
+  ],
+  "uncertainties": [],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:arch-a:repo@fa69b12beec81d8e",
+    "candidate_revision": "fixture:arch-a:candidate@80039a1389d51461",
+    "context_id": "arch-case-a",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}
