@@ -1,0 +1,158 @@
+{
+  "id": "AC-concur-refusal-judge-demo",
+  "top_claim": "C7-concur-refusal",
+  "rationale": "single-reviewer conversion; other specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E7-concur-refusal-assembly",
+      "observation": "assembly decision=INSUFFICIENT_EVIDENCE (1 defeaters)",
+      "artifact": "evals/runs/judge-demo/inputs/real-refusal.json",
+      "method": "read",
+      "collected_at": "2026-09-20T08:06:37+00:00",
+      "revision": "assembly:real-refusal.json@e11d82a1262f4361",
+      "context_id": "arch-case-a",
+      "applicability": "verdict input",
+      "limitations": [
+        "frozen bytes; judge read this file"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "e11d82a1262f4361c3aa76ec86a91facddd1443ed03b704ec41d0637f6263d7c"
+    },
+    {
+      "id": "E7-concur-refusal-verdict",
+      "observation": "judge verdict=concur (19 lines of reasons)",
+      "artifact": "evals/runs/judge-demo/verdicts/concur-refusal.md",
+      "method": "read",
+      "collected_at": "2026-09-20T08:06:37+00:00",
+      "revision": "assembly:real-refusal.json@e11d82a1262f4361",
+      "context_id": "arch-case-a",
+      "applicability": "verdict record",
+      "limitations": [
+        "free text; reasons are the instrument"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "e7a62233ba9a7f7471be33be36a1d4836690051d79f02aced66232e4f52ff009"
+    },
+    {
+      "id": "E7-concur-refusal-git",
+      "observation": "repo HEAD observed (tainted)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
+      "method": "git rev-parse/status (Gate 1 collector)",
+      "collected_at": "2026-09-20T08:06:37+00:00",
+      "revision": "assembly:real-refusal.json@e11d82a1262f4361",
+      "context_id": "arch-case-a",
+      "applicability": "revision context",
+      "limitations": [
+        "dirty state recorded, not resolved"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "9793485631d6f1a7b8a4d6a8fda49665a07e2f8b589c9984ea2ad0216653d9f2"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C7-concur-refusal",
+      "statement": "Assembly decision for arch-case-a is sound (per independent judge verdict)",
+      "warrant": "independent verdict with written reasons per judge-protocol.md; claim mirrors verdict",
+      "independence_notes": "judge read the frozen assembly; single judge (K=1)",
+      "assumptions": [
+        "judge applies judge-protocol.md norms faithfully"
+      ],
+      "supporting_evidence": [
+        "E7-concur-refusal-verdict"
+      ],
+      "counterevidence": [],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:arch-a:repo@fa69b12beec81d8e",
+        "candidate_revision": "fixture:arch-a:candidate@80039a1389d51461",
+        "context_id": "arch-case-a",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "supported"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [
+    {
+      "id": "U7-concur-refusal",
+      "missing_fact": "second-judge agreement on this verdict",
+      "consequence": "claim rests on one judge (K=1)",
+      "owner": "final-engineering-judge",
+      "next_action": "second independent verdict",
+      "blocking": false,
+      "status": "open"
+    }
+  ],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-concur-refusal-judge",
+      "rubric_version": "2b41a0f1f6a50427b98938d2b5088bb2dcfba231a44e3a08e9438537e2ea7525",
+      "exposure_notes": "judge read frozen assembly; protocol-first per judge-protocol.md (written before verdicts); single judge K=1",
+      "status_rationale": "mechanical conversion complete",
+      "criteria": [
+        "judge-protocol.md"
+      ],
+      "shared_context": [
+        "arch-case-a"
+      ],
+      "evidence": [
+        "E7-concur-refusal-assembly",
+        "E7-concur-refusal-verdict",
+        "E7-concur-refusal-git"
+      ],
+      "claims": [
+        "C7-concur-refusal"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "final-engineering-judge",
+      "scope": {
+        "base_revision": "fixture:arch-a:repo@fa69b12beec81d8e",
+        "candidate_revision": "fixture:arch-a:candidate@80039a1389d51461",
+        "context_id": "arch-case-a",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": true,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "2b41a0f1f6a50427b98938d2b5088bb2dcfba231a44e3a08e9438537e2ea7525",
+        "session_id": "judge-demo"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:arch-a:repo@fa69b12beec81d8e",
+    "candidate_revision": "fixture:arch-a:candidate@80039a1389d51461",
+    "context_id": "arch-case-a",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

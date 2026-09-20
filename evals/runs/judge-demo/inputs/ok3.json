@@ -1,0 +1,112 @@
+{
+  "id": "AC-ok3-demo2",
+  "top_claim": "C-ok3",
+  "rationale": "single-reviewer conversion; other specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E-ok3",
+      "observation": "independent obs ok3",
+      "artifact": "art",
+      "method": "m",
+      "collected_at": "2026-09-20T00:00:00+00:00",
+      "revision": "r",
+      "context_id": "demo-chg-2",
+      "applicability": "a",
+      "limitations": [
+        "l"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "ff2f2ce7f9577786db39d3dcb0e2b93bf0f583bb0daffbe04fa65b97c4e1b6d7"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C-ok3",
+      "statement": "s",
+      "warrant": "w",
+      "independence_notes": "n",
+      "assumptions": [],
+      "supporting_evidence": [
+        "E-ok3"
+      ],
+      "counterevidence": [],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "demo-base@2",
+        "candidate_revision": "demo-cand@2",
+        "context_id": "demo-chg-2",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "supported"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-ok3-d",
+      "rubric_version": "r",
+      "exposure_notes": "caller did not assert review conditions; blindness and rubric timing not verified for this input",
+      "status_rationale": "s",
+      "criteria": [
+        "c"
+      ],
+      "shared_context": [
+        "demo-chg-2"
+      ],
+      "evidence": [
+        "E-ok3"
+      ],
+      "claims": [
+        "C-ok3"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "code-reviewer",
+      "scope": {
+        "base_revision": "demo-base@2",
+        "candidate_revision": "demo-cand@2",
+        "context_id": "demo-chg-2",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": false,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "p",
+        "session_id": "demo2"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "demo-base@2",
+    "candidate_revision": "demo-cand@2",
+    "context_id": "demo-chg-2",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

@@ -1,0 +1,112 @@
+{
+  "id": "AC-ok2-demo",
+  "top_claim": "C-ok2",
+  "rationale": "single-reviewer conversion; other specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E-ok2",
+      "observation": "obs",
+      "artifact": "art",
+      "method": "m",
+      "collected_at": "2026-09-20T00:00:00+00:00",
+      "revision": "r",
+      "context_id": "demo-chg",
+      "applicability": "a",
+      "limitations": [
+        "l"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "f0694cebe972e23d9ac86653394312b0871c868a5d61b9e1abf0e59aaa6cbff9"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C-ok2",
+      "statement": "s",
+      "warrant": "w",
+      "independence_notes": "n",
+      "assumptions": [],
+      "supporting_evidence": [
+        "E-ok2"
+      ],
+      "counterevidence": [],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "demo-base@1",
+        "candidate_revision": "demo-cand@1",
+        "context_id": "demo-chg",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "supported"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-ok2-d",
+      "rubric_version": "r",
+      "exposure_notes": "caller did not assert review conditions; blindness and rubric timing not verified for this input",
+      "status_rationale": "s",
+      "criteria": [
+        "c"
+      ],
+      "shared_context": [
+        "demo-chg"
+      ],
+      "evidence": [
+        "E-ok2"
+      ],
+      "claims": [
+        "C-ok2"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "architecture-reviewer",
+      "scope": {
+        "base_revision": "demo-base@1",
+        "candidate_revision": "demo-cand@1",
+        "context_id": "demo-chg",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": false,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "p",
+        "session_id": "demo"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "demo-base@1",
+    "candidate_revision": "demo-cand@1",
+    "context_id": "demo-chg",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}
