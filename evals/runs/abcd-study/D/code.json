@@ -1,0 +1,176 @@
+{
+  "id": "AC-a-abcd-study",
+  "top_claim": "C1-a",
+  "rationale": "single-reviewer conversion; other specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E-a-review",
+      "observation": "review text (22 lines)",
+      "artifact": "evals/runs/abcd-study/reviews/code-C.md",
+      "method": "read",
+      "collected_at": "2026-09-20T07:54:49+00:00",
+      "revision": "fixture:a:candidate@a8a052ba7961a36d",
+      "context_id": "battery-case-a",
+      "applicability": "mechanical grading input",
+      "limitations": [
+        "lexical proxy (thresholds.json notes)"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "1cdcd15952aa9334808f441426d0475332587f0109f6926c6641006fb4653f53"
+    },
+    {
+      "id": "E-a-grade",
+      "observation": "grade pass=False (decision ok=True)",
+      "artifact": "grader.py",
+      "method": "mechanical grading vs frozen answer key",
+      "collected_at": "2026-09-20T07:54:49+00:00",
+      "revision": "fixture:a:candidate@a8a052ba7961a36d",
+      "context_id": "battery-case-a",
+      "applicability": "key conformance verdict",
+      "limitations": [
+        "lexical proxy, not semantic verification"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "aeb84d8a1e6b917807984a8ff097f9ccd0a887f9d4fe03c4736df89f96e1ef4c"
+    },
+    {
+      "id": "E-a-suite",
+      "observation": "suite: exit=1 (Ran 2 tests in 0.000s)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/review-cases/case-a/tests",
+      "method": "unittest discover (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:54:49+00:00",
+      "revision": "fixture:a:candidate@a8a052ba7961a36d",
+      "context_id": "battery-case-a",
+      "applicability": "executed acceptance behavior",
+      "limitations": [
+        "exit code only; full output truncated"
+      ],
+      "kind": "dynamic",
+      "integrity": "verified",
+      "digest": "aa329564622f93b60629deb6155b052b24faf71d562335794c063ae634ec5ee6"
+    },
+    {
+      "id": "E-a-git",
+      "observation": "repo HEAD observed (tainted)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
+      "method": "git rev-parse/status (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:54:49+00:00",
+      "revision": "fixture:a:candidate@a8a052ba7961a36d",
+      "context_id": "battery-case-a",
+      "applicability": "revision context",
+      "limitations": [
+        "dirty state recorded, not resolved"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "b8b78a888f3e74d433b7cd1e0bfae88b03d461e40d32e6358d8a91ec63718dc7"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1-a",
+      "statement": "Code review of battery case a meets its frozen answer key",
+      "warrant": "mechanical grading (grader.py) against frozen answer-key.json; claim mirrors grade pass",
+      "independence_notes": "single instrument; lexical proxy, not semantic verification",
+      "assumptions": [
+        "mechanical grading is a lexical proxy (thresholds.json notes)"
+      ],
+      "supporting_evidence": [],
+      "counterevidence": [
+        "E-a-grade"
+      ],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:a:base@4c584d09565004e5",
+        "candidate_revision": "fixture:a:candidate@a8a052ba7961a36d",
+        "context_id": "battery-case-a",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "defeated"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [
+    {
+      "id": "U1-a",
+      "missing_fact": "semantic finding content beyond the lexical grade",
+      "consequence": "envelope carries grade conformance only",
+      "owner": "code-reviewer",
+      "next_action": "semantic finding extraction (Phase 2 judge)",
+      "blocking": false,
+      "status": "open"
+    }
+  ],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-a-code",
+      "rubric_version": "3992f8c58114c5e0b140fbb40da016437b3e22c05dcf3c6cc6079962a53369fa",
+      "exposure_notes": "study arm C, blind to answer-key by instruction (unverified); answer key frozen before study (battery v2.1); grader is fixture author, K=1",
+      "status_rationale": "mechanical conversion complete",
+      "criteria": [
+        "answer-key.json",
+        "thresholds.json"
+      ],
+      "shared_context": [
+        "battery-case-a"
+      ],
+      "evidence": [
+        "E-a-review",
+        "E-a-grade",
+        "E-a-suite",
+        "E-a-git"
+      ],
+      "claims": [
+        "C1-a"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "code-reviewer",
+      "scope": {
+        "base_revision": "fixture:a:base@4c584d09565004e5",
+        "candidate_revision": "fixture:a:candidate@a8a052ba7961a36d",
+        "context_id": "battery-case-a",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": true,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "cecda90d917bfdcb60cef9e8a17fb036321bfc7bc7b760a45f92465854f1c095",
+        "session_id": "abcd-study"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:a:base@4c584d09565004e5",
+    "candidate_revision": "fixture:a:candidate@a8a052ba7961a36d",
+    "context_id": "battery-case-a",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

@@ -1,0 +1,235 @@
+{
+  "id": "AC-ASM-abcd",
+  "top_claim": "CTOP",
+  "rationale": "mechanical integration of 1 fragment(s)",
+  "required_reviewers": [
+    "architecture-reviewer"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E2-b-review",
+      "observation": "review text (17 lines)",
+      "artifact": "evals/runs/abcd-study/reviews/arch-C.md",
+      "method": "read",
+      "collected_at": "2026-09-20T07:49:58+00:00",
+      "revision": "fixture:arch-b:candidate@03b9c53292393c42",
+      "context_id": "arch-case-b",
+      "applicability": "human grading input",
+      "limitations": [
+        "free text; grade is the instrument"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "0b8a23fb69b0b3876769b44139aa642918df10b223be0af3005614f33bab07a0"
+    },
+    {
+      "id": "E2-b-grade",
+      "observation": "human grade verdict=violates (expected violates)",
+      "artifact": "expected.json",
+      "method": "human grading vs frozen expected.json",
+      "collected_at": "2026-09-20T07:49:58+00:00",
+      "revision": "fixture:arch-b:candidate@03b9c53292393c42",
+      "context_id": "arch-case-b",
+      "applicability": "expected-verdict conformance",
+      "limitations": [
+        "single human grader; inter-rater agreement unmeasured"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "243612e09131a0e4da682cb6e047155977b408d735de9694f7579cb718f8aaaf"
+    },
+    {
+      "id": "E2-b-suite",
+      "observation": "suite: exit=0 (Ran 1 test in 0.000s)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/arch-cases/arch-b/candidate/tests",
+      "method": "unittest discover (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:49:58+00:00",
+      "revision": "fixture:arch-b:candidate@03b9c53292393c42",
+      "context_id": "arch-case-b",
+      "applicability": "executed acceptance behavior",
+      "limitations": [
+        "exit code only; full output truncated"
+      ],
+      "kind": "dynamic",
+      "integrity": "verified",
+      "digest": "359d5c53e3af3936511e01b33f01a3280be3ad579862d6b8c2b1d4f12d3a2f6c"
+    },
+    {
+      "id": "E2-b-git",
+      "observation": "repo HEAD observed (tainted)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
+      "method": "git rev-parse/status (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:49:58+00:00",
+      "revision": "fixture:arch-b:candidate@03b9c53292393c42",
+      "context_id": "arch-case-b",
+      "applicability": "revision context",
+      "limitations": [
+        "dirty state recorded, not resolved"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "b8b78a888f3e74d433b7cd1e0bfae88b03d461e40d32e6358d8a91ec63718dc7"
+    },
+    {
+      "id": "E-ASM",
+      "observation": "integrated 1 fragment(s) from ['architecture-reviewer']: 4 evidence items deduped to 4 unique digests; 2 blocking reason(s)",
+      "artifact": "scripts/assemble.py",
+      "method": "deterministic structural integration",
+      "collected_at": "2026-09-20T07:50:11+00:00",
+      "revision": "fixture:arch-b:candidate@03b9c53292393c42",
+      "context_id": "arch-case-b",
+      "applicability": "assembly record for this decision",
+      "limitations": [
+        "structure only; substance belongs to reviewers"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "b07f971d099a6b6c58612c25344ef1ccbe88c14242f6e5145aca0ed0e5cc66f8"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C2-b",
+      "statement": "Candidate arch-b conforms to its documented architecture (per human-graded review)",
+      "warrant": "human grading against frozen expected.json; claim mirrors graded verdict",
+      "independence_notes": "single human grader; no mechanical key",
+      "assumptions": [
+        "human grader applies expected.json must/must-not faithfully"
+      ],
+      "supporting_evidence": [],
+      "counterevidence": [
+        "E2-b-grade"
+      ],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:arch-b:repo@4049c439f445476d",
+        "candidate_revision": "fixture:arch-b:candidate@03b9c53292393c42",
+        "context_id": "arch-case-b",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "defeated"
+    },
+    {
+      "id": "CTOP",
+      "statement": "Required assurance complete for arch-case-b",
+      "warrant": "mechanical integration (assemble.py): coverage, agreement, and closure checks over reviewer fragments",
+      "independence_notes": "integrator is deterministic; it judges structure, not substance",
+      "assumptions": [],
+      "supporting_evidence": [],
+      "counterevidence": [
+        "E-ASM"
+      ],
+      "defeaters": [
+        "D-ASM-1",
+        "D-ASM-2"
+      ],
+      "dependencies": [
+        "C2-b"
+      ],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:arch-b:repo@4049c439f445476d",
+        "candidate_revision": "fixture:arch-b:candidate@03b9c53292393c42",
+        "context_id": "arch-case-b",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "defeated"
+    }
+  ],
+  "findings": [],
+  "defeaters": [
+    {
+      "id": "D-ASM-1",
+      "claim_id": "CTOP",
+      "statement": "defeated claim: C2-b",
+      "investigation": "resolve and re-run assemble.py",
+      "evidence": [
+        "E-ASM"
+      ],
+      "blocking": true,
+      "status": "unresolved"
+    },
+    {
+      "id": "D-ASM-2",
+      "claim_id": "CTOP",
+      "statement": "unclosed claim C2-b (assumptions/residual doubts)",
+      "investigation": "resolve and re-run assemble.py",
+      "evidence": [
+        "E-ASM"
+      ],
+      "blocking": true,
+      "status": "unresolved"
+    }
+  ],
+  "uncertainties": [
+    {
+      "id": "U2-b",
+      "missing_fact": "second-grader agreement on this review",
+      "consequence": "claim rests on one human grade (K=1)",
+      "owner": "architecture-reviewer",
+      "next_action": "second independent grade",
+      "blocking": false,
+      "status": "open"
+    }
+  ],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-b-arch",
+      "rubric_version": "1f42aedc0dc9ae40ae969cb5077cfaa8668ff90c251a3adef3e786029c9802c5",
+      "exposure_notes": "study arm C, blind by instruction (unverified); grader is fixture author, K=1",
+      "status_rationale": "mechanical conversion complete",
+      "criteria": [
+        "expected.json"
+      ],
+      "shared_context": [
+        "arch-case-b"
+      ],
+      "evidence": [
+        "E2-b-review",
+        "E2-b-grade",
+        "E2-b-suite",
+        "E2-b-git"
+      ],
+      "claims": [
+        "C2-b"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "architecture-reviewer",
+      "scope": {
+        "base_revision": "fixture:arch-b:repo@4049c439f445476d",
+        "candidate_revision": "fixture:arch-b:candidate@03b9c53292393c42",
+        "context_id": "arch-case-b",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": true,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "341e1a787e444ee86b473483dde41539cfe37cba06c1ea043ed9927e51853e30",
+        "session_id": "abcd-study"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:arch-b:repo@4049c439f445476d",
+    "candidate_revision": "fixture:arch-b:candidate@03b9c53292393c42",
+    "context_id": "arch-case-b",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}

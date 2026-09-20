@@ -1,0 +1,192 @@
+{
+  "id": "AC-a-abcd-study",
+  "top_claim": "C4-a",
+  "rationale": "single-reviewer conversion; other specialists missing",
+  "required_reviewers": [
+    "code-reviewer",
+    "architecture-reviewer",
+    "system-dynamics-reviewer",
+    "safety-stpa-reviewer",
+    "incident-memory",
+    "sociotechnical-reviewer",
+    "final-engineering-judge"
+  ],
+  "conditions": [],
+  "evidence": [
+    {
+      "id": "E4-a-review",
+      "observation": "review text (19 lines)",
+      "artifact": "evals/runs/abcd-study/reviews/mem-C.md",
+      "method": "read",
+      "collected_at": "2026-09-20T07:49:59+00:00",
+      "revision": "fixture:mem-a:candidate@f60efac11ad4ff34",
+      "context_id": "mem-case-a",
+      "applicability": "human grading input",
+      "limitations": [
+        "free text; grade is the instrument"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "4238328a60783ac9450d33408f999d8c00a5bc349aa7db7d4ac94778901df094"
+    },
+    {
+      "id": "E4-a-grade",
+      "observation": "human grade verdict=blocked (expected blocked)",
+      "artifact": "expected.json",
+      "method": "human grading vs frozen expected.json",
+      "collected_at": "2026-09-20T07:49:59+00:00",
+      "revision": "fixture:mem-a:candidate@f60efac11ad4ff34",
+      "context_id": "mem-case-a",
+      "applicability": "expected-verdict conformance",
+      "limitations": [
+        "single human grader; inter-rater agreement unmeasured"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "383b9b5c1d554062982394885ad7cb351895f63d242de2161a9a7d08e05468d4"
+    },
+    {
+      "id": "E4-a-casebase",
+      "observation": "case base pinned (fixture:mem-a:casebase@bb96235bcf06d98b)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/incident-cases/cases",
+      "method": "content hash (shared.dir_hash)",
+      "collected_at": "2026-09-20T07:49:59+00:00",
+      "revision": "fixture:mem-a:casebase@bb96235bcf06d98b",
+      "context_id": "mem-case-a",
+      "applicability": "precedent revision",
+      "limitations": [
+        "hash covers file bytes, not semantic stability"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "6b685d88b792aacdc0a2f3550cd46ca0ff1871a6c575ff8545c457e60e220147"
+    },
+    {
+      "id": "E4-a-suite",
+      "observation": "no suite declared (judgment-only fixture)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/incident-cases/mem-a",
+      "method": "key inspection",
+      "collected_at": "2026-09-20T07:49:59+00:00",
+      "revision": "fixture:mem-a:candidate@f60efac11ad4ff34",
+      "context_id": "mem-case-a",
+      "applicability": "absence is designed, not missing evidence",
+      "limitations": [
+        "no dynamic observation possible"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "5ad38304b535c2987dbd24657c1a11b884984ff600d9f389deb0d4e634fee792"
+    },
+    {
+      "id": "E4-a-git",
+      "observation": "repo HEAD observed (tainted)",
+      "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
+      "method": "git rev-parse/status (Gate 1 collector)",
+      "collected_at": "2026-09-20T07:49:59+00:00",
+      "revision": "fixture:mem-a:candidate@f60efac11ad4ff34",
+      "context_id": "mem-case-a",
+      "applicability": "revision context",
+      "limitations": [
+        "dirty state recorded, not resolved"
+      ],
+      "kind": "static",
+      "integrity": "verified",
+      "digest": "b8b78a888f3e74d433b7cd1e0bfae88b03d461e40d32e6358d8a91ec63718dc7"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C4-a",
+      "statement": "Candidate mem-a is clear of applicable incident precedent (per human-graded review)",
+      "warrant": "human grading against frozen expected.json; claim mirrors graded verdict",
+      "independence_notes": "single human grader; no mechanical key",
+      "assumptions": [
+        "human grader applies expected.json must/must-not faithfully"
+      ],
+      "supporting_evidence": [],
+      "counterevidence": [
+        "E4-a-grade"
+      ],
+      "defeaters": [],
+      "dependencies": [],
+      "residual_doubts": [],
+      "scope": {
+        "base_revision": "fixture:mem-a:casebase@bb96235bcf06d98b",
+        "candidate_revision": "fixture:mem-a:candidate@f60efac11ad4ff34",
+        "context_id": "mem-case-a",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "status": "defeated"
+    }
+  ],
+  "findings": [],
+  "defeaters": [],
+  "uncertainties": [
+    {
+      "id": "U4-a",
+      "missing_fact": "second-grader agreement on this review",
+      "consequence": "claim rests on one human grade (K=1)",
+      "owner": "incident-memory",
+      "next_action": "second independent grade",
+      "blocking": false,
+      "status": "open"
+    }
+  ],
+  "causal_links": [],
+  "incident_cases": [],
+  "safety_constraints": [],
+  "reviews": [
+    {
+      "id": "R-a-mem",
+      "rubric_version": "3ba577cefc76a531c986c3fa7e65a04bd4624380df6996adbd1f10a3956df3fb",
+      "exposure_notes": "study arm C, blind by instruction (unverified); grader is fixture author, K=1",
+      "status_rationale": "mechanical conversion complete",
+      "criteria": [
+        "expected.json"
+      ],
+      "shared_context": [
+        "mem-case-a"
+      ],
+      "evidence": [
+        "E4-a-review",
+        "E4-a-grade",
+        "E4-a-casebase",
+        "E4-a-suite",
+        "E4-a-git"
+      ],
+      "claims": [
+        "C4-a"
+      ],
+      "findings": [],
+      "missing_evidence": [],
+      "schema_version": "0.1.0",
+      "module": "incident-memory",
+      "scope": {
+        "base_revision": "fixture:mem-a:casebase@bb96235bcf06d98b",
+        "candidate_revision": "fixture:mem-a:candidate@f60efac11ad4ff34",
+        "context_id": "mem-case-a",
+        "operation": "integration",
+        "risk_class": "low"
+      },
+      "criteria_before_candidate": true,
+      "producer": {
+        "model_family": "unknown",
+        "model_version": "unknown",
+        "prompt_digest": "4df9e96e0f925c2aecae3591c13623de4a0d7bc6104341bf418f6806a43568fd",
+        "session_id": "abcd-study"
+      },
+      "status": "complete"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "scope": {
+    "base_revision": "fixture:mem-a:casebase@bb96235bcf06d98b",
+    "candidate_revision": "fixture:mem-a:candidate@f60efac11ad4ff34",
+    "context_id": "mem-case-a",
+    "operation": "integration",
+    "risk_class": "low"
+  },
+  "decision": "INSUFFICIENT_EVIDENCE",
+  "authorization": "not_granted"
+}
