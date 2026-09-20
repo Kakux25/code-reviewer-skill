@@ -1,0 +1,18 @@
+{
+  "case": "mem-c",
+  "kind": "abstention",
+  "verdict": "nomatch",
+  "must_cite": [
+    "empty ranking"
+  ],
+  "must_state": [
+    "no match",
+    "abstain"
+  ],
+  "must_not_claim": [
+    "Applied",
+    "transfers",
+    "blocked"
+  ],
+  "rationale": "Abstention: a CSS change ranks no cases; forcing any incident onto it would be a fabricated transfer. The only honest output is No match. Naming case ids inside a 'none ranked' report is legitimate."
+}

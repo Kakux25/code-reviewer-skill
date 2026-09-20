@@ -1,0 +1,26 @@
+{
+  "run": "memory-smoke",
+  "grader": "fixture author (K=1; same-author bias risk disclosed)",
+  "grades": {
+    "a": {
+      "verdict": "blocked",
+      "matches_expected": true,
+      "notes": "INC-001 Applied with both applies_when evidenced by candidate lines, not_when checked and absent. Reported ranking INC-001=8 reproduced exactly with the recorded query."
+    },
+    "b": {
+      "verdict": "clear",
+      "matches_expected": true,
+      "notes": "Both ranked lures (INC-002=5, INC-001=4, reproduced exactly) rejected by mechanism with candidate-line evidence; motivation named as lure. 'blocked' appears only in 'not blocked on suspicion': clean. No restricted content quoted."
+    },
+    "c": {
+      "verdict": "nomatch",
+      "matches_expected": true,
+      "notes": "Empty ranking reported ('an empty ranking stops the review'), abstained, no transfer forced. Post-review key rework: must_cite narrowed to the single report phrase 'empty ranking' and must_not to transfer verbs, so the frozen key reads correctly without RUN.md; grade still match."
+    },
+    "d": {
+      "verdict": "clear",
+      "matches_expected": true,
+      "notes": "INC-001 Satisfied with per-element evidence (bounded loop, breaker, backoff+jitter lines); lesson-already-present rule applied. Restricted explicitly not quoted."
+    }
+  }
+}

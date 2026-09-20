@@ -1,0 +1,9 @@
+{
+  "case": "mem-d",
+  "kind": "negative",
+  "verdict": "clear",
+  "must_cite": ["INC-001"],
+  "must_state": ["satisfied", "backoff"],
+  "must_not_claim": ["blocked", "violates"],
+  "rationale": "Negative control: INC-001 is relevant but its lesson is already satisfied (not_when matches), so the candidate must be cleared with the case cited as considered-and-satisfied, not blocked."
+}

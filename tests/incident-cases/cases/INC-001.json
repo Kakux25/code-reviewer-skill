@@ -1,0 +1,11 @@
+{
+  "id": "INC-001",
+  "title": "Retry storm amplified a partial outage",
+  "mechanism": ["retry", "amplification", "backoff", "overload"],
+  "context": ["http", "client", "service"],
+  "failure": "Clients retried failed requests immediately and indefinitely; a partial backend slowdown became a full outage under retry load.",
+  "lesson": "Bound every retry loop: exponential backoff with jitter plus a circuit breaker.",
+  "applies_when": ["client retries without backoff", "unbounded retry loop on a shared backend"],
+  "not_when": ["retries already bounded with backoff, jitter, and a breaker"],
+  "restricted": ["outage cost $4.2M (internal)"]
+}

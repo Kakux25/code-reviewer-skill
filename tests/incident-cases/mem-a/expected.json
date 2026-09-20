@@ -1,0 +1,9 @@
+{
+  "case": "mem-a",
+  "kind": "gold",
+  "verdict": "blocked",
+  "must_cite": ["INC-001"],
+  "must_state": ["backoff", "jitter", "breaker"],
+  "must_not_claim": ["clear", "no match", "no applicable"],
+  "rationale": "Gold recovery: unbounded retry loop on a shared backend matches INC-001 applies_when exactly; the lesson (backoff+jitter+breaker) must be applied and the candidate blocked."
+}

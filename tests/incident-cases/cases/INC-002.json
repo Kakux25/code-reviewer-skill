@@ -1,0 +1,11 @@
+{
+  "id": "INC-002",
+  "title": "Thundering herd on synchronized cache expiry",
+  "mechanism": ["stampede", "synchronized", "expiry", "cache"],
+  "context": ["cache", "read", "path"],
+  "failure": "A hot cache key expired under peak load; thousands of readers hit the database simultaneously.",
+  "lesson": "Jitter TTLs and single-flight cache refills for hot keys.",
+  "applies_when": ["synchronized TTL expiry under load", "hot key refill without single-flight"],
+  "not_when": ["TTL jittered or single-flight present"],
+  "restricted": ["customer ACME Corp (internal)"]
+}

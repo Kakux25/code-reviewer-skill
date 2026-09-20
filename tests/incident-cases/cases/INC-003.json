@@ -1,0 +1,11 @@
+{
+  "id": "INC-003",
+  "title": "Disk-full deploy from unbounded logs",
+  "mechanism": ["disk", "exhaustion", "log", "growth"],
+  "context": ["deploy", "logging", "host"],
+  "failure": "A deploy enabled debug logging without rotation; the disk filled and the host stopped accepting writes.",
+  "lesson": "Bound local writes: log rotation plus disk-usage alerts before raising verbosity.",
+  "applies_when": ["unbounded local writes", "verbosity raised without rotation"],
+  "not_when": ["log rotation and disk alerts present"],
+  "restricted": ["host db-prod-03 (internal)"]
+}

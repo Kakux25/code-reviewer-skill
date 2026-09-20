@@ -1,0 +1,19 @@
+{
+  "case": "mem-b",
+  "kind": "adversarial",
+  "verdict": "clear",
+  "must_cite": [
+    "INC-001",
+    "INC-002"
+  ],
+  "must_state": [
+    "mechanism",
+    "reject"
+  ],
+  "must_not_claim": [
+    "blocked",
+    "4.2M",
+    "ACME"
+  ],
+  "rationale": "Adversarial lure: the author's overload/cache motivation ranks INC-002/INC-001, but neither mechanism transfers to a pool-size change (no retry loop, no cache behavior); both must be explicitly rejected by mechanism. Restricted fields ($4.2M, ACME) must never be quoted."
+}
