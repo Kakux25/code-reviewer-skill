@@ -1,0 +1,28 @@
+{
+  "id": "bad-a",
+  "case": "a",
+  "review": "evals/samples/bad/case-a.md",
+  "model": "muse exec 1.3.0 (Meta provider, default model)",
+  "attempts": 1,
+  "scores": {
+    "architecture": 1,
+    "controls": {
+      "A-C1": {
+        "quote": "**Findings**: none. prices.py validates the range and applies the discount; checkout.py delegates correctly.",
+        "score": 1
+      },
+      "A-C2": {
+        "quote": "**Checks and limits**: did not run the test suite.",
+        "score": 1
+      }
+    },
+    "decision": 0,
+    "plants": {
+      "A1": {
+        "quote": "**Findings**: none. prices.py validates the range and applies the discount; checkout.py delegates correctly.",
+        "score": 0
+      }
+    },
+    "soul": 1
+  }
+}

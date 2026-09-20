@@ -88,8 +88,11 @@ python3 evals/agreement.py --gold evals/hand_scores.json --judge /tmp/judge-out
 
 Gate: item-level exact agreement >= 0.75 (plant levels exact).
 First scored run: 95/96 = 0.990, gate MET
-(`runs/2026-09-20-judge-k1/RUN.md`). The judge stays out of the merge
-gate; CI only checks the gold schema and the agreement self-test.
+(`runs/2026-09-20-judge-k1/RUN.md`). Independent replication (K=2):
+96/96 = 1.000, gate MET; K1-vs-K2 stability 95/96, single diff on
+the known 1-vs-2 boundary item (`runs/judge-k2-stability/RUN.md`).
+The judge stays out of the merge gate; CI only checks the gold
+schema and the agreement self-test.
 
 ## Phase 3: 20-case battery + shadow subset (2026-09-20)
 

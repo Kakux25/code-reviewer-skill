@@ -1,0 +1,24 @@
+{
+  "id": "without-c",
+  "case": "c",
+  "review": "evals/runs/2026-09-19-ab-update/reviews/without/case-c.md",
+  "model": "muse exec 1.3.0 (Meta provider, default model)",
+  "attempts": 1,
+  "scores": {
+    "architecture": 1,
+    "controls": {
+      "C-C1": {
+        "quote": "Open question (not a finding): `snippet.py:2` calls `value.strip().lower()`",
+        "score": 1
+      }
+    },
+    "decision": 1,
+    "plants": {
+      "C1": {
+        "quote": "Architecture: `Insufficient evidence` \u2014 no base revision or repository properties exist from which to derive even one primary rubric axis; an isolated snippet cannot support an architectural verdict.",
+        "score": 2
+      }
+    },
+    "soul": 1
+  }
+}

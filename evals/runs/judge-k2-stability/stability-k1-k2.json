@@ -1,0 +1,89 @@
+{
+  "reviews": {
+    "bad-a": {
+      "matches": 6,
+      "total": 6,
+      "mismatches": []
+    },
+    "bad-b": {
+      "matches": 6,
+      "total": 6,
+      "mismatches": []
+    },
+    "bad-c": {
+      "matches": 5,
+      "total": 5,
+      "mismatches": []
+    },
+    "bad-d": {
+      "matches": 7,
+      "total": 7,
+      "mismatches": []
+    },
+    "k1-a": {
+      "matches": 6,
+      "total": 6,
+      "mismatches": []
+    },
+    "k1-b": {
+      "matches": 6,
+      "total": 6,
+      "mismatches": []
+    },
+    "k1-c": {
+      "matches": 5,
+      "total": 5,
+      "mismatches": []
+    },
+    "k1-d": {
+      "matches": 7,
+      "total": 7,
+      "mismatches": []
+    },
+    "with-a": {
+      "matches": 6,
+      "total": 6,
+      "mismatches": []
+    },
+    "with-b": {
+      "matches": 5,
+      "total": 6,
+      "mismatches": [
+        "plant B2 k1=2 k2=1"
+      ]
+    },
+    "with-c": {
+      "matches": 5,
+      "total": 5,
+      "mismatches": []
+    },
+    "with-d": {
+      "matches": 7,
+      "total": 7,
+      "mismatches": []
+    },
+    "without-a": {
+      "matches": 6,
+      "total": 6,
+      "mismatches": []
+    },
+    "without-b": {
+      "matches": 6,
+      "total": 6,
+      "mismatches": []
+    },
+    "without-c": {
+      "matches": 5,
+      "total": 5,
+      "mismatches": []
+    },
+    "without-d": {
+      "matches": 7,
+      "total": 7,
+      "mismatches": []
+    }
+  },
+  "matches": 95,
+  "total": 96,
+  "agreement": 0.9895833333333334
+}

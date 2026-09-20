@@ -1,0 +1,28 @@
+{
+  "id": "bad-b",
+  "case": "b",
+  "review": "evals/samples/bad/case-b.md",
+  "model": "muse exec 1.3.0 (Meta provider, default model)",
+  "attempts": 1,
+  "scores": {
+    "architecture": 0,
+    "controls": {
+      "B-C1": {
+        "quote": "P1, candidate/registry.py:8 \u2014 register_many no longer checks isinstance(pairs, list)",
+        "score": 0
+      }
+    },
+    "decision": 0,
+    "plants": {
+      "B1": {
+        "quote": "",
+        "score": 0
+      },
+      "B2": {
+        "quote": "register_many no longer checks isinstance(pairs, list), so invalid input reaches the loop. Fix: restore the list gate.",
+        "score": 0
+      }
+    },
+    "soul": 1
+  }
+}
