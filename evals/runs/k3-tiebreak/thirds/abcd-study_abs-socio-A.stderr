@@ -1,0 +1,6 @@
+muse: workspace root: /Users/jesussevillano/Projects/code-reviewer-skill (cwd default)
+muse: Skills: 87 loaded · 2 warnings · 1 detail hidden
+muse:   `skills_catalog` was trimmed to fit its size limit (32 KB): 37 descriptions compacted, 0 skill ids omitted
+muse:   data-visualization: invalid skill package: skill file at /Users/jesussevillano/.agents/skills/data-visualization/SKILL.md is malformed: invalid skill name `Data Visualization`
+muse:   Run `muse skills list --source all` for full diagnostics.
+muse: Agent delegation: auto unavailable: workspace is untrusted.
