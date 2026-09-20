@@ -15,10 +15,10 @@
   "evidence": [
     {
       "id": "E3-d-review",
-      "observation": "review text (29 lines)",
+      "observation": "review text (28 lines)",
       "artifact": "evals/runs/stpa-smoke/reviews/d.md",
       "method": "read",
-      "collected_at": "2026-09-20T07:10:30+00:00",
+      "collected_at": "2026-09-20T07:32:37+00:00",
       "revision": "fixture:stpa-d:candidate@c68acb07beabd6fe",
       "context_id": "stpa-case-d",
       "applicability": "human grading input",
@@ -34,7 +34,7 @@
       "observation": "human grade verdict=unanalyzable (expected unanalyzable)",
       "artifact": "expected.json",
       "method": "human grading vs frozen expected.json",
-      "collected_at": "2026-09-20T07:10:30+00:00",
+      "collected_at": "2026-09-20T07:32:37+00:00",
       "revision": "fixture:stpa-d:candidate@c68acb07beabd6fe",
       "context_id": "stpa-case-d",
       "applicability": "expected-verdict conformance",
@@ -50,7 +50,7 @@
       "observation": "no suite declared (analysis-only fixture)",
       "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/stpa-cases/stpa-d",
       "method": "key inspection",
-      "collected_at": "2026-09-20T07:10:30+00:00",
+      "collected_at": "2026-09-20T07:32:37+00:00",
       "revision": "fixture:stpa-d:candidate@c68acb07beabd6fe",
       "context_id": "stpa-case-d",
       "applicability": "absence is designed, not missing evidence",
@@ -66,7 +66,7 @@
       "observation": "repo HEAD observed (tainted)",
       "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
       "method": "git rev-parse/status (Gate 1 collector)",
-      "collected_at": "2026-09-20T07:10:30+00:00",
+      "collected_at": "2026-09-20T07:32:37+00:00",
       "revision": "fixture:stpa-d:candidate@c68acb07beabd6fe",
       "context_id": "stpa-case-d",
       "applicability": "revision context",
@@ -75,7 +75,7 @@
       ],
       "kind": "static",
       "integrity": "verified",
-      "digest": "18f723690fc707d059ea8f513b5075f101e4bdcdebe457f4f915c630e341ee87"
+      "digest": "308c13d6d72f9dd3b6148f15700f8856f7ef411bcd002e4cf429e4e628f1d868"
     }
   ],
   "claims": [

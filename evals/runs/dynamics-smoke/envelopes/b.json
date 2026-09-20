@@ -15,10 +15,10 @@
   "evidence": [
     {
       "id": "E5-b-review",
-      "observation": "review text (55 lines)",
+      "observation": "review text (54 lines)",
       "artifact": "evals/runs/dynamics-smoke/reviews/b.md",
       "method": "read",
-      "collected_at": "2026-09-20T07:25:08+00:00",
+      "collected_at": "2026-09-20T07:32:38+00:00",
       "revision": "fixture:dyn-b:candidate@a806ada20559730f",
       "context_id": "dyn-case-b",
       "applicability": "human grading input",
@@ -34,7 +34,7 @@
       "observation": "human grade verdict=unstable (expected unstable)",
       "artifact": "expected.json",
       "method": "human grading vs frozen expected.json",
-      "collected_at": "2026-09-20T07:25:08+00:00",
+      "collected_at": "2026-09-20T07:32:38+00:00",
       "revision": "fixture:dyn-b:candidate@a806ada20559730f",
       "context_id": "dyn-case-b",
       "applicability": "expected-verdict conformance",
@@ -50,7 +50,7 @@
       "observation": "suite: exit=0 (Ran 1 test in 0.000s)",
       "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill/tests/dynamics-cases/dyn-b/candidate/tests",
       "method": "unittest discover (Gate 1 collector)",
-      "collected_at": "2026-09-20T07:25:08+00:00",
+      "collected_at": "2026-09-20T07:32:38+00:00",
       "revision": "fixture:dyn-b:candidate@a806ada20559730f",
       "context_id": "dyn-case-b",
       "applicability": "executed simulator behavior",
@@ -66,7 +66,7 @@
       "observation": "repo HEAD observed (tainted)",
       "artifact": "/Users/jesussevillano/Projects/code-reviewer-skill",
       "method": "git rev-parse/status (Gate 1 collector)",
-      "collected_at": "2026-09-20T07:25:08+00:00",
+      "collected_at": "2026-09-20T07:32:38+00:00",
       "revision": "fixture:dyn-b:candidate@a806ada20559730f",
       "context_id": "dyn-case-b",
       "applicability": "revision context",
@@ -75,7 +75,7 @@
       ],
       "kind": "static",
       "integrity": "verified",
-      "digest": "438c41e88237ee21ae659b817eebeea1468282d993c5b9224782cca3359c7f04"
+      "digest": "308c13d6d72f9dd3b6148f15700f8856f7ef411bcd002e4cf429e4e628f1d868"
     }
   ],
   "claims": [

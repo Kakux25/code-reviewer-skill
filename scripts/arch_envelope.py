@@ -76,7 +76,7 @@ def build_case(case, review_path, grade, run_id, out_path=None,
             shared.sha("absent"))
     ev_review = shared.ev(
         "E2-%s-review" % case,
-        "review text (%d lines)" % (text.count("\n") + 1),
+        "review text (%d lines)" % (len(text.splitlines())),
         str(review_path), "read", cand_rev, context_id,
         "human grading input", "free text; grade is the instrument",
         "static", shared.sha(text))

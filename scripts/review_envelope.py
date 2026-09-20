@@ -73,7 +73,7 @@ def build_case(case, review_path, run_id, out_path=None, producer=None,
                        shared.sha("absent"))
     git = gate1.collect_git(str(REPO))
     ev_review = shared.ev("E-%s-review" % case,
-                    "review text (%d lines)" % (text.count("\n") + 1),
+                    "review text (%d lines)" % (len(text.splitlines())),
                     str(review_path), "read", cand_rev, context_id,
                     "mechanical grading input",
                     "lexical proxy (thresholds.json notes)", "static",
