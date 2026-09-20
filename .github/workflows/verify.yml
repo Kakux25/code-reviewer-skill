@@ -17,12 +17,12 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7.0.0
         with:
           python-version: "3.12"
 
@@ -37,12 +37,12 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7.0.0
         with:
           python-version: "3.12"
 
@@ -111,5 +111,15 @@ jobs:
 
       - name: Run k2 tests
         run: python3 -m unittest discover -s tests/k2
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+
+      - name: Run k3 tests
+        run: python3 -m unittest discover -s tests/k3
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+
+      - name: Run judge_k2 tests
+        run: python3 -m unittest discover -s tests/judge_k2
         env:
           PYTHONDONTWRITEBYTECODE: "1"

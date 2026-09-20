@@ -42,7 +42,7 @@ FAILURES = []
 
 
 def discover_cases():
-    """Case ids from case-*/answer-key.json, sorted (battery v2: a..t)."""
+    """Case ids from case-*/answer-key.json, sorted (battery v2.1: a..v)."""
     cases_dir = REPO / "tests" / "review-cases"
     return sorted(p.parent.name.removeprefix("case-")
                   for p in cases_dir.glob("case-*/answer-key.json"))

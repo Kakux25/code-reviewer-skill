@@ -62,7 +62,7 @@ MIT — see [LICENSE](LICENSE).
 
 ## Engineering Assurance Foundation
 
-The [design foundation](docs/assurance/README.md) specifies the six reviewer skills above plus a shared evidence envelope and an assurance integrator. All six skills are implemented with fixtures: the five specialists with live smoke runs (4/4 each), code-reviewer with a 20-case battery plus a with/without-skill comparison. The shared envelope, assurance integrator, judge protocol, and a controlled A/B/C/D comparative study with independent re-grading (K-2/K-3) are recorded as frozen runs under [evals/runs/](evals/runs/). The code-reviewer keeps its standalone contract; in composed mode, architectural judgment routes to the architecture specialist. Nothing here grants integration or deployment permission.
+The [design foundation](docs/assurance/README.md) specifies the six reviewer skills above plus a shared evidence envelope and an assurance integrator. All six skills are implemented with fixtures: the five specialists with live smoke runs (4/4 each), code-reviewer with a 22-case battery (a–v) plus a with/without-skill comparison. The shared envelope, assurance integrator, judge protocol, and a controlled A/B/C/D comparative study with independent re-grading (K-2/K-3) are recorded as frozen runs under [evals/runs/](evals/runs/). The code-reviewer keeps its standalone contract; in composed mode, architectural judgment routes to the architecture specialist. Nothing here grants integration or deployment permission.
 
 Validate the synthetic assurance record and run the contract tests:
 

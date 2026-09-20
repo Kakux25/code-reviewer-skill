@@ -29,7 +29,7 @@ REPO = Path(__file__).resolve().parent.parent
 
 
 def discover_cases(keys_dir):
-    """Case ids from case-*/answer-key.json, sorted (battery v2: a..t)."""
+    """Case ids from case-*/answer-key.json, sorted (battery v2.1: a..v)."""
     return sorted(p.parent.name.removeprefix("case-")
                   for p in Path(keys_dir).glob("case-*/answer-key.json"))
 

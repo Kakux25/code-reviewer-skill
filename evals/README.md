@@ -70,7 +70,7 @@ gates merges on them.
   (e.g. claiming the case-a suite passes when it fails by design).
 
 Case pass = all of the above. Suite gate = N/N over the discovered
-battery (`thresholds.json`; battery v2 = 20 cases, a-t).
+battery (`thresholds.json`; battery v2.1 = 22 cases, a-v).
 
 ## Phase 2: calibrated LLM judge (validated 2026-09-20)
 
@@ -94,9 +94,9 @@ the known 1-vs-2 boundary item (`runs/judge-k2-stability/RUN.md`).
 The judge stays out of the merge gate; CI only checks the gold
 schema and the agreement self-test.
 
-## Phase 3: 20-case battery + shadow subset (2026-09-20)
+## Phase 3: battery + shadow subset (2026-09-20; v2 = 20 cases a–t, v2.1 = 22 with gate-2 controls u–v)
 
-Sixteen fixtures (e-t) extend the battery to 20: defect battery e-j,
+Sixteen fixtures (e-t) extend the battery to 20 (v2): defect battery e-j,
 negatives k-l, soul cases m-n, Incomplete case o, security p-q, and
 shadow subset r/s/t (patterns modeled on real bugs: Heartbleed-style
 bounds leak, falsy-ID auth denial, cache aliasing — simplified
