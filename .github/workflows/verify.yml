@@ -30,3 +30,31 @@ jobs:
         run: python3 evals/check_integrity.py
         env:
           PYTHONDONTWRITEBYTECODE: "1"
+
+  contracts:
+    name: Assurance contracts (checker tests, no LLM)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install contract dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Validate worked example
+        run: python3 scripts/validate_assurance.py examples/assurance/insufficient-evidence.json
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+
+      - name: Run contract tests
+        run: python3 -m unittest discover -s tests/contracts
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
