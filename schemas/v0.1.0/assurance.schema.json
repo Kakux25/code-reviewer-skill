@@ -1,0 +1,930 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:engineering-assurance:0.1.0",
+  "$ref": "#/$defs/AssuranceCase",
+  "$defs": {
+    "Scope": {
+      "type": "object",
+      "properties": {
+        "base_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "enum": [
+            "integration",
+            "deployment"
+          ]
+        },
+        "risk_class": {
+          "enum": [
+            "low",
+            "moderate",
+            "critical"
+          ]
+        }
+      },
+      "required": [
+        "base_revision",
+        "candidate_revision",
+        "context_id",
+        "operation",
+        "risk_class"
+      ],
+      "additionalProperties": false
+    },
+    "Evidence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "collected_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicability": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "kind": {
+          "enum": [
+            "static",
+            "dynamic",
+            "formal",
+            "historical",
+            "organizational",
+            "inferential"
+          ]
+        },
+        "integrity": {
+          "enum": [
+            "verified",
+            "unverified"
+          ]
+        },
+        "digest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "observation",
+        "artifact",
+        "method",
+        "collected_at",
+        "revision",
+        "context_id",
+        "applicability",
+        "limitations",
+        "kind",
+        "integrity",
+        "digest"
+      ],
+      "additionalProperties": false
+    },
+    "Claim": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "warrant": {
+          "type": "string",
+          "minLength": 1
+        },
+        "independence_notes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "supporting_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "counterevidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "defeaters": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "residual_doubts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "status": {
+          "enum": [
+            "supported",
+            "defeated",
+            "unresolved",
+            "not_assessed"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "statement",
+        "warrant",
+        "independence_notes",
+        "assumptions",
+        "supporting_evidence",
+        "counterevidence",
+        "defeaters",
+        "dependencies",
+        "residual_doubts",
+        "scope",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "Finding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "criterion_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected_invariant": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_or_inferred": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consequence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "uncertainty": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "priority": {
+          "enum": [
+            "P0",
+            "P1",
+            "P2",
+            "P3"
+          ]
+        },
+        "status": {
+          "enum": [
+            "confirmed",
+            "rejected",
+            "uncertain"
+          ]
+        },
+        "refutation": {
+          "type": "object",
+          "properties": {
+            "procedure": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "attempted": {
+              "type": "boolean"
+            },
+            "result": {
+              "enum": [
+                "survived",
+                "refuted",
+                "inconclusive",
+                "not_attempted"
+              ]
+            }
+          },
+          "required": [
+            "procedure",
+            "evidence",
+            "attempted",
+            "result"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "claim_id",
+        "criterion_id",
+        "trigger",
+        "expected_invariant",
+        "observed_or_inferred",
+        "consequence",
+        "evidence",
+        "uncertainty",
+        "priority",
+        "status",
+        "refutation"
+      ],
+      "additionalProperties": false
+    },
+    "Defeater": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "investigation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "unresolved",
+            "sustained",
+            "refuted",
+            "partially_mitigated"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "claim_id",
+        "statement",
+        "investigation",
+        "evidence",
+        "blocking",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "Uncertainty": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "missing_fact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consequence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "next_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "missing_fact",
+        "consequence",
+        "owner",
+        "next_action",
+        "blocking",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "CausalLink": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_variable": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_variable": {
+          "type": "string",
+          "minLength": 1
+        },
+        "delay": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "polarity": {
+          "enum": [
+            "positive",
+            "negative",
+            "unknown"
+          ]
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "modeled",
+            "hypothesized"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "source_variable",
+        "target_variable",
+        "delay",
+        "confidence_basis",
+        "evidence",
+        "polarity",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "IncidentCase": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1
+        },
+        "system_state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "causal_mechanism": {
+          "type": "string",
+          "minLength": 1
+        },
+        "intervention": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1
+        },
+        "counterfactual": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lesson": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_incident": {
+          "type": "string",
+          "minLength": 1
+        },
+        "symptoms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "affected_components": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "applicability_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "non_applicability_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "retention_authorized": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "case_id",
+        "context",
+        "system_state",
+        "trigger",
+        "causal_mechanism",
+        "intervention",
+        "outcome",
+        "counterfactual",
+        "lesson",
+        "confidence",
+        "source_incident",
+        "symptoms",
+        "affected_components",
+        "applicability_conditions",
+        "non_applicability_conditions",
+        "evidence",
+        "retention_authorized"
+      ],
+      "additionalProperties": false
+    },
+    "SafetyConstraint": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "control_structure": {
+          "type": "string",
+          "minLength": 1
+        },
+        "constraint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "enforcement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "losses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "hazards": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "unsafe_control_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "causal_scenarios": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "residual_uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "verification": {
+          "enum": [
+            "verified",
+            "violated",
+            "unverified"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "control_structure",
+        "constraint",
+        "enforcement",
+        "losses",
+        "hazards",
+        "unsafe_control_actions",
+        "causal_scenarios",
+        "evidence",
+        "residual_uncertainties",
+        "verification"
+      ],
+      "additionalProperties": false
+    },
+    "ReviewEnvelope": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rubric_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exposure_notes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "shared_context": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "missing_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "schema_version": {
+          "const": "0.1.0"
+        },
+        "module": {
+          "enum": [
+            "code-reviewer",
+            "architecture-reviewer",
+            "system-dynamics-reviewer",
+            "safety-stpa-reviewer",
+            "incident-memory",
+            "sociotechnical-reviewer",
+            "final-engineering-judge"
+          ]
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "criteria_before_candidate": {
+          "type": "boolean"
+        },
+        "producer": {
+          "type": "object",
+          "properties": {
+            "model_family": {
+              "type": "string",
+              "minLength": 1
+            },
+            "model_version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "prompt_digest": {
+              "type": "string",
+              "minLength": 1
+            },
+            "session_id": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "model_family",
+            "model_version",
+            "prompt_digest",
+            "session_id"
+          ],
+          "additionalProperties": false
+        },
+        "status": {
+          "enum": [
+            "complete",
+            "partial",
+            "blocked",
+            "not_applicable"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "rubric_version",
+        "exposure_notes",
+        "status_rationale",
+        "criteria",
+        "shared_context",
+        "evidence",
+        "claims",
+        "findings",
+        "missing_evidence",
+        "schema_version",
+        "module",
+        "scope",
+        "criteria_before_candidate",
+        "producer",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "AssuranceCase": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "top_claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_reviewers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          }
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Claim"
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Finding"
+          }
+        },
+        "defeaters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Defeater"
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Uncertainty"
+          }
+        },
+        "causal_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CausalLink"
+          }
+        },
+        "incident_cases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IncidentCase"
+          }
+        },
+        "safety_constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SafetyConstraint"
+          }
+        },
+        "reviews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReviewEnvelope"
+          }
+        },
+        "schema_version": {
+          "const": "0.1.0"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "decision": {
+          "enum": [
+            "ACCEPT",
+            "CONDITIONAL_ACCEPT",
+            "ESCALATE",
+            "REJECT",
+            "INSUFFICIENT_EVIDENCE"
+          ]
+        },
+        "authorization": {
+          "const": "not_granted"
+        }
+      },
+      "required": [
+        "id",
+        "top_claim",
+        "rationale",
+        "required_reviewers",
+        "conditions",
+        "evidence",
+        "claims",
+        "findings",
+        "defeaters",
+        "uncertainties",
+        "causal_links",
+        "incident_cases",
+        "safety_constraints",
+        "reviews",
+        "schema_version",
+        "scope",
+        "decision",
+        "authorization"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
