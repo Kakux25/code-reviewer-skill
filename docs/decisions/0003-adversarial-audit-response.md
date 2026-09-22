@@ -158,7 +158,8 @@ the delivered `recomputed-metrics.json`.
 
 ## Source IDs
 
-S20–S32 per `references/source-registry.yaml`, traced to
+S20–S32 per `references/source-registry.yaml` (each cited as
+`SNN-slug`, e.g. `S20-git-objects`, BibTeX-style hybrid), traced to
 tooling rules `evidence-store-001`, `assurance-integrator-001`,
 `shared-envelope-001`, `assurance-checker-001`,
 `eval-harness-001`, `judge-runner-001` in

@@ -1,6 +1,7 @@
 {
   "schema_version": "0.1.0",
-  "policy": "Use only claims within verified_scope; unverified material is non-normative. Partial access does not establish standard conformance.",
+  "policy": "Use only claims within verified_scope; unverified material is non-normative. Partial access does not establish standard conformance. Entries S20+ carry a mnemonic slug alongside the numeric id (BibTeX-style hybrid, cited as SNN-slug); pre-S20 entries predate the convention.",
+
   "sources": [
     {
       "id": "S01",
@@ -964,6 +965,7 @@
     },
     {
       "id": "S20",
+      "slug": "git-objects",
       "title": "Pro Git: Git Internals — Git Objects",
       "authors": [
         "Scott Chacon",
@@ -1004,6 +1006,7 @@
     },
     {
       "id": "S21",
+      "slug": "slsa-provenance",
       "title": "SLSA Provenance v1",
       "authors": [
         "OpenSSF SLSA contributors"
@@ -1038,6 +1041,7 @@
     },
     {
       "id": "S22",
+      "slug": "prov-dm",
       "title": "PROV-DM: The PROV Data Model",
       "authors": [
         "W3C Provenance Working Group"
@@ -1072,6 +1076,7 @@
     },
     {
       "id": "S23",
+      "slug": "sequencehash",
       "title": "SequenceHash",
       "authors": [
         "C2SP contributors"
@@ -1110,6 +1115,7 @@
     },
     {
       "id": "S24",
+      "slug": "fips-180-4",
       "title": "Secure Hash Standard (SHS)",
       "authors": [
         "National Institute of Standards and Technology"
@@ -1144,6 +1150,7 @@
     },
     {
       "id": "S25",
+      "slug": "owasp-secure-design",
       "title": "Secure Product Design Cheat Sheet",
       "authors": [
         "OWASP Cheat Sheet Series contributors"
@@ -1178,6 +1185,7 @@
     },
     {
       "id": "S26",
+      "slug": "sacm",
       "title": "Structured Assurance Case Metamodel (SACM)",
       "authors": [
         "Object Management Group"
@@ -1212,6 +1220,7 @@
     },
     {
       "id": "S27",
+      "slug": "cpython-unittest",
       "title": "unittest — Unit testing framework (library docs and runner source)",
       "authors": [
         "Python Software Foundation",
@@ -1252,6 +1261,7 @@
     },
     {
       "id": "S28",
+      "slug": "swe-bench",
       "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
       "authors": [
         "Carlos E. Jimenez et al."
@@ -1286,6 +1296,7 @@
     },
     {
       "id": "S29",
+      "slug": "pep-285",
       "title": "Adding a bool type",
       "authors": [
         "Guido van Rossum"
@@ -1319,6 +1330,7 @@
     },
     {
       "id": "S30",
+      "slug": "json-schema-object",
       "title": "Understanding JSON Schema: object, boolean, type",
       "authors": [
         "JSON Schema contributors"
@@ -1357,6 +1369,7 @@
     },
     {
       "id": "S31",
+      "slug": "owasp-input-validation",
       "title": "Input Validation Cheat Sheet",
       "authors": [
         "OWASP Cheat Sheet Series contributors"
@@ -1391,6 +1404,7 @@
     },
     {
       "id": "S32",
+      "slug": "cwe-20",
       "title": "CWE-20: Improper Input Validation",
       "authors": [
         "MITRE"
