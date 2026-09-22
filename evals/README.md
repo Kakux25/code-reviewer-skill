@@ -107,17 +107,21 @@ co-located good/bad sample reviews that the integrity gate grades.
 ## Known limits (honest)
 
 - Lexical matching is coarse: a citation next to a token does not prove
-  the diagnosis is correct, and negation ("no partial publication")
-  contains the token it denies. The B1 plant is the known weak spot.
+  the diagnosis is correct. Same-clause negation ("no X" denies X) is
+  guarded since followup-22-sep; adversarial phrasing can still fool it.
+  Plant credit requires file, token, and priority in finding sections
+  (open-questions discussion is not a diagnosis).
 - Vocabulary case rule (deliberate, pinned by integrity step 10):
   multi-word tokens (`Changes requested`) match case-insensitively,
   single-word verdicts (`High`, `Betrayed`) case-sensitively — common
   words in prose ("low coupling") must not false-accept as verdicts.
   Reviews should use the skill's verdict vocabulary literally.
-- Priority tokens are checked document-wide, not attached to a finding.
+- Priority tokens are checked in finding sections (open questions
+  excluded), not attached to one finding. forbid_phrase controls exempt
+  base-attributed statements ("the base suite passes").
 - Lexical grading stays coarse by design; semantic disputes go to the
   Phase 2 judge (agreement 0.990 on cases A–D; unvalidated on E–T).
-- 20 single-author fixtures still cannot prove general accuracy; the
+- 22 single-author fixtures still cannot prove general accuracy; the
   shadow subset (R/S/T) is modeled on real-bug patterns, not sampled
   from real failures. Live-review calibration on the full battery and
   cross-family judge replication are future work.

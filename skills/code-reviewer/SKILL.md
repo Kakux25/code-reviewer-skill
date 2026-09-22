@@ -38,13 +38,13 @@ For each proposed finding:
 1. Identify the triggering condition and expected behavior compared with the observed or inferred behavior.
 2. Look for a counterexample, existing guard, or caller that would invalidate the finding.
 3. Confirm that the change introduces or worsens the problem. Distinguish pre-existing defects from regressions.
-4. Cite verified files and lines, describe the impact, and suggest the smallest appropriate correction. State whether the evidence comes from static analysis or execution.
+4. Cite verified files and lines, describe the impact, and suggest the smallest appropriate correction. State whether the evidence comes from static reading or execution.
 
 Group symptoms that share a root cause. Do not classify style preferences, unsupported hypotheses, or optional refactoring as blocking defects. Separate open questions from confirmed findings.
 
 ### Architectural complexity
 
-Adjust review depth to risk and budget, not diff size. Consider context scope, dependency depth, implicit knowledge, coordination across components, and the difficulty of discovering the relevant invariant. When useful, report `Trivial`, `Low`, `Moderate`, `High`, or `Expert` with a brief rationale. Use `Not assessed` if complexity was not evaluated.
+Adjust review depth to risk and budget, counting diff size among the risk factors. Consider context scope, dependency depth, implicit knowledge, coordination across components, and the difficulty of discovering the relevant invariant. When useful, report `Trivial`, `Low`, `Moderate`, `High`, or `Expert` with a brief rationale. Use `Not assessed` if complexity was not evaluated.
 
 This label describes the architectural knowledge required, not quality or severity. Do not skip simple changes. A string literal can alter SQL, permissions, or a protocol: classify a change as trivial only after establishing that it has no semantic effect. Assess independent changes separately before summarizing.
 

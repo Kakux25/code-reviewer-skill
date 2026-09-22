@@ -34,8 +34,8 @@ or betrays it, citing candidate evidence:
 | `Betrayed` | At least one betrayal with evidence. |
 | `Unverifiable` | No documented essence to assess against. |
 
-A betrayal becomes a finding with priority by impact (typically P1); a
-tension becomes a P3 or an open question. The soul verdict never
+A betrayal becomes a finding with priority by demonstrated impact,
+never P1 by default; a tension becomes a P3 or an open question. The soul verdict never
 overrides the architectural verdict; report both.
 
 ## Evolution

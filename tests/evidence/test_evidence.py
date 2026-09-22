@@ -157,6 +157,51 @@ class StoreTest(unittest.TestCase):
         stored = self.store.get("git:HEAD", expected=first)
         self.assertEqual(stored["status"], "tainted")
 
+    def test_repeated_drift_is_idempotent(self):
+        # F1 (followup 22-sep): the store's drift annotation must not
+        # feed back into identity. Repeating the same tainted
+        # observation keeps two versions and a stable digest.
+        clean = evidence.make_receipt(
+            "r", "vcs", "x", "HEAD unchanged",
+            "git", "1", "git")
+        self.store.put(clean)
+        tainted = dict(clean, status="tainted",
+                       reason="dirty working tree")
+        h1 = self.store.put(tainted)
+        h2 = self.store.put(dict(tainted))
+        h3 = self.store.put(dict(tainted))
+        self.assertEqual(h1, h2)
+        self.assertEqual(h2, h3)
+        self.assertEqual(len(self.store.history("r")), 2)
+        self.assertEqual(self.store.get("r")["status"], "tainted")
+        # A real material change still appends a revision.
+        h4 = self.store.put(dict(tainted, reason="other drift"))
+        self.assertNotEqual(h4, h3)
+        self.assertEqual(len(self.store.history("r")), 3)
+
+    def test_exact_pin_binds_bytes_despite_append(self):
+        # G1 (followup 22-sep): get_exact() returns exactly the
+        # pinned bytes; an appended self-consistent foreign receipt
+        # cannot change that. get() keeps latest-observation
+        # semantics (covered by test_pinned_read_returns_latest).
+        clean = evidence.make_receipt(
+            "r", "test", "x", "trusted observation",
+            "tool", "1", "collector")
+        pin = self.store.put(clean)
+        forged = dict(clean, content="AUDIT: substituted observation")
+        forged["content_hash"] = hashlib.sha256(
+            forged["content"].encode("utf-8")).hexdigest()
+        body = (json.dumps(forged, indent=2, sort_keys=True) + "\n"
+                ).encode("utf-8")
+        digest = hashlib.sha256(body).hexdigest()
+        root = Path(self.tmp.name)
+        (root / ("%s.json" % digest)).write_bytes(body)
+        (root / "index.json").write_text(json.dumps({"r": [pin, digest]}))
+        self.assertEqual(self.store.get_exact("r", pin)["content"],
+                         "trusted observation")
+        with self.assertRaises(evidence.IntegrityError):
+            self.store.get_exact("r", "0" * 64)
+
     def test_pin_still_detects_rollback(self):
         h1 = self.store.put(evidence.make_receipt(
             "r1", "test", "x", "v1", "t", "1", "c"))

@@ -6,8 +6,9 @@ only literal matching on the skill's own closed vocabulary (decision tokens,
 verdict tokens, priority tokens) plus file citations and evidence tokens.
 
 This is a coarse lexical proxy, not a semantic judgment: a citation next to a
-token does not prove the diagnosis is correct, and negation ("no partial
-publication") can fool token matching. Documented limits live in
+token does not prove the diagnosis is correct. Same-clause negation is
+guarded and plant credit is scoped to finding sections, but adversarial
+phrasing can still fool token matching. Documented limits live in
 evals/README.md; semantic verification is the Phase 2 calibrated judge.
 
 Usage:
@@ -123,8 +124,95 @@ def check_vocab(lines, dim_word, allowed, vocab):
     return (bool(seen) and seen[0] in allowed), seen
 
 
+_CLAUSE_BOUND = re.compile(r"[.!?:;\n—–()]+")
+_SINGLE_NEG = frozenset({"no", "not", "never", "neither", "nor",
+                         "without"})
+_PHRASE_NEG = ("fail to", "fails to", "lack of", "absence of")
+
+
+def _negated(window):
+    """True iff a negator governs the token position.
+
+    Same clause only (cut at sentence/line boundaries and "but"),
+    within the last three words: "no X" denies X, but "no longer
+    silent. Findings: P2" and "no doubt this deserves P1" do not.
+    """
+    frag = _CLAUSE_BOUND.split(window)[-1]
+    frag = re.split(r"\bbut\b", frag, flags=re.IGNORECASE)[-1]
+    words = re.findall(r"[A-Za-z']+", frag.lower())
+    if any(w in _SINGLE_NEG or w.endswith("n't")
+           for w in words[-3:]):
+        return True
+    tail = " ".join(words[-5:])
+    return any(p in tail for p in _PHRASE_NEG)
+
+
+def _affirmed(haystack, needle, word_bound=False, case_sensitive=False):
+    """True iff needle occurs outside a negation window.
+
+    A token denied in place ("no partial publication") must not
+    satisfy the token it denies (followup B1). Matching keeps the
+    legacy semantics exactly (substring for evidence tokens,
+    case-sensitive word match for priorities); the only added rule
+    is that an occurrence preceded within ~60 chars by a negator
+    does not count.
+    """
+    if word_bound:
+        flags = 0 if case_sensitive else re.IGNORECASE
+        occ = [m.start() for m in
+               re.finditer(r"\b" + re.escape(needle) + r"\b", haystack,
+                           flags)]
+    elif case_sensitive:
+        occ, start = [], 0
+        while True:
+            at = haystack.find(needle, start)
+            if at < 0:
+                break
+            occ.append(at)
+            start = at + 1
+    else:
+        lowered, low_needle = haystack.lower(), needle.lower()
+        occ, start = [], 0
+        while True:
+            at = lowered.find(low_needle, start)
+            if at < 0:
+                break
+            occ.append(at)
+            start = at + 1
+    for at in occ:
+        if not _negated(haystack[max(0, at - 60):at]):
+            return True
+    return False
+
+
+def finding_lines(lines):
+    """Review lines minus Open-Questions sections.
+
+    A hypothesis parked in open questions is not a confirmed
+    diagnosis: plant credit requires the file, token, and priority
+    in finding sections. Covers ATX headers, bold-inline, and
+    numbered brief-format headings.
+    """
+    out, skipping = [], False
+    for ln in lines:
+        head = re.match(r"#{1,6}\s+(.*)", ln)
+        label = head.group(1) if head else ln
+        if re.match(r"\d+\.\s+", ln.strip()):
+            label = ln
+        if "open question" in label.lower():
+            skipping = True
+            continue
+        if head or re.match(r"\d+\.\s+", ln.strip()) or (
+                ln.strip().startswith("**") and ln.strip().endswith("**")):
+            skipping = False
+        if not skipping:
+            out.append(ln)
+    return out
+
+
 def check_plant(lines, plant):
-    text = "\n".join(lines)
+    scoped = finding_lines(lines)
+    text = "\n".join(scoped)
     # Ignore inline markdown so `discount_percent` matches discount_percent.
     low = text.replace("`", "").replace("*", "").lower()
     detail = {}
@@ -133,20 +221,22 @@ def check_plant(lines, plant):
         detail["file_cited"] = cited
     else:
         cited = True
-    token_hit = any(t.lower() in low for t in plant["any_of"])
+    token_hit = any(_affirmed(low, t) for t in plant["any_of"])
     detail["token_hit"] = token_hit
     want_prio = plant.get("priority")
     if want_prio:
         if isinstance(want_prio, str):
             want_prio = [want_prio]
-        prio = any(re.search(r"\b" + re.escape(p) + r"\b", text)
+        prio = any(_affirmed(text, p, word_bound=True,
+                             case_sensitive=True)
                    for p in want_prio)
         detail["priority_hit"] = bool(prio)
         detail["priority_want"] = want_prio
         prio_ok = bool(prio)
     else:
         prio_ok = True
-    detail["hit_tokens"] = [t for t in plant["any_of"] if t.lower() in low]
+    detail["hit_tokens"] = [t for t in plant["any_of"]
+                            if _affirmed(low, t)]
     return cited and token_hit and prio_ok, detail
 
 
@@ -160,8 +250,18 @@ def check_control(lines, control):
                if fname in ln.lower() and any(r.search(ln) for r in sev)]
         return not bad, {"violating_lines": bad}
     if kind == "forbid_phrase":
-        low = "\n".join(lines).lower()
-        bad = [p for p in control["any_of"] if p.lower() in low]
+        # Base-attributed statements ("the base suite passes") are
+        # true comparisons, not false claims about the candidate
+        # (followup F-C1/I-C1): only unattributed lines violate.
+        bad = []
+        for p in control["any_of"]:
+            for ln in lines:
+                if p.lower() not in ln.lower():
+                    continue
+                if re.search(r"\bbase(line)?\b", ln, re.IGNORECASE):
+                    continue
+                bad.append(p)
+                break
         return not bad, {"violating_phrases": bad}
     raise ValueError("unknown control kind: %r" % kind)
 

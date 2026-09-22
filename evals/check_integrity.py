@@ -167,21 +167,78 @@ def run_suite(case):
     return proc.returncode == 0, proc.stdout + proc.stderr
 
 
+def _text_block_phase(header_test, block):
+    """Phase of one ERROR:/FAIL: traceback block (F2 followup).
+
+    import: loader failure (_FailedTest) or ImportError.
+    setup: setUp (or its helpers) raised before the test body ran.
+    teardown: tearDown raised after the body ran.
+    call: the test body executed and misbehaved (bug proof).
+    """
+    if "_FailedTest" in header_test or "_FailedTest" in block:
+        return "import"
+    if "ImportError" in block or "ModuleNotFoundError" in block:
+        return "import"
+    frames = re.findall(r'File "[^"]+", line \d+, in (\S+)', block)
+    method = header_test.split("(")[0].split(".")[-1]
+    if "setUp" in frames and method not in frames:
+        return "setup"
+    if "tearDown" in frames:
+        return "teardown"
+    return "call"
+
+
 def suite_failure_is_bug_proof(output):
     """True iff a nonzero-exit suite actually executed tests that
-    failed, rather than dying in import/discovery/setup.
+    failed, rather than dying in import/discovery/setup/teardown.
 
-    A loader failure (ImportError, undiscovered tests) must never
-    count as the executable proof that a planted defect exists.
-    Runtime errors raised *by* the candidate under test (e.g. a
-    TypeError from a wrong signature) are still bug proof: the
-    tests ran and the candidate misbehaved.
+    A loader or setup failure (ImportError, undiscovered tests, a
+    setUp RuntimeError) must never count as the executable proof
+    that a planted defect exists. Runtime errors raised *by* the
+    candidate under test (e.g. a TypeError from a wrong signature)
+    are still bug proof: the tests ran and the candidate
+    misbehaved. Traceback blocks are classified by phase; terse
+    summaries without tracebacks keep the legacy Ran/FAILED rule.
     """
+    headers = list(re.finditer(r"^(ERROR|FAIL): (\S+)", output, re.M))
+    if headers:
+        spans = [h.start() for h in headers] + [len(output)]
+        for header, end in zip(headers, spans[1:]):
+            if _text_block_phase(header.group(2),
+                                 output[header.start():end]) == "call":
+                return True
+        return False
     if re.search(r"Ran [1-9]\d* tests?", output) is None:
         return False
     if "ImportError" in output or "ModuleNotFoundError" in output:
         return False
     return "FAILED" in output
+
+
+def run_structured_probe(case):
+    """Per-test identity/phase/outcome for a case suite (F2 followup).
+
+    Same sandbox as run_suite (interpreter, PYTHONPATH, PATH, cwd).
+    Returns the parsed probe dict, or None if the probe itself
+    failed (infra failure: never bug proof, always gate failure).
+    """
+    cdir = REPO / "tests" / "review-cases" / ("case-%s" % case)
+    cmd = [sys.executable, str(REPO / "evals" / "structured_unittest.py"),
+           str(cdir / "tests")]
+    env = {"PYTHONDONTWRITEBYTECODE": "1",
+           "PYTHONPATH": str(cdir / "candidate"),
+           "PATH": "/usr/bin:/bin"}
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True,
+                              cwd=str(REPO), env=env, timeout=120)
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if proc.returncode != 0:
+        return None
+    try:
+        return json.loads(proc.stdout)
+    except ValueError:
+        return None
 
 
 def check_suites():
@@ -222,8 +279,22 @@ def check_suites():
             continue
         if passed:
             fail("case-%s suite passes, designed fail" % case)
-        elif suite_failure_is_bug_proof(output):
+            continue
+        # Two independent oracles must agree it is an executed-test
+        # failure: the structured probe (identity/phase per test) and
+        # the traceback-text classifier. Ambiguity never certifies.
+        probe = run_structured_probe(case)
+        structured = (probe is not None and probe.get("runner_error")
+                      is None and any(e["phase"] == "call"
+                                      for e in probe.get("events", [])))
+        textual = suite_failure_is_bug_proof(output)
+        if probe is None or probe.get("runner_error") is not None:
+            fail("case-%s structured probe failed (infra)" % case)
+        elif structured and textual:
             ok("case-%s suite fails as designed" % case)
+        elif structured != textual:
+            fail("case-%s oracles disagree (structured=%s text=%s)"
+                 % (case, structured, textual))
         else:
             fail("case-%s suite exit != 0 is a loader/setup failure, "
                  "not proof of the planted defect" % case)
@@ -342,6 +413,50 @@ def check_grader_selftest():
                 fail("grader self-test: bad sample case-%s passes" % case)
             else:
                 ok("grader self-test: bad sample case-%s fails" % case)
+
+
+def check_grader_negation():
+    """Step 6b: negation, open-questions scope, base exemption."""
+    sys.path.insert(0, str(REPO / "evals"))
+    import grader
+    cases = [
+        ("there is no partial publication here", "partial publication",
+         False, "denied token does not satisfy"),
+        ("diagnoses the divisor bug as P1", "P1", True,
+         "affirmed priority satisfies"),
+        ("no longer silent. Findings: P2", "P2", True,
+         "negation across a boundary does not deny"),
+        ("not P0, but P1 for this leak", "P1", True,
+         "'but' resets the negation window"),
+        ("severity P1 but not P0", "P0", False,
+         "denied alternative does not satisfy"),
+        ("no doubt this deserves P1", "P1", True,
+         "distant negator does not deny"),
+    ]
+    for text, token, want, name in cases:
+        got = grader._affirmed(
+            text, token,
+            word_bound=len(token) <= 2, case_sensitive=len(token) <= 2)
+        if got == want:
+            ok("grader negation: %s" % name)
+        else:
+            fail("grader negation: %s (want %s)" % (name, want))
+    scoped = grader.finding_lines(
+        ["## Findings", "- P1 leaking socket", "## Open questions",
+         "- is the divisor right?", "## Verdicts"])
+    if (any("leaking" in ln for ln in scoped)
+            and not any("divisor" in ln for ln in scoped)):
+        ok("grader scope: open questions excluded from plants")
+    else:
+        fail("grader scope: open-questions exclusion broken")
+    ctrl = {"kind": "forbid_phrase", "any_of": ["tests pass"]}
+    ok_base, _ = grader.check_control(
+        ["the base suite passes; candidate fails"], ctrl)
+    ok_naked, _ = grader.check_control(["all tests pass"], ctrl)
+    if ok_base and not ok_naked:
+        ok("grader control: base-attributed pass exempt, naked fails")
+    else:
+        fail("grader control: base exemption broken")
 
 
 def check_hand_scores():
@@ -501,12 +616,30 @@ def check_failure_classification():
                      'ImportError: AUDIT: unrelated dependency failure\n'
                      "Ran 2 tests in 0.001s\n\nFAILED (errors=1)\n")
     loader_empty = "Ran 0 tests in 0.000s\n\nOK\n"
+    setup_err = ("ERROR: test_v (test_mod.T)\n"
+                 '  File "/x/test_mod.py", line 5, in setUp\n'
+                 '    raise RuntimeError("AUDIT_SETUP_FAILED")\n'
+                 "RuntimeError: AUDIT_SETUP_FAILED\n"
+                 "Ran 2 tests in 0.001s\n\nFAILED (errors=2)\n")
+    teardown_err = ("ERROR: test_v (test_mod.T)\n"
+                    '  File "/x/test_mod.py", line 12, in tearDown\n'
+                    '    raise RuntimeError("AUDIT_TEARDOWN_FAILED")\n'
+                    "RuntimeError: AUDIT_TEARDOWN_FAILED\n"
+                    "Ran 1 test in 0.001s\n\nFAILED (errors=1)\n")
+    mixed = (setup_err +
+             "FAIL: test_w (test_mod.T)\n"
+             '  File "/x/test_mod.py", line 9, in test_w\n'
+             "    self.assertEqual(1, 2)\n"
+             "AssertionError: 1 != 2\n")
     cases = [(proof, True, "assertion failure + candidate TypeError"),
              ("Ran 2 tests\n\nFAILED (failures=2)\n", True,
               "plain assertion failures"),
              (loader_import, False, "ImportError despite exit != 0"),
              (loader_empty, False, "no tests executed"),
-             ("Ran 1 test\n\nOK\n", False, "pass output is not a failure")]
+             ("Ran 1 test\n\nOK\n", False, "pass output is not a failure"),
+             (setup_err, False, "setUp RuntimeError is not bug proof"),
+             (teardown_err, False, "tearDown error is not bug proof"),
+             (mixed, True, "setup noise plus a real test failure")]
     for output, want, name in cases:
         if suite_failure_is_bug_proof(output) == want:
             ok("failure classification: %s" % name)
@@ -521,6 +654,7 @@ def main():
     check_skill()
     check_thresholds()
     check_grader_selftest()
+    check_grader_negation()
     check_hand_scores()
     check_agreement_selftest()
     check_priority_sets()

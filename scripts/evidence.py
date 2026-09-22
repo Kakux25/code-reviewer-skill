@@ -8,11 +8,12 @@ silently: missing tools and dirty trees become explicit records.
 
 Trust boundary: receipt FILES are self-authenticating (filename is the
 hash); the index.json ledger is a convenience pointer and is NOT
-authenticated. Callers needing tamper-evidence pin the digest returned
-by put() and pass it as get()'s expected argument (trapped hash):
-get() raises if history no longer contains the pin (rollback or
-truncation) and always returns the latest observation, never a stale
-one.
+authenticated. Two read guarantees, two APIs (FOLLOWUP-22-sep):
+get() returns the latest observation; its expected argument is a
+rollback trap (raises if history no longer contains the pin), NOT an
+exact-bytes binding. get_exact() binds digest to bytes: it returns
+exactly the pinned receipt or raises. Callers needing tamper-evidence
+on content must use get_exact, never get(expected=...).
 """
 import hashlib
 import json
@@ -59,14 +60,22 @@ def _canonical(receipt):
     return (json.dumps(receipt, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
 
+#: Fields the store itself attaches; never part of observation
+#: identity. A store annotation must not turn an identical
+#: re-collection into drift (F1: note-in-reason feedback loop).
+STORE_FIELDS = frozenset({"collected_at", "store_note"})
+
+
 def _material(receipt):
-    """Identity-relevant bytes: every field but the volatile timestamp.
+    """Identity-relevant bytes: observation fields only.
 
     Two re-collections are the same observation only if nothing
     material changed. status/reason/locator/kind/tool/tool_version/
     collector drift is a new observation, never an idempotent reput.
+    Store annotations (store_note) and the volatile timestamp are
+    excluded: the store's own handwriting is not an observation.
     """
-    body = {k: v for k, v in receipt.items() if k != "collected_at"}
+    body = {k: v for k, v in receipt.items() if k not in STORE_FIELDS}
     return json.dumps(body, sort_keys=True)
 
 
@@ -103,23 +112,25 @@ class Store:
         index = self._index()
         prior = index.get(receipt["id"], [])
         if prior:
-            # Drift compares all material fields: volatile collected_at
-            # must never turn an identical re-collection into drift,
-            # but a status/reason/locator/kind/tool/collector change
-            # (e.g. clean -> dirty) is a new observation to retain.
+            # Drift compares observation fields only (STORE_FIELDS
+            # excluded): neither the volatile collected_at nor the
+            # store's own annotations may turn an identical
+            # re-collection into drift. A status/reason/locator/kind/
+            # tool/collector change (e.g. clean -> dirty) is a new
+            # observation to retain.
             latest = self._read_verified(prior[-1])
             if _material(latest) == _material(receipt):
                 return prior[-1]  # idempotent reput
             if latest["content_hash"] != receipt["content_hash"]:
-                receipt = dict(receipt, status="failed-version",
-                               reason="content changed under id %s; prior %s "
-                               "preserved" % (receipt["id"], prior[-1]))
-            else:
-                note = ("metadata drift under id %s; prior %s preserved"
-                        % (receipt["id"], prior[-1]))
                 receipt = dict(
-                    receipt, reason="%s; %s" % (receipt["reason"], note)
-                    if receipt["reason"] else note)
+                    receipt, status="failed-version",
+                    store_note="content changed under id %s; prior %s "
+                    "preserved" % (receipt["id"], prior[-1]))
+            else:
+                receipt = dict(
+                    receipt,
+                    store_note="metadata drift under id %s; prior %s "
+                    "preserved" % (receipt["id"], prior[-1]))
         body = _canonical(receipt)
         digest = hashlib.sha256(body).hexdigest()
         target = self._path(digest)
@@ -151,6 +162,24 @@ class Store:
         if receipt["id"] != id:
             raise IntegrityError("index points %s at %s's bytes"
                                  % (id, receipt["id"]))
+        return receipt
+
+    def get_exact(self, id, digest):
+        """Receipt for EXACTLY this digest, or raise.
+
+        Unlike get(), the digest authenticates the returned bytes:
+        the receipt file must exist, verify against the digest, carry
+        this id, and be a member of the id's history. An appended
+        foreign receipt never changes what a pinned digest returns.
+        """
+        history = self.history(id)
+        if digest not in history:
+            raise IntegrityError(
+                "digest %s is not in history for %s" % (digest, id))
+        receipt = self._read_verified(digest)
+        if receipt["id"] != id:
+            raise IntegrityError("digest %s holds %s's bytes, not %s's"
+                                 % (digest, receipt["id"], id))
         return receipt
 
 

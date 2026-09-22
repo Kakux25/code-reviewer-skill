@@ -36,4 +36,12 @@ Run, as frozen artifacts under `evals/runs/` with integrity tests under `tests/`
 
 Still pending: cross-model/family replication (all gradings same-family to date); K≥2 live reviews; judge validation on cases E–T; a held-out battery; any statistical power claim; production evaluations; causal calibration. Report those as unmeasured, never as zero errors or a successful benchmark.
 
+Followup 22-sep (no frozen artifact touched): the arch letter barely
+discriminates in single-function keys (allowed [High, Low] rejects only
+middle verdicts). Splitting structural vs behavioral arch is deferred
+to battery v3, pre-registered — narrowing frozen keys post-hoc would be
+score-hacking. All future protocols anchor pre-registration in a commit
+(K-3 pattern), never in mtimes (abcd-study stays as the documented
+weaker instance).
+
 Contract verification: seven synthetic tests cover a valid abstention, unsupported acceptance, missing claims, scope mismatch, cycles, duplicate IDs and forbidden authorization. These are checker tests, not reviewer accuracy measurements.
