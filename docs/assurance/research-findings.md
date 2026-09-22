@@ -14,5 +14,11 @@
 - S18: Klein's NDM fieldwork (experts under pressure) grounds incident-memory's mechanism/applicability discipline; RPD specifics unverified, publisher page direct access failed (403).
 - S19: ARTEM has NO license (API null) — reuse prohibited; two-line README, HEAD an upload-style snapshot commit, AAAI claim self-described only. Implementation-reference patterns at most.
 - Registry `type` enum gains `book` (S17/S18); books verified at catalog/synopsis level, never normative beyond their verified scope.
+- S20/S21/S22: record identity covers the full observation (Git objects), builder/materials are mandatory provenance (SLSA), agents are inseparable from records (PROV-DM). Consequence: the evidence store retains material drift as new revisions; pins detect rollback, never freeze reads.
+- S23/S24: bare concatenation permits framing collisions (SequenceHash); framing defects are not hash breaks (FIPS 180-4). Consequence: length-prefixed directory hashing.
+- S25/S26: fail securely on contradiction (OWASP); assurance integration drops nothing silently (SACM). Consequence: digest conflicts and cross-group id collisions refuse the merge.
+- S27/S28: runner exits conflate errors with failures (CPython unittest); import failures are excluded from fail-to-pass (SWE-bench). Consequence: designed-fail suites must fail by executed tests.
+- S29/S30/S31/S32: bool is int (PEP 285), objects stay open unless closed (JSON Schema), allowlist validation (OWASP), unvalidated input is CWE-20. Consequence: exact judge-verdict allowlist with true-int types and no-crash traversal.
+- Traceability gains rule `status` = `implemented` and `test_status` = `implemented_contract_tests` for the six tooling rules above; they ship with passing contract tests. `assurance-checker-001` (iterative cycle detection) has an empty basis by design: standard practice, consulted but not normatively sourced.
 
 See the source registry for canonical locators, verified scopes, access limitations and frozen revisions. These consequences are design choices, not claims of reproducing source results.

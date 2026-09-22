@@ -139,6 +139,84 @@
         "contract-checks"
       ],
       "test_status": "structural_only"
+    },
+    "evidence-store-001": {
+      "module": "evidence-store",
+      "statement": "Retain material observation drift as new records; pins detect rollback, reads always return the latest observation.",
+      "status": "implemented",
+      "basis": [
+        "S20",
+        "S21",
+        "S22"
+      ],
+      "tests": [
+        "evidence-tests"
+      ],
+      "test_status": "implemented_contract_tests"
+    },
+    "assurance-integrator-001": {
+      "module": "assurance-integrator",
+      "statement": "Refuse contradictory-provenance merges and cross-group identifier collisions; never order-dependent first-wins.",
+      "status": "implemented",
+      "basis": [
+        "S25",
+        "S26"
+      ],
+      "tests": [
+        "integrator-tests"
+      ],
+      "test_status": "implemented_contract_tests"
+    },
+    "shared-envelope-001": {
+      "module": "shared-envelope",
+      "statement": "Length-prefix every field of the directory-hash framing.",
+      "status": "implemented",
+      "basis": [
+        "S23",
+        "S24"
+      ],
+      "tests": [
+        "envelope-tests"
+      ],
+      "test_status": "implemented_contract_tests"
+    },
+    "assurance-checker-001": {
+      "module": "assurance-checker",
+      "statement": "Detect claim dependency cycles iteratively in linear time, without recursion limits or exponential re-walks.",
+      "status": "implemented",
+      "basis": [],
+      "tests": [
+        "contract-checks"
+      ],
+      "test_status": "implemented_contract_tests"
+    },
+    "eval-harness-001": {
+      "module": "eval-harness",
+      "statement": "Designed-fail suites must fail by executed tests, never by loader or setup failure.",
+      "status": "implemented",
+      "basis": [
+        "S27",
+        "S28"
+      ],
+      "tests": [
+        "integrity-gate"
+      ],
+      "test_status": "implemented_contract_tests"
+    },
+    "judge-runner-001": {
+      "module": "judge-runner",
+      "statement": "Validate verdicts against an exact allowlist with true-int types; malformed verdicts are recorded errors and nonzero provider exits are execution failures.",
+      "status": "implemented",
+      "basis": [
+        "S29",
+        "S30",
+        "S31",
+        "S32"
+      ],
+      "tests": [
+        "judge-runner-tests"
+      ],
+      "test_status": "implemented_contract_tests"
     }
   }
 }
