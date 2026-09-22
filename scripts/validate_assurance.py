@@ -28,13 +28,31 @@ def validate(case):
             raise ValueError('Claim scope mismatch')
         for key, target in [('supporting_evidence','evidence'),('counterevidence','evidence'),('defeaters','defeaters'),('dependencies','claims'),('residual_doubts','uncertainties')]:
             refs(c[key], target)
-    def walk(cid, visiting):
-        if cid in visiting:
-            raise ValueError('Claim dependency cycle')
-        for dep in groups['claims'][cid]['dependencies']:
-            walk(dep, visiting | {cid})
-    for cid in groups['claims']:
-        walk(cid, set())
+    # Iterative DFS with a shared done set: O(V+E), no recursion
+    # limit, no exponential re-walks on shared DAGs. Dependencies were
+    # resolved to existing claims by the refs() checks above.
+    done = set()
+    for root in groups['claims']:
+        if root in done:
+            continue
+        visiting = {root}
+        stack = [(root, iter(groups['claims'][root]['dependencies']))]
+        while stack:
+            cid, it = stack[-1]
+            advanced = False
+            for dep in it:
+                if dep in visiting:
+                    raise ValueError('Claim dependency cycle')
+                if dep not in done:
+                    visiting.add(dep)
+                    stack.append(
+                        (dep, iter(groups['claims'][dep]['dependencies'])))
+                    advanced = True
+                    break
+            if not advanced:
+                visiting.discard(cid)
+                done.add(cid)
+                stack.pop()
     for f in case['findings']:
         refs([f['claim_id']], 'claims')
         refs(f['evidence'] + f['refutation']['evidence'], 'evidence')

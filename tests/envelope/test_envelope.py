@@ -120,6 +120,17 @@ class AdapterTest(unittest.TestCase):
             review_envelope.build_case("b", review, "t", out_path=out)
             validate(json.loads(out.read_text(encoding="utf-8")))
 
+    def test_dir_hash_distinguishes_framing(self):
+        import envelope as shared
+        with tempfile.TemporaryDirectory() as tmp:
+            one, two = Path(tmp) / "one", Path(tmp) / "two"
+            one.mkdir()
+            two.mkdir()
+            (one / "a").write_bytes(b"x\x00b\x00y")
+            (two / "a").write_bytes(b"x")
+            (two / "b").write_bytes(b"y")
+            self.assertNotEqual(shared.dir_hash(one), shared.dir_hash(two))
+
 
 if __name__ == "__main__":
     unittest.main()

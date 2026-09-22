@@ -9,7 +9,10 @@ silently: missing tools and dirty trees become explicit records.
 Trust boundary: receipt FILES are self-authenticating (filename is the
 hash); the index.json ledger is a convenience pointer and is NOT
 authenticated. Callers needing tamper-evidence pin the digest returned
-by put() and pass it as get()'s expected argument (trapped hash).
+by put() and pass it as get()'s expected argument (trapped hash):
+get() raises if history no longer contains the pin (rollback or
+truncation) and always returns the latest observation, never a stale
+one.
 """
 import hashlib
 import json
@@ -56,6 +59,17 @@ def _canonical(receipt):
     return (json.dumps(receipt, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
 
+def _material(receipt):
+    """Identity-relevant bytes: every field but the volatile timestamp.
+
+    Two re-collections are the same observation only if nothing
+    material changed. status/reason/locator/kind/tool/tool_version/
+    collector drift is a new observation, never an idempotent reput.
+    """
+    body = {k: v for k, v in receipt.items() if k != "collected_at"}
+    return json.dumps(body, sort_keys=True)
+
+
 class Store:
     """Append-only receipt store rooted at a directory."""
 
@@ -89,14 +103,23 @@ class Store:
         index = self._index()
         prior = index.get(receipt["id"], [])
         if prior:
-            # Drift compares content_hash only: volatile collected_at
-            # must never turn an identical re-collection into drift.
+            # Drift compares all material fields: volatile collected_at
+            # must never turn an identical re-collection into drift,
+            # but a status/reason/locator/kind/tool/collector change
+            # (e.g. clean -> dirty) is a new observation to retain.
             latest = self._read_verified(prior[-1])
-            if latest["content_hash"] == receipt["content_hash"]:
+            if _material(latest) == _material(receipt):
                 return prior[-1]  # idempotent reput
-            receipt = dict(receipt, status="failed-version",
-                           reason="content changed under id %s; prior %s "
-                           "preserved" % (receipt["id"], prior[-1]))
+            if latest["content_hash"] != receipt["content_hash"]:
+                receipt = dict(receipt, status="failed-version",
+                               reason="content changed under id %s; prior %s "
+                               "preserved" % (receipt["id"], prior[-1]))
+            else:
+                note = ("metadata drift under id %s; prior %s preserved"
+                        % (receipt["id"], prior[-1]))
+                receipt = dict(
+                    receipt, reason="%s; %s" % (receipt["reason"], note)
+                    if receipt["reason"] else note)
         body = _canonical(receipt)
         digest = hashlib.sha256(body).hexdigest()
         target = self._path(digest)
@@ -113,12 +136,17 @@ class Store:
         return index[id]
 
     def get(self, id, expected=None):
-        """Latest receipt. expected pins the digest (trapped hash): a
-        history that no longer ends there raises instead of going stale."""
-        latest = self.history(id)[-1]
-        if expected is not None and latest != expected:
+        """Latest receipt. expected pins a digest (trapped hash): a
+        history rolled back past the pin raises instead of going
+        stale. Reads always return the latest observation, so a
+        state change (e.g. clean -> dirty) is visible even to a
+        caller holding an earlier pin."""
+        history = self.history(id)
+        latest = history[-1]
+        if expected is not None and expected not in history:
             raise IntegrityError(
-                "history for %s ends at %s, pinned %s" % (id, latest, expected))
+                "history for %s rolled back past pinned %s (now ends at %s)"
+                % (id, expected, latest))
         receipt = self._read_verified(latest)
         if receipt["id"] != id:
             raise IntegrityError("index points %s at %s's bytes"

@@ -129,6 +129,50 @@ class StoreTest(unittest.TestCase):
         with self.assertRaises(evidence.IntegrityError):
             self.store.get("gone")
 
+    def test_metadata_drift_is_retained_not_aliased(self):
+        changes = {"status": "failed", "reason": "tool failed",
+                   "locator": "other.py", "kind": "dynamic",
+                   "tool": "other-tool", "tool_version": "2",
+                   "collector": "other-collector"}
+        for field, value in changes.items():
+            with self.subTest(field=field):
+                rec = evidence.make_receipt(
+                    "m1", "static", "a.py", "same output",
+                    "tool", "1", "collector")
+                first = self.store.put(rec)
+                second = self.store.put(dict(rec, **{field: value}))
+                self.assertNotEqual(second, first)
+
+    def test_pinned_read_returns_latest_observation(self):
+        clean = evidence.make_receipt(
+            "git:HEAD", "vcs", ".", "HEAD abc\n",
+            "git", "stub-1", "git")
+        first = self.store.put(clean)
+        dirty = evidence.make_receipt(
+            "git:HEAD", "vcs", ".", "HEAD abc\n",
+            "git", "stub-1", "git",
+            status="tainted", reason="dirty working tree")
+        second = self.store.put(dirty)
+        self.assertNotEqual(second, first)
+        stored = self.store.get("git:HEAD", expected=first)
+        self.assertEqual(stored["status"], "tainted")
+
+    def test_pin_still_detects_rollback(self):
+        h1 = self.store.put(evidence.make_receipt(
+            "r1", "test", "x", "v1", "t", "1", "c"))
+        self.store.put(evidence.make_receipt(
+            "r1", "test", "x", "v2", "t", "1", "c"))
+        index_path = Path(self.tmp.name) / "index.json"
+        index = json.loads(index_path.read_text())
+        index["r1"] = [h1]  # adversary drops the latest revision
+        index_path.write_text(json.dumps(index))
+        latest_digest = self.store.history("r1")[-1]
+        with self.assertRaises(evidence.IntegrityError):
+            self.store.get("r1", expected="0" * 64)
+        # The surviving pin still resolves to the (rolled-back) latest.
+        self.assertEqual(self.store.get("r1", expected=latest_digest)
+                         ["content"], "v1")
+
 
 def write_stub_git(bindir, head="abc123", dirty=False, status_fails=False):
     """Deterministic stub git: no real repository needed."""

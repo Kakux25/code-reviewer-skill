@@ -305,6 +305,38 @@ class AssemblyContract(unittest.TestCase):
         self.assertEqual(out["incident_cases"], [])
         self.assertEqual(out["safety_constraints"], [])
 
+    def test_shared_digest_conflict_refuses_both_orders(self):
+        import assemble
+        f1 = frag("code-reviewer", digest="same")
+        f2 = frag("architecture-reviewer", digest="same")
+        f2["evidence"][0]["integrity"] = "unverified"
+        for order in ([f1, f2], [f2, f1]):
+            out = assemble.assemble(
+                order,
+                required_reviewers=["code-reviewer",
+                                    "architecture-reviewer"])
+            self.assertEqual(out["decision"], "INSUFFICIENT_EVIDENCE")
+            self.assertTrue(any("digest" in d["statement"].lower()
+                                for d in out["defeaters"]))
+
+    def test_causal_collision_refuses(self):
+        import assemble
+        f1 = frag("code-reviewer")
+        f2 = frag("architecture-reviewer")
+        for f, target in ((f1, "queue_depth"), (f2, "retry_rate")):
+            f["causal_links"] = [{
+                "id": "L-x", "source_variable": "load",
+                "target_variable": target, "delay": "none",
+                "confidence_basis": "sim", "polarity": "positive",
+                "status": "observed",
+                "evidence": [f["evidence"][0]["id"]]}]
+        out = assemble.assemble(
+            [f1, f2],
+            required_reviewers=["code-reviewer", "architecture-reviewer"])
+        self.assertEqual(out["decision"], "INSUFFICIENT_EVIDENCE")
+        self.assertTrue(any("collision" in d["statement"].lower()
+                            for d in out["defeaters"]))
+
     def test_real_fragments_refuse_cross_context_merge(self):
         import assemble
         import glob as g

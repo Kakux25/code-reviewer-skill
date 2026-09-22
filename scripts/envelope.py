@@ -36,14 +36,22 @@ def sha(data):
 
 
 def dir_hash(path):
-    """Deterministic content hash of a directory tree."""
+    """Deterministic content hash of a directory tree.
+
+    Length-prefixed framing: each record feeds len(name), name,
+    len(content), content, so distinct trees cannot serialize to
+    the same byte stream. (Plain concatenation lets one file
+    holding b"x\\0b\\0y" collide with two files holding b"x", b"y".)
+    """
     acc = hashlib.sha256()
     for child in sorted(Path(path).rglob("*")):
         if child.is_file() and "__pycache__" not in child.parts:
-            acc.update(str(child.relative_to(path)).encode("utf-8"))
-            acc.update(b"\0")
-            acc.update(child.read_bytes())
-            acc.update(b"\0")
+            name = str(child.relative_to(path)).encode("utf-8")
+            blob = child.read_bytes()
+            acc.update(len(name).to_bytes(8, "big"))
+            acc.update(name)
+            acc.update(len(blob).to_bytes(8, "big"))
+            acc.update(blob)
     return acc.hexdigest()[:16]
 
 

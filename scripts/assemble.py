@@ -217,9 +217,21 @@ def assemble(fragments, required_reviewers=None, run_id="asm"):
                     return refuse(("reserved",
                                    "reserved identifier used by fragment: %s"
                                    % item["id"]))
+                # Same rule as the main groups: a repeated id with
+                # different bytes is a conflict to refuse, never a
+                # record to drop silently during the merge.
+                if item["id"] in seen and seen[item["id"]] != _canon(item):
+                    hard = True
+                    return refuse(("collision",
+                                   "identifier collision: %s" % item["id"]))
+                seen[item["id"]] = _canon(item)
 
     # Merge with evidence dedupe by digest + reference aliasing.
     # Null digests never dedupe (absence of identity is not identity).
+    # A shared digest with conflicting integrity/kind is contradictory
+    # provenance: refuse instead of letting fragment order decide
+    # which record survives (first-wins would hide unverified
+    # evidence behind whichever fragment arrived first).
     kept, kept_ids, alias, by_digest = [], set(), {}, {}
     for f in fragments:
         for e in f["evidence"]:
@@ -227,7 +239,16 @@ def assemble(fragments, required_reviewers=None, run_id="asm"):
                 # Byte-identical (collisions already refused): skip.
                 continue
             if e["digest"] is not None and e["digest"] in by_digest:
-                alias[e["id"]] = by_digest[e["digest"]]
+                first_id = by_digest[e["digest"]]
+                first = next(x for x in kept if x["id"] == first_id)
+                if (first["integrity"] != e["integrity"]
+                        or first["kind"] != e["kind"]):
+                    hard = True
+                    return refuse(("collision",
+                                   "digest %s shared by %s and %s with "
+                                   "conflicting integrity/kind"
+                                   % (e["digest"], first_id, e["id"])))
+                alias[e["id"]] = first_id
             else:
                 if e["digest"] is not None:
                     by_digest[e["digest"]] = e["id"]

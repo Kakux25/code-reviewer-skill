@@ -42,3 +42,27 @@ class Contracts(unittest.TestCase):
     def test_reject_authorization(self):
         self.case['authorization'] = 'granted'
         with self.assertRaises(Exception): module.validate(self.case)
+
+    def _graph_case(self, n, fanout):
+        base = copy.deepcopy(self.case['claims'][0])
+        self.case['claims'] = []
+        for i in range(n):
+            c = copy.deepcopy(base)
+            c['id'] = 'C%d' % i
+            c['dependencies'] = ['C%d' % j
+                                 for j in range(i + 1, min(n, i + fanout + 1))]
+            self.case['claims'].append(c)
+        self.case['top_claim'] = 'C0'
+
+    def test_accepts_deep_acyclic_chain(self):
+        self._graph_case(1100, 1)
+        self.assertTrue(module.validate(self.case))
+
+    def test_accepts_shared_dag_without_blowup(self):
+        self._graph_case(64, 2)
+        self.assertTrue(module.validate(self.case))
+
+    def test_reject_cycle_in_large_graph(self):
+        self._graph_case(64, 2)
+        self.case['claims'][63]['dependencies'] = ['C0']
+        with self.assertRaises(ValueError): module.validate(self.case)

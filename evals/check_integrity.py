@@ -26,6 +26,9 @@ Checks:
   10. Vocabulary case rule: multi-word tokens match case-insensitively
       (distinctive phrases), single-word tokens case-sensitively
       (common words must not false-accept as verdicts).
+  11. Failure classification: an ImportError, or exit != 0 without
+      executed tests, is a loader failure, never bug proof; assertion
+      failures and candidate-raised errors after "Ran N tests" are.
 
 Usage:  python3 evals/check_integrity.py
 Exit code 0 when all checks pass, else 1.
@@ -146,7 +149,13 @@ def check_anchors():
 
 
 def run_suite(case):
-    """Run a candidate unittest suite; return True iff it passes."""
+    """Run a candidate unittest suite; return (passed, output).
+
+    passed is True iff the suite exits 0. output is the combined
+    stdout/stderr, kept so a failure can be classified as an
+    executed-test failure (bug proof) rather than a loader or
+    setup failure (not proof of anything).
+    """
     cdir = REPO / "tests" / "review-cases" / ("case-%s" % case)
     cmd = [sys.executable, "-m", "unittest", "discover",
            "-s", str(cdir / "tests")]
@@ -155,11 +164,32 @@ def run_suite(case):
            "PATH": "/usr/bin:/bin"}
     proc = subprocess.run(cmd, capture_output=True, text=True,
                           cwd=str(REPO), env=env, timeout=120)
-    return proc.returncode == 0
+    return proc.returncode == 0, proc.stdout + proc.stderr
+
+
+def suite_failure_is_bug_proof(output):
+    """True iff a nonzero-exit suite actually executed tests that
+    failed, rather than dying in import/discovery/setup.
+
+    A loader failure (ImportError, undiscovered tests) must never
+    count as the executable proof that a planted defect exists.
+    Runtime errors raised *by* the candidate under test (e.g. a
+    TypeError from a wrong signature) are still bug proof: the
+    tests ran and the candidate misbehaved.
+    """
+    if re.search(r"Ran [1-9]\d* tests?", output) is None:
+        return False
+    if "ImportError" in output or "ModuleNotFoundError" in output:
+        return False
+    return "FAILED" in output
 
 
 def check_suites():
-    """Step 3: suites behave as their keys declare (pass/fail/absent)."""
+    """Step 3: suites behave as their keys declare (pass/fail/absent).
+
+    A designed-fail suite must fail by executed tests, not by an
+    import/setup failure: exit != 0 alone is not bug proof.
+    """
     for case in CASES:
         cdir = REPO / "tests" / "review-cases" / ("case-%s" % case)
         try:
@@ -180,15 +210,23 @@ def check_suites():
             fail("case-%s: suite expected %s, tests/ missing" % (case, want))
             continue
         try:
-            passed = run_suite(case)
+            passed, output = run_suite(case)
         except (OSError, subprocess.TimeoutExpired) as exc:
             fail("case-%s suite error (%s)" % (case, exc))
             continue
-        if passed == (want == "pass"):
-            ok("case-%s suite %s as designed"
-               % (case, "passes" if passed else "fails"))
+        if want == "pass":
+            if passed:
+                ok("case-%s suite passes as designed" % case)
+            else:
+                fail("case-%s suite fails, designed pass" % case)
+            continue
+        if passed:
+            fail("case-%s suite passes, designed fail" % case)
+        elif suite_failure_is_bug_proof(output):
+            ok("case-%s suite fails as designed" % case)
         else:
-            fail("case-%s suite passes=%s, designed %s" % (case, passed, want))
+            fail("case-%s suite exit != 0 is a loader/setup failure, "
+                 "not proof of the planted defect" % case)
 
 
 def check_skill():
@@ -455,6 +493,27 @@ def check_vocab_case():
         fail("vocab case: prose false-accepts %s" % seen_prose)
 
 
+def check_failure_classification():
+    """Step 11: loader failures are never bug proof."""
+    proof = ("Ran 2 tests in 0.001s\n\nFAILED (failures=1, errors=1)\n"
+             "TypeError: greet() missing 1 required positional argument")
+    loader_import = ("Traceback (most recent call last):\n"
+                     'ImportError: AUDIT: unrelated dependency failure\n'
+                     "Ran 2 tests in 0.001s\n\nFAILED (errors=1)\n")
+    loader_empty = "Ran 0 tests in 0.000s\n\nOK\n"
+    cases = [(proof, True, "assertion failure + candidate TypeError"),
+             ("Ran 2 tests\n\nFAILED (failures=2)\n", True,
+              "plain assertion failures"),
+             (loader_import, False, "ImportError despite exit != 0"),
+             (loader_empty, False, "no tests executed"),
+             ("Ran 1 test\n\nOK\n", False, "pass output is not a failure")]
+    for output, want, name in cases:
+        if suite_failure_is_bug_proof(output) == want:
+            ok("failure classification: %s" % name)
+        else:
+            fail("failure classification: %s" % name)
+
+
 def main():
     check_schema()
     check_anchors()
@@ -466,6 +525,7 @@ def main():
     check_agreement_selftest()
     check_priority_sets()
     check_vocab_case()
+    check_failure_classification()
     print("---")
     if FAILURES:
         print("%d failure(s)" % len(FAILURES))

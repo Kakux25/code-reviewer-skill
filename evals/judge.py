@@ -65,21 +65,36 @@ def extract_json(stdout):
 
 
 def validate_scores(case, key, verdict):
-    """Check the verdict covers exactly the key's items with valid scales."""
+    """Check the verdict covers exactly the key's items with valid scales.
+
+    Exact allowlist: extra ids are errors, scores must be true ints
+    (bool is not an int here: True == 1 would smuggle non-scores
+    through `in (0, 1)`). Never raises on malformed model output:
+    every problem is returned as an error string so batch grading
+    records a schema failure instead of crashing.
+    """
     errors = []
+    if not isinstance(verdict, dict):
+        return ["verdict is not an object"]
     for dim in ("decision", "architecture", "soul"):
-        if verdict.get(dim) not in (0, 1):
+        got = verdict.get(dim)
+        if type(got) is not int or got not in (0, 1):
             errors.append("%s not 0/1" % dim)
-    plants = verdict.get("plants", {})
-    for plant in key["plants"]:
-        got = (plants.get(plant["id"], {}) or {}).get("score")
-        if got not in (0, 1, 2):
-            errors.append("plant %s not 0/1/2" % plant["id"])
-    controls = verdict.get("controls", {})
-    for control in key["controls"]:
-        got = (controls.get(control["id"], {}) or {}).get("score")
-        if got not in (0, 1):
-            errors.append("control %s not 0/1" % control["id"])
+    for group, scale in (("plants", (0, 1, 2)), ("controls", (0, 1))):
+        want_ids = {item["id"] for item in key[group]}
+        got_group = verdict.get(group, {})
+        if not isinstance(got_group, dict):
+            errors.append("%s is not an object" % group)
+            continue
+        for extra in sorted(set(got_group) - want_ids):
+            errors.append("extra %s %s" % (group[:-1], extra))
+        for item in key[group]:
+            entry = got_group.get(item["id"], {})
+            got = entry.get("score") if isinstance(entry, dict) else None
+            if type(got) is not int or got not in scale:
+                errors.append("%s %s not %s" % (
+                    group[:-1], item["id"],
+                    "0/1/2" if group == "plants" else "0/1"))
     return errors
 
 
@@ -111,6 +126,13 @@ def main(argv=None):
         for attempt in (prompt, prompt + "\n\nOutput the JSON block only."):
             attempts += 1
             code, stdout, stderr = run_llm(args.cmd, attempt)
+            if code != 0:
+                # A nonzero provider exit is an execution failure even
+                # when stdout happens to contain parseable JSON: the
+                # provider reported failure, so the verdict is unusable.
+                err = ("provider exit %d: %s"
+                       % (code, (stderr.strip() or stdout.strip())[-500:]))
+                continue
             verdict = extract_json(stdout)
             if verdict is not None:
                 break
